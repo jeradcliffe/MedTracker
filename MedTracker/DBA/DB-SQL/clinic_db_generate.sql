@@ -21,7 +21,7 @@ GO
 
 CREATE TABLE [dbo].[clinicemployees]
 (
-   [userName] varchar(10)  NOT NULL,
+   [userName] varchar(20)  NOT NULL,
    [passwords] varchar(45)  NOT NULL,
 CONSTRAINT [PK_clinicemployees_userName] PRIMARY KEY CLUSTERED ([userName])
 )
@@ -96,9 +96,9 @@ GO
 
 CREATE TABLE [dbo].[administrators]
 (
-   [adminID] int  NOT NULL,
+   [adminID] varchar(10)  NOT NULL,
    [peopleID] int  NOT NULL,
-   [userName] varchar(10)  NOT NULL,
+   [userName] varchar(20)  NOT NULL,
 CONSTRAINT [PK_administrators_adminID] PRIMARY KEY CLUSTERED ([adminID]),
 CONSTRAINT [fk_administrators_clinicEmployees] FOREIGN KEY ([userName]) REFERENCES clinicemployees ([userName]),
 CONSTRAINT [fk_administrators_people] FOREIGN KEY ([peopleID]) REFERENCES people ([peopleID])  
@@ -136,7 +136,7 @@ CREATE TABLE [dbo].[nurses]
 (
    [nurseID] varchar(10)  NOT NULL,
    [peopleID] int  NOT NULL,
-   [userName] varchar(10)  NOT NULL,
+   [userName] varchar(20)  NOT NULL,
 CONSTRAINT [PK_nurses_nurseID] PRIMARY KEY CLUSTERED ([nurseID]),
 CONSTRAINT [fk_nurses_clinicEmployees] FOREIGN KEY ([userName]) REFERENCES clinicemployees ([userName]),
 CONSTRAINT [fk_nurses_people] FOREIGN KEY ([peopleID]) REFERENCES people ([peopleID])
@@ -156,7 +156,7 @@ CREATE TABLE [dbo].[doctors]
 (
    [doctorID] varchar(10)  NOT NULL,
    [peopleID] int  NOT NULL,
-   [userName] varchar(10)  NOT NULL,
+   [userName] varchar(20)  NOT NULL,
 CONSTRAINT [PK_doctors_doctorID] PRIMARY KEY CLUSTERED ([doctorID]),
 CONSTRAINT [fk_doctors_clinicEmployees] FOREIGN KEY ([userName]) REFERENCES clinicemployees ([userName]),
 CONSTRAINT [fk_doctors_people] FOREIGN KEY ([peopleID]) REFERENCES people ([peopleID])

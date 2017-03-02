@@ -96,7 +96,7 @@ GO
 
 CREATE TABLE [dbo].[administrators]
 (
-   [adminID] varchar(10)  NOT NULL,
+   [adminID] int IDENTITY(1, 1)  NOT NULL,
    [peopleID] int  NOT NULL,
    [userName] varchar(20)  NOT NULL,
 CONSTRAINT [PK_administrators_adminID] PRIMARY KEY CLUSTERED ([adminID]),
@@ -116,7 +116,7 @@ GO
 
 CREATE TABLE [dbo].[patients]
 (
-   [patientID] varchar(10)  NOT NULL,
+   [patientID] int IDENTITY(1, 1)  NOT NULL,
    [peopleID] int  NOT NULL,
 CONSTRAINT [PK_patients_patientID] PRIMARY KEY CLUSTERED ([patientID]),
 CONSTRAINT [fk_patients_people] FOREIGN KEY ([peopleID]) REFERENCES people ([peopleID])
@@ -134,7 +134,7 @@ GO
 
 CREATE TABLE [dbo].[nurses]
 (
-   [nurseID] varchar(10)  NOT NULL,
+   [nurseID] int IDENTITY(1, 1)  NOT NULL,
    [peopleID] int  NOT NULL,
    [userName] varchar(20)  NOT NULL,
 CONSTRAINT [PK_nurses_nurseID] PRIMARY KEY CLUSTERED ([nurseID]),
@@ -154,7 +154,7 @@ GO
 
 CREATE TABLE [dbo].[doctors]
 (
-   [doctorID] varchar(10)  NOT NULL,
+   [doctorID] int IDENTITY(1, 1)  NOT NULL,
    [peopleID] int  NOT NULL,
    [userName] varchar(20)  NOT NULL,
 CONSTRAINT [PK_doctors_doctorID] PRIMARY KEY CLUSTERED ([doctorID]),
@@ -174,7 +174,7 @@ GO
 
 CREATE TABLE [dbo].[doctors_has_speciality]
 (
-   [doctorID] varchar(10)  NOT NULL,
+   [doctorID] int  NOT NULL,
    [specialityID] varchar(10)  NOT NULL,
 CONSTRAINT [PK_doctors_has_speciality_doctorID] PRIMARY KEY CLUSTERED ([doctorID], [specialityID]),
 CONSTRAINT [fk_doctors_has_speciality_doctors] FOREIGN KEY ([doctorID]) REFERENCES doctors ([doctorID]),
@@ -194,8 +194,8 @@ GO
 CREATE TABLE [dbo].[appointment]
 (
    [date] datetime  NOT NULL,
-   [doctorID] varchar(10)  NOT NULL,
-   [patientID] varchar(10)  NOT NULL,
+   [doctorID] int  NOT NULL,
+   [patientID] int  NOT NULL,
    [reasonForVisit] varchar(150)  NOT NULL,
 CONSTRAINT [PK_appointment_date] PRIMARY KEY CLUSTERED ([date], [doctorID], [patientID]),
 CONSTRAINT [fk_appointment_doctors] FOREIGN KEY ([doctorID]) REFERENCES doctors ([doctorID]),
@@ -215,9 +215,9 @@ GO
 CREATE TABLE [dbo].[vitals]
 (
    [appointment_date] datetime  NOT NULL,
-   [appointment_doctorID] varchar(10)  NOT NULL,
-   [appointment_patientID] varchar(10)  NOT NULL,
-   [nurses_nurseID] varchar(10)  NOT NULL,
+   [appointment_doctorID] int  NOT NULL,
+   [appointment_patientID] int  NOT NULL,
+   [nurses_nurseID] int  NOT NULL,
    [systolic] varchar(45)  NOT NULL,
    [diastolic] varchar(45)  NOT NULL,
    [temperature] varchar(45)  NOT NULL,
@@ -243,8 +243,8 @@ GO
 CREATE TABLE [dbo].[appointment_has_tests]
 (
    [appointment_date] datetime  NOT NULL,
-   [appointment_doctorID] varchar(10)  NOT NULL,
-   [appointment_patientID] varchar(10)  NOT NULL,
+   [appointment_doctorID] int  NOT NULL,
+   [appointment_patientID] int  NOT NULL,
    [tests_testCode] varchar(10)  NOT NULL,
    [testDate] date  NULL,
    [results] varchar(45)  NULL,

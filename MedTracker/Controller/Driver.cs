@@ -17,7 +17,7 @@ namespace MedTracker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PatientSearchForm());
+            Application.Run(new PatientSearch());
         }
     }
 }

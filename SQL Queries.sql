@@ -12,18 +12,19 @@ SELECT * FROM appointment_has_tests;
 -- aht.appointment_date is key to pull tests done
 -- see a.appointment_date for matching pk/fk
 -- no need to pull appointment date twice
-SELECT DISTINCT
+SELECT ppl.peopleID,
 	   pt.patientID,
 	   ppl.firstName,
 	   ppl.lastName,
-	   ppl.dateOfBirth, 
-	   a.reasonForVisit, 
-	   a.date
+	   ppl.dateOfBirth,
+	   ppl.streetAddress,
+	   ppl.city,
+	   ppl.state,
+	   ppl.zip,
+	   ppl.phoneNumber
 FROM patients pt 
 	JOIN people ppl ON ppl.peopleID = pt.peopleID
-	JOIN appointment a ON a.patientID = pt.patientID
-	JOIN appointment_has_tests aht ON aht.appointment_patientID = pt.patientID
-ORDER BY a.date;
+ORDER BY ppl.lastName;
 
 -- Scrap work used to pull ALL info for search table
 -- Get better picture of why so many of same apt dates from this angles

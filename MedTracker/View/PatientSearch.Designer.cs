@@ -1,6 +1,6 @@
 ﻿namespace MedTracker.View
 {
-    partial class PatientSearchForm
+    partial class PatientSearch
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.SuspendLayout();;
+            this.SuspendLayout();
             // 
-            // PatientSearchForm
+            // PatientSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 468);
-            this.Name = "PatientSearchForm";
-            this.Text = "Patient Search";
+            this.ClientSize = new System.Drawing.Size(612, 342);
+            this.Name = "PatientSearch";
+            this.Text = "PatientSearch";
             this.ResumeLayout(false);
+
         }
 
         #endregion

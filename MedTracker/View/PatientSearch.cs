@@ -10,13 +10,11 @@ using System.Windows.Forms;
 
 namespace MedTracker.View
 {
-    public partial class PatientSearchForm : Form
+    public partial class PatientSearch : Form
     {
-        public PatientSearchForm()
+        public PatientSearch()
         {
             InitializeComponent();
         }
-
-
     }
 }

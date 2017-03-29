@@ -26,6 +26,20 @@ FROM patients pt
 	JOIN people ppl ON ppl.peopleID = pt.peopleID
 ORDER BY ppl.lastName;
 
+DECLARE
+@firstName varchar(45) = '%',
+@lastName  varchar(45) = 'Mayden%',
+@dateOfBirth varchar(45) = '%'
+
+SELECT ppl.*, 
+	   pt.patientID
+FROM patients pt 
+	JOIN people ppl ON ppl.peopleID = pt.peopleID
+WHERE ppl.firstName LIKE @firstName
+	AND ppl.lastName LIKE @lastName
+	AND ppl.dateOfBirth LIKE @dateOfBirth
+ORDER BY ppl.lastName;
+
 -- Scrap work used to pull ALL info for search table
 -- Get better picture of why so many of same apt dates from this angles
 SELECT pt.patientID,

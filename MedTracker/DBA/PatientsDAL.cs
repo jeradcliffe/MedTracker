@@ -8,35 +8,26 @@ using System.Threading.Tasks;
 
 namespace MedTracker.DBA
 {
-    class PatientDAL
+    class PatientsDAL
     {
-        public static List<Patient> GetSelectedPatients(DateTime dateOfBirth, string firstName, string lastName)
+        /// <summary>
+        /// Used to search for patients in the database according to the DOB, first name, and last name.
+        /// </summary>
+        /// <returns>A list of patients matching the search results.</returns>
+        public static List<Patient> GetSelectedPatients(string dateOfBirth, string firstName, string lastName)
         {
             List<Patient> patientList = new List<Patient>();
             SqlConnection connection = DBConnection.GetConnection();
-            // '@' sign is used to refer to a verbatim string literal
-            // https://msdn.microsoft.com/en-us/library/aa691090(v=vs.71).aspx
-            // Used to replace usual strings with the constant '+' sign at each new line
-            string selectStatement = @"
-                    SELECT  ppl.peopleID,
-	                        pt.patientID,
-	                        ppl.firstName,
-	                        ppl.lastName,
-	                        ppl.dateOfBirth,
-	                        ppl.streetAddress,
-	                        ppl.city,
-	                        ppl.state,
-	                        ppl.zip,
-	                        ppl.phoneNumber
-                    FROM patients pt 
-	                    JOIN people ppl ON ppl.peopleID = pt.peopleID
-                    WHERE (ppl.dateOfBirth LIKE @dateOfBirth) 
-                        AND (ppl.firstName LIKE @firstName) 
-                        AND (pp.lastName   LIKE @lastName)
-                    ORDER BY ppl.lastName";
+            string selectStatement =
+                    @"SELECT ppl.*,  pt.patientID
+                      FROM patients pt
+                        JOIN people ppl ON ppl.peopleID = pt.peopleID
+                      WHERE ppl.firstName LIKE @firstName
+                        AND ppl.lastName  LIKE @lastName
+                        AND ppl.dateOfBirth LIKE @dateOfBirth
+                      ORDER BY ppl.lastName; ";
             SqlCommand selectCommand = new SqlCommand(selectStatement, connection);
-            // Note: DOB is string in DOB, but searched by Date in forms
-            selectCommand.Parameters.AddWithValue("@dateOfBirth", dateOfBirth.ToString("yyyy-MM-dd"));
+            selectCommand.Parameters.AddWithValue("@dateOfBirth", dateOfBirth + "%");
             selectCommand.Parameters.AddWithValue("@firstName", firstName + "%");
             selectCommand.Parameters.AddWithValue("@lastName", lastName + "%");
             SqlDataReader reader = null;

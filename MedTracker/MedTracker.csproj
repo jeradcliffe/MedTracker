@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\PatientsController.cs" />
     <Compile Include="DBA\DBConnection.cs" />
-    <Compile Include="DBA\PatientDAL.cs" />
+    <Compile Include="DBA\PatientsDAL.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="View\Login.cs">
@@ -79,6 +80,7 @@
     <EmbeddedResource Include="View\PatientSearch.resx">
       <DependentUpon>PatientSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\MedTracker.Model.Patient.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -10,8 +10,9 @@ namespace MedTracker.Model
     /// Tried to keep the same names as they are posted in the DB
     /// to avoid any future confusion within the application.
     /// </summary>
-    class Patient
+    public class Patient
     {
+
         // Type int in the DB
         public int peopleID  { get; set; }
         // Type int in the DB

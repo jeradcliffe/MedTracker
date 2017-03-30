@@ -14,9 +14,9 @@ namespace MedTracker.DBA
         /// Used to search for patients in the database according to the DOB, first name, and last name.
         /// </summary>
         /// <returns>A list of patients matching the search results.</returns>
-        public static List<Patient> GetSelectedPatients(string dateOfBirth, string firstName, string lastName)
+        public static List<Person> GetSelectedPatients(string dateOfBirth, string firstName, string lastName)
         {
-            List<Patient> patientList = new List<Patient>();
+            List<Person> patientList = new List<Person>();
             SqlConnection connection = DBConnection.GetConnection();
             string selectStatement =
                     @"SELECT ppl.*,  pt.patientID
@@ -37,7 +37,7 @@ namespace MedTracker.DBA
                 reader = selectCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    Patient patient = new Patient();
+                    Person patient = new Person();
                     patient.peopleID      = (int)reader["peopleID"];
                     patient.patientID     = (int)reader["patientID"];
                     patient.firstName     = reader["firstName"].ToString();

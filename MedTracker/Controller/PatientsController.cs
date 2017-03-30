@@ -10,7 +10,7 @@ namespace MedTracker.Controller
 {
     class PatientsController
     {
-        public List<Patient> GetSelectedPatients(string dateOfBirth, string firstName, string lastName)
+        public List<Person> GetSelectedPatients(string dateOfBirth, string firstName, string lastName)
         {
             return PatientsDAL.GetSelectedPatients(dateOfBirth, firstName, lastName);
         }

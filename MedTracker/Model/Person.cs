@@ -10,15 +10,11 @@ namespace MedTracker.Model
     /// Tried to keep the same names as they are posted in the DB
     /// to avoid any future confusion within the application.
     /// </summary>
-    public class Patient
+    public class Person
     {
 
         // Type int in the DB
-        public int peopleID  { get; set; }
-        // Type int in the DB
-        public int patientID { get; set; }
-
-        // Pulled from the peoples table but most relavant to this class
+        public int peopleID         { get; set; }
         // Type varchar(45) in the DB
         public string firstName     { get; set; }
         // Type varchar(45) in the DB
@@ -35,5 +31,17 @@ namespace MedTracker.Model
         public string zip           { get; set; }
         // Type varchar(12) in the DB
         public string phoneNumber   { get; set; }
+
+        // IDs used by other tables that are linked
+        // to the people table
+
+        // Type int in the DB
+        public int patientID        { get; set; }
+        // Type int in the DB
+        public int doctorID         { get; set; }
+        // Type int in the DB
+        public int nurseID          { get; set; }
+        // Type int in the DB
+        public int administratorID  { get; set; }
     }
 }

@@ -1,30 +1,13 @@
 USE Clinic;
-
 SELECT * FROM patients pt
 	JOIN People ppl ON pt.peopleID = ppl.peopleID;
-
+SELECT * FROM doctors d
+	JOIN People ppl ON d.peopleID = ppl.peopleID;
 SELECT * FROM appointment;
--- Used later when adding buttons to DataGridView
 SELECT * FROM appointment_has_tests;
 
-
--- Scrap work used to pull info for search table
--- aht.appointment_date is key to pull tests done
--- see a.appointment_date for matching pk/fk
--- no need to pull appointment date twice
-SELECT ppl.peopleID,
-	   pt.patientID,
-	   ppl.firstName,
-	   ppl.lastName,
-	   ppl.dateOfBirth,
-	   ppl.streetAddress,
-	   ppl.city,
-	   ppl.state,
-	   ppl.zip,
-	   ppl.phoneNumber
-FROM patients pt 
-	JOIN people ppl ON ppl.peopleID = pt.peopleID
-ORDER BY ppl.lastName;
+-------- Patients DAL --------
+-- Used in 'GetSelectedPatients()' method
 
 DECLARE
 @firstName varchar(45) = '%',

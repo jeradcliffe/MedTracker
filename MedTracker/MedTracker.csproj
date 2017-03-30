@@ -53,7 +53,7 @@
     <Compile Include="DBA\PatientsDAL.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\ClinicEmployees.cs" />
-    <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\Person.cs" />
     <Compile Include="View\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,7 +84,6 @@
     <EmbeddedResource Include="View\PatientSearch.resx">
       <DependentUpon>PatientSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\MedTracker.Model.Patient.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\doctors-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

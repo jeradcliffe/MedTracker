@@ -14,12 +14,12 @@ namespace MedTracker.View
 {
     public partial class PatientSearch : Form
     {
-        public Patient patient;
-        private List<Patient> patientList;
+        public Person patient;
+        private List<Person> patientList;
         private PatientsController patientsController;
-
         private Boolean dateChosen;
 
+        // Initialize the form
         public PatientSearch()
         {
             InitializeComponent();
@@ -27,6 +27,8 @@ namespace MedTracker.View
             this.clearFields();
         }
 
+        /////////////////////// Actions/Buttons ///////////////////////
+        // Search for a patient
         private void searchButton_Click(object sender, EventArgs e)
         {
             string dateOfBirth = this.formatDateOfBirth(dateOfBirthDateTimePicker);
@@ -36,7 +38,7 @@ namespace MedTracker.View
             try
             {
                 this.patientList = patientsController.GetSelectedPatients(dateOfBirth, firstName, lastName);
-                patientDataGridView.DataSource = this.patientList;
+                //patientDataGridView.DataSource = this.patientList;
             }
             catch (Exception ex)
             {
@@ -44,9 +46,23 @@ namespace MedTracker.View
             }
         }
 
+        // Clears the fields
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            this.clearFields();
+        }
 
+        private void clearFields()
+        {
+            dateOfBirthDateTimePicker.CustomFormat = " ";
+            dateOfBirthDateTimePicker.Format = DateTimePickerFormat.Custom;
+            dateChosen = false;
+            firstNameTextBox.Text = "";
+            lastNameTextBox.Text = "";
+            //this.patientDataGridView.DataSource = null;
+        }
 
-
+        /////////////////////// Private Helpers ///////////////////////
 
         /// <summary>
         /// Formats the DOB as a result of whether or not someone has chosen one 
@@ -70,20 +86,8 @@ namespace MedTracker.View
             dateChosen = true;
         }
 
-        // Clears all the fields of their values.
-        private void clearFields()
-        {
-            dateOfBirthDateTimePicker.CustomFormat = " ";
-            dateOfBirthDateTimePicker.Format = DateTimePickerFormat.Custom;
-            dateChosen = false;
-            firstNameTextBox.Text = "";
-            lastNameTextBox.Text = "";
-            this.patientDataGridView.DataSource = null;
-        }
 
-        private void clearButton_Click(object sender, EventArgs e)
-        {
-            this.clearFields();
-        }
+
+
     }
 }

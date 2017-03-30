@@ -38,7 +38,7 @@ namespace MedTracker.View
             try
             {
                 this.patientList = patientsController.GetSelectedPatients(dateOfBirth, firstName, lastName);
-                //patientDataGridView.DataSource = this.patientList;
+                patientDataGridView.DataSource = this.patientList;
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ namespace MedTracker.View
             dateChosen = false;
             firstNameTextBox.Text = "";
             lastNameTextBox.Text = "";
-            //this.patientDataGridView.DataSource = null;
+            this.patientDataGridView.DataSource = null;
         }
 
         /////////////////////// Private Helpers ///////////////////////
@@ -82,7 +82,7 @@ namespace MedTracker.View
         // Changes the date format
         private void dateOfBirthDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
-            dateOfBirthDateTimePicker.CustomFormat = "yyyy-MM-dd";
+            dateOfBirthDateTimePicker.CustomFormat = "MMMM dd, yyyy";
             dateChosen = true;
         }
 

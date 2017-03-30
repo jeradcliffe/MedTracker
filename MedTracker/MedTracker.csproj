@@ -68,6 +68,7 @@
     <Compile Include="View\PatientSearch.Designer.cs">
       <DependentUpon>PatientSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Validator.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -84,6 +85,8 @@
     <EmbeddedResource Include="View\PatientSearch.resx">
       <DependentUpon>PatientSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\MedTracker.Model.Appointment.datasource" />
+    <None Include="Properties\DataSources\MedTracker.Model.Person.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,9 +103,7 @@
   <ItemGroup>
     <None Include="Resources\doctors-1.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

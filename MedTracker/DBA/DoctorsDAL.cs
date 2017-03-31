@@ -7,11 +7,11 @@ using System.Data.SqlClient;
 
 namespace MedTracker.DBA
 {
-    class NursesDAL
+    class DoctorsDAL
     {
-        public static bool checkIfNurses(string username)
+        public static bool checkIfDoctors(string username)
         {
-            string selectStatement = "SELECT COUNT(*) FROM nurses " + 
+            string selectStatement = "SELECT COUNT(*) FROM doctors " +
                 "WHERE userName = @username";
             try
             {

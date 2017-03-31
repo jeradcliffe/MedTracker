@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MedTracker.Model
 {
-    class Nurses
+    public class Nurses
     {
-        
+        public int nurseID { get; set; }
+        public int peopleID { get; set; }
+        public string userName { get; set; }
     }
 }

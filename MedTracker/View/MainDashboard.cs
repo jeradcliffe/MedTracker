@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MedTracker.Controller;
+using MedTracker.View;
 
 namespace MedTracker.View
 {
@@ -15,6 +17,12 @@ namespace MedTracker.View
         public MainDashboard()
         {
             InitializeComponent();
+            
+        }
+
+        private void MainDashboard_Load(object sender, EventArgs e)
+        {
+            lblUsername.Text = Login.currentUser;
         }
     }
 }

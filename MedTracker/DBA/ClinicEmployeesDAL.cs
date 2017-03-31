@@ -14,31 +14,33 @@ namespace MedTracker.DBA
         public static bool checkLoginCredentials(string username, string password)
         {
 
-            SqlConnection connection = DBConnection.GetConnection();
-
-            string selectStatement = "SELECT userName FROM clinicemployees " +
-                "WHERE userName = @username && password = @password";
-
-            SqlCommand selectCommand = new SqlCommand(selectStatement, connection);
-            selectCommand.Parameters.AddWithValue("@username", username);
-            selectCommand.Parameters.AddWithValue("@password", password);
+            string selectStatement = "SELECT COUNT(*) FROM clinicemployees " +
+                "WHERE username = @username AND passwords = @password";
 
             try
             {
-                connection.Open();
-                int count = selectCommand.ExecuteNonQuery();
-                if (count == 1)
-                    return true;
-                else
-                    return false;
+                using (SqlConnection connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@username", username);
+                        selectCommand.Parameters.AddWithValue("@password", password);
+                        int count = selectCommand.ExecuteReader().FieldCount;
+                        if (count == 1)
+                            return true;
+                        else
+                            return false;
+                    }
+                }
             }
             catch (SqlException ex)
             {
                 throw ex;
             }
-            finally
+           catch (Exception ex)
             {
-                connection.Close();
+                throw ex;
             }
         }
     }

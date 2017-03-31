@@ -93,7 +93,11 @@ namespace MedTracker.View
             {
                 int i = e.RowIndex;
                 DataGridViewRow row = patientDataGridView.Rows[i];
-                Person patient = (Person)row.DataBoundItem;
+                Person patientSelected = (Person)row.DataBoundItem;
+
+                AppointmentForm appointmentForm = new AppointmentForm();
+                appointmentForm.patient = patientSelected;
+                appointmentForm.ShowDialog();
             }
         }
 

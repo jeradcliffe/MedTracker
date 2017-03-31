@@ -24,5 +24,11 @@ namespace MedTracker.View
         {
             lblUsername.Text = Login.currentUser;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
     }
 }

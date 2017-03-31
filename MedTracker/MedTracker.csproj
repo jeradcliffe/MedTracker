@@ -50,9 +50,11 @@
     <Compile Include="Controller\PatientsController.cs" />
     <Compile Include="DBA\ClinicEmployeesDAL.cs" />
     <Compile Include="DBA\DBConnection.cs" />
+    <Compile Include="DBA\NursesDAL.cs" />
     <Compile Include="DBA\PatientsDAL.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\ClinicEmployees.cs" />
+    <Compile Include="Model\Nurses.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="View\Appointment.cs">
       <SubType>Form</SubType>

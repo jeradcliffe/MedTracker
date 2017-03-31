@@ -24,32 +24,50 @@ namespace MedTracker.View
         {
             InitializeComponent();
             patientsController = new PatientsController();
-            this.clearFields();
+            clearFields();
         }
 
+        ///////////////////////////////////////////////////////////////
         /////////////////////// Actions/Buttons ///////////////////////
+        ///////////////////////////////////////////////////////////////
+
         // Search for a patient
         private void searchButton_Click(object sender, EventArgs e)
         {
-            string dateOfBirth = this.formatDateOfBirth(dateOfBirthDateTimePicker);
+            string dateOfBirth = formatDateOfBirth(dateOfBirthDateTimePicker);
             string firstName   = firstNameTextBox.Text;
             string lastName    = lastNameTextBox.Text;
 
-            try
+            if (searchValid(dateOfBirth, firstName, lastName))
             {
-                this.patientList = patientsController.GetSelectedPatients(dateOfBirth, firstName, lastName);
-                patientDataGridView.DataSource = this.patientList;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                try
+                {
+                    patientList = patientsController.GetSelectedPatients(dateOfBirth, firstName, lastName);
+                    patientDataGridView.DataSource = patientList;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+                switch (patientList.Count)
+                {
+                    case 0:
+                        messagelabel.Text = "No patients found.";
+                        break;
+                    case 1:
+                        messagelabel.Text = "One patient found.";
+                        break;
+                    default:
+                        messagelabel.Text = patientDataGridView.RowCount + " patients found.";
+                        break;
+                }
             }
         }
 
         // Clears the fields
         private void clearButton_Click(object sender, EventArgs e)
         {
-            this.clearFields();
+            clearFields();
         }
 
         private void clearFields()
@@ -59,10 +77,29 @@ namespace MedTracker.View
             dateChosen = false;
             firstNameTextBox.Text = "";
             lastNameTextBox.Text = "";
-            this.patientDataGridView.DataSource = null;
+            patientDataGridView.DataSource = null;
+            messagelabel.Text = "Please enter your search criteria.";
         }
 
+        /// <summary>
+        /// This button is only available in the DataGridView. When clicked
+        /// it will transfer us to a form that allows to add, edit, and view
+        /// all of the patients appointments.
+        /// </summary>
+        private void patientDataGridView_CellContentClick(
+            object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 9)
+            {
+                int i = e.RowIndex;
+                DataGridViewRow row = patientDataGridView.Rows[i];
+                Person patient = (Person)row.DataBoundItem;
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////
         /////////////////////// Private Helpers ///////////////////////
+        ///////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Formats the DOB as a result of whether or not someone has chosen one 
@@ -86,8 +123,38 @@ namespace MedTracker.View
             dateChosen = true;
         }
 
-
-
+        /// <summary>
+        /// Used for validation of the fields. Will display a message to the user
+        /// guiding them to fill in our DOB, first name, and last name fields correctly
+        /// when searching for a patient. 
+        /// 
+        /// Guidelines: 
+        /// 1-DOB only may be searched
+        /// 2-DOB and last name may be searched
+        /// 3-First and Last name may be searched
+        /// </summary>
+        private Boolean searchValid(string dob, string firstName, string lastName)
+        {
+            // DOB only is ok
+            if (!String.IsNullOrWhiteSpace(dob) && 
+                String.IsNullOrWhiteSpace(firstName) &&
+                String.IsNullOrWhiteSpace(lastName))
+                return true;
+            // DOB and last name is ok
+            else if (!String.IsNullOrWhiteSpace(dob) &&
+                      String.IsNullOrWhiteSpace(firstName) &&
+                     !String.IsNullOrWhiteSpace(lastName))
+                return true;
+            // last name and first name only is ok
+            else if (String.IsNullOrWhiteSpace(dob) &&
+                     !String.IsNullOrWhiteSpace(firstName) &&
+                     !String.IsNullOrWhiteSpace(lastName))
+                return true;
+            else
+                messagelabel.Text = "You may only search by DOB, " +
+                    " DOB and last name, or first name and last name";
+            return false;
+        }
 
     }
 }

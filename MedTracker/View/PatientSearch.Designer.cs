@@ -41,7 +41,7 @@
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.patientDataGridView = new System.Windows.Forms.DataGridView();
-            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.appointmentsButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,6 +55,7 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             dateOfBirthLabel = new System.Windows.Forms.Label();
             lastNameLabel = new System.Windows.Forms.Label();
             firstNameLabel = new System.Windows.Forms.Label();
@@ -98,15 +99,17 @@
             this.searchButton.TabIndex = 8;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            this.searchButton.Enter += new System.EventHandler(this.searchButton_Click);
             // 
             // messagelabel
             // 
             this.messagelabel.AutoSize = true;
-            this.messagelabel.Location = new System.Drawing.Point(13, 90);
+            this.messagelabel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.messagelabel.Location = new System.Drawing.Point(13, 45);
             this.messagelabel.Name = "messagelabel";
             this.messagelabel.Size = new System.Drawing.Size(0, 13);
             this.messagelabel.TabIndex = 9;
+            this.messagelabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // dateOfBirthDateTimePicker
             // 
@@ -157,20 +160,28 @@
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9,
+            this.appointmentsButton,
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
             this.dataGridViewTextBoxColumn13});
             this.patientDataGridView.DataSource = this.personBindingSource;
-            this.patientDataGridView.Location = new System.Drawing.Point(12, 121);
+            this.patientDataGridView.Location = new System.Drawing.Point(12, 61);
             this.patientDataGridView.Name = "patientDataGridView";
             this.patientDataGridView.ReadOnly = true;
-            this.patientDataGridView.Size = new System.Drawing.Size(948, 307);
+            this.patientDataGridView.Size = new System.Drawing.Size(1043, 367);
             this.patientDataGridView.TabIndex = 10;
+            this.patientDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientDataGridView_CellContentClick);
             // 
-            // personBindingSource
+            // appointmentsButton
             // 
-            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
+            this.appointmentsButton.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.appointmentsButton.HeaderText = "";
+            this.appointmentsButton.Name = "appointmentsButton";
+            this.appointmentsButton.ReadOnly = true;
+            this.appointmentsButton.Text = "Create/View/Edit Appointments";
+            this.appointmentsButton.UseColumnTextForButtonValue = true;
+            this.appointmentsButton.Width = 5;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -246,6 +257,7 @@
             this.dataGridViewTextBoxColumn10.HeaderText = "patientID";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn10.Visible = false;
             // 
             // dataGridViewTextBoxColumn11
@@ -272,11 +284,15 @@
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Visible = false;
             // 
+            // personBindingSource
+            // 
+            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
+            // 
             // PatientSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(986, 440);
+            this.ClientSize = new System.Drawing.Size(1067, 440);
             this.Controls.Add(this.patientDataGridView);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.messagelabel);
@@ -317,6 +333,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewButtonColumn appointmentsButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;

@@ -54,11 +54,11 @@ namespace MedTracker.DBA
             }
             catch (SqlException ex)
             {
-                throw;
+                throw ex;
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {

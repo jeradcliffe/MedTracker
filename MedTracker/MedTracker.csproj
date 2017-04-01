@@ -46,13 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AdministratorsController.cs" />
+    <Compile Include="Controller\NursesController.cs" />
     <Compile Include="Controller\ClinicEmployeesController.cs" />
+    <Compile Include="Controller\DoctorsController.cs" />
     <Compile Include="Controller\PatientsController.cs" />
+    <Compile Include="DBA\AdministratorsDAL.cs" />
     <Compile Include="DBA\ClinicEmployeesDAL.cs" />
     <Compile Include="DBA\DBConnection.cs" />
     <Compile Include="DBA\DoctorsDAL.cs" />
     <Compile Include="DBA\NursesDAL.cs" />
     <Compile Include="DBA\PatientsDAL.cs" />
+    <Compile Include="Model\Administrators.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\ClinicEmployees.cs" />
     <Compile Include="Model\Nurses.cs" />

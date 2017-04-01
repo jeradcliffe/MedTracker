@@ -57,6 +57,7 @@
     <Compile Include="DBA\DoctorsDAL.cs" />
     <Compile Include="DBA\NursesDAL.cs" />
     <Compile Include="DBA\PatientsDAL.cs" />
+    <Compile Include="Model\Doctors.cs" />
     <Compile Include="Model\Administrators.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\ClinicEmployees.cs" />

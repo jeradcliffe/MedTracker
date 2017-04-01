@@ -43,5 +43,8 @@ namespace MedTracker.Model
         public int nurseID          { get; set; }
         // Type int in the DB
         public int administratorID  { get; set; }
+
+        // Full name of a person
+        public string fullName      { get; set; }
     }
 }

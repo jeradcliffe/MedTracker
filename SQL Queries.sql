@@ -2,7 +2,7 @@ USE Clinic;
 SELECT * FROM patients pt
 	JOIN People ppl ON pt.peopleID = ppl.peopleID;
 SELECT * FROM doctors d
-	JOIN People ppl ON d.peopleID = ppl.peopleID;
+	JOIN people ppl ON d.peopleID = ppl.peopleID;
 SELECT * FROM appointment;
 SELECT * FROM appointment_has_tests;
 
@@ -40,6 +40,26 @@ FROM appointment apt
 WHERE pt.patientID = 6
 ORDER BY apt.date DESC;
 
+SELECT d.doctorID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
+FROM doctors d
+	JOIN people p ON d.peopleID = p.peopleID;
+
+-- Create Appointment
+DECLARE 
+@date DATETIME = '2017-08-30 11:35:00',
+@doctorID INT = 2,
+@patientID INT = 6,
+@reason VARCHAR(150) = 'Torn ACL'
+
+
+INSERT INTO appointment
+	VALUES (@date, @doctorID, @patientID, @reason);
+
+SELECT * FROM appointment
+	ORDER BY date DESC;
+
+-------- Doctors DAL -------- 
+-- GetDoctorList
 SELECT d.doctorID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
 FROM doctors d
 	JOIN people p ON d.peopleID = p.peopleID;

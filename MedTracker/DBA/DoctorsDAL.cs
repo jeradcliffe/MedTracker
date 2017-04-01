@@ -80,5 +80,49 @@ namespace MedTracker.DBA
             }
             return doctor;
         }
+
+        /// <summary>
+        /// Returns a list of doctors from our DB
+        /// </summary>
+        /// <returns>Returns doctorID and full name</returns>
+        public static List<Person> GetDoctorList()
+        {
+            List<Person> doctorList = new List<Person>();
+            string selectStatement =
+                @"SELECT d.doctorID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'fullName'
+                  FROM doctors d
+	                 JOIN people p ON d.peopleID = p.peopleID ";
+            try
+            {
+                using (SqlConnection connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
+                    {
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Person doctor = new Person();
+                                doctor.doctorID = (int)reader["doctorID"];
+                                doctor.fullName = reader["fullName"].ToString();
+                                doctorList.Add(doctor);
+                            }
+                            reader.Close();
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return doctorList;
+        }
     }
 }

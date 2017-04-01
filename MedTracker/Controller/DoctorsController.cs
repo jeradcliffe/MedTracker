@@ -19,5 +19,10 @@ namespace MedTracker.Controller
         {
             return DoctorsDAL.getDoctor(username);
         }
+
+        public List<Person> GetDoctorList()
+        {
+            return DoctorsDAL.GetDoctorList();
+        }
     }
 }

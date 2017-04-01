@@ -68,5 +68,49 @@ namespace MedTracker.DBA
             }
             return appointmentList;
         }
+
+        /// <summary>
+        /// Used to retrieve add an appointment to the DB
+        /// </summary>
+        public static Boolean AddAppointment(Appointment appointment)
+        {
+            string insertStatement =
+                    @"INSERT INTO appointment
+	                    VALUES (@date, @doctorID, @patientID, @reason)";
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlCommand insertCommand = new SqlCommand(insertStatement, connection))
+                    {
+                        insertCommand.Parameters.AddWithValue("@date",      appointment.date);
+                        insertCommand.Parameters.AddWithValue("@doctorID",  appointment.doctorID);
+                        insertCommand.Parameters.AddWithValue("@patientID", appointment.patientID);
+                        insertCommand.Parameters.AddWithValue("@reason",    appointment.reason);
+
+                        int count = insertCommand.ExecuteNonQuery();
+                        if (count == 1)
+                            return true;
+                        else
+                            return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
     }
 }

@@ -51,12 +51,14 @@
     <Compile Include="Controller\ClinicEmployeesController.cs" />
     <Compile Include="Controller\DoctorsController.cs" />
     <Compile Include="Controller\PatientsController.cs" />
+    <Compile Include="Controller\PersonController.cs" />
     <Compile Include="DBA\AdministratorsDAL.cs" />
     <Compile Include="DBA\ClinicEmployeesDAL.cs" />
     <Compile Include="DBA\DBConnection.cs" />
     <Compile Include="DBA\DoctorsDAL.cs" />
     <Compile Include="DBA\NursesDAL.cs" />
     <Compile Include="DBA\PatientsDAL.cs" />
+    <Compile Include="DBA\PersonDAL.cs" />
     <Compile Include="Model\Doctors.cs" />
     <Compile Include="Model\Administrators.cs" />
     <Compile Include="Model\Appointment.cs" />

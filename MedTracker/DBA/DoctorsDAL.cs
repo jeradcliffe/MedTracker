@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using MedTracker.Model;
 
 namespace MedTracker.DBA
 {
@@ -21,7 +22,7 @@ namespace MedTracker.DBA
                     using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
                     {
                         selectCommand.Parameters.AddWithValue("@username", username);
-                        int count = selectCommand.ExecuteReader().FieldCount;
+                        int count = (int)selectCommand.ExecuteScalar();
                         if (count == 1)
                             return true;
                         else
@@ -37,6 +38,47 @@ namespace MedTracker.DBA
             {
                 throw ex;
             }
+        }
+        public static Doctors getDoctor(string username)
+        {
+            Doctors doctor = new Doctors();
+            string selectStatement = "SELECT * FROM doctors " +
+                "WHERE userName = @username";
+            try
+            {
+                using (SqlConnection connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@username", username);
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            int doctUsername = reader.GetOrdinal("userName");
+                            if (reader.Read())
+                            {
+                                doctor.peopleID = (int)reader["peopleID"];
+                                doctor.doctorID = (int)reader["doctorID"];
+                                doctor.userName = reader.GetString(doctUsername);
+                            }
+                            else
+                            {
+                                doctor = null;
+                            }
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return doctor;
         }
     }
 }

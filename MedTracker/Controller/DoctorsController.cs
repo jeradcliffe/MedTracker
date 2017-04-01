@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MedTracker.DBA;
+using MedTracker.Model;
 
 namespace MedTracker.Controller
 {
@@ -12,6 +13,11 @@ namespace MedTracker.Controller
         public bool checkIfDoctors(string username)
         {
             return DoctorsDAL.checkIfDoctors(username);
+        }
+
+        public Doctors getDoctor(string username)
+        {
+            return DoctorsDAL.getDoctor(username);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MedTracker.DBA
                     using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
                     {
                         selectCommand.Parameters.AddWithValue("@username", username);
-                        int count = selectCommand.ExecuteReader().FieldCount;
+                        int count = (int)selectCommand.ExecuteScalar();
                         if (count == 1)
                             return true;
                         else

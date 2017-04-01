@@ -8,6 +8,11 @@ namespace MedTracker.Model
 {
     public class Nurses
     {
+        public Nurses()
+        {
+
+        }
+
         public int nurseID { get; set; }
         public int peopleID { get; set; }
         public string userName { get; set; }

@@ -13,7 +13,7 @@ namespace MedTracker.Model
 
         }
 
-        public int adminID { get; set; }
+        public int doctorID { get; set; }
         public int peopleID { get; set; }
         public string userName { get; set; }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using MedTracker.Model;
 
 namespace MedTracker.DBA
 {
@@ -21,7 +22,8 @@ namespace MedTracker.DBA
                     using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
                     {
                         selectCommand.Parameters.AddWithValue("@username", username);
-                        int count = selectCommand.ExecuteReader().FieldCount;
+                       
+                        int count = (int)selectCommand.ExecuteScalar();
                         if (count == 1)
                             return true;
                         else
@@ -37,6 +39,48 @@ namespace MedTracker.DBA
             {
                 throw ex;
             }
+        }
+
+        public static Nurses getNurse(string username)
+        {
+            Nurses nurse = new Nurses();
+            string selectStatement = "SELECT * FROM nurses " +
+                "WHERE userName = @username";
+            try
+            {
+                using (SqlConnection connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@username", username);
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            int nurUsername = reader.GetOrdinal("userName");
+                            if (reader.Read())
+                            {
+                                nurse.peopleID = (int)reader["peopleID"];
+                                nurse.nurseID = (int)reader["nurseID"];
+                                nurse.userName = reader.GetString(nurUsername);
+                            }
+                            else
+                            {
+                                nurse = null;
+                            }
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return nurse;
         }
     }
 }

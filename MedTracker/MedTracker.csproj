@@ -47,12 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\AdministratorsController.cs" />
+    <Compile Include="Controller\AppointmentsController.cs" />
     <Compile Include="Controller\NursesController.cs" />
     <Compile Include="Controller\ClinicEmployeesController.cs" />
     <Compile Include="Controller\DoctorsController.cs" />
     <Compile Include="Controller\PatientsController.cs" />
     <Compile Include="Controller\PersonController.cs" />
     <Compile Include="DBA\AdministratorsDAL.cs" />
+    <Compile Include="DBA\AppointmentsDAL.cs" />
     <Compile Include="DBA\ClinicEmployeesDAL.cs" />
     <Compile Include="DBA\DBConnection.cs" />
     <Compile Include="DBA\DoctorsDAL.cs" />

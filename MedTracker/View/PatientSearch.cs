@@ -52,13 +52,13 @@ namespace MedTracker.View
                 switch (patientList.Count)
                 {
                     case 0:
-                        messagelabel.Text = "No patients found.";
+                        messageLabel.Text = "No patients found.";
                         break;
                     case 1:
-                        messagelabel.Text = "One patient found.";
+                        messageLabel.Text = "One patient found.";
                         break;
                     default:
-                        messagelabel.Text = patientDataGridView.RowCount + " patients found.";
+                        messageLabel.Text = patientDataGridView.RowCount + " patients found.";
                         break;
                 }
             }
@@ -78,7 +78,7 @@ namespace MedTracker.View
             firstNameTextBox.Text = "";
             lastNameTextBox.Text = "";
             patientDataGridView.DataSource = null;
-            messagelabel.Text = "Please enter your search criteria.";
+            messageLabel.Text = "Please enter your search criteria.";
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace MedTracker.View
                 Person patientSelected = (Person)row.DataBoundItem;
 
                 AppointmentForm appointmentForm = new AppointmentForm();
-                appointmentForm.patient = patientSelected;
+                appointmentForm.patientID = patientSelected.patientID;
                 appointmentForm.ShowDialog();
             }
         }
@@ -155,7 +155,7 @@ namespace MedTracker.View
                      !String.IsNullOrWhiteSpace(lastName))
                 return true;
             else
-                messagelabel.Text = "You may only search by DOB, " +
+                messageLabel.Text = "You may only search by DOB, " +
                     " DOB and last name, or first name and last name";
             return false;
         }

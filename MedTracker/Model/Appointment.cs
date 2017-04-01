@@ -17,5 +17,8 @@ namespace MedTracker.Model
         public string testCode { get; set; }
         public string testDate { get; set; }
         public string results  { get; set; }
+
+        // So user can see doctor name instead of just ID
+        public string doctorFullName { get; set; }
     }
 }

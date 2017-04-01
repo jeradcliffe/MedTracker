@@ -14,5 +14,10 @@ namespace MedTracker.Controller
         {
             return PatientsDAL.GetSelectedPatients(dateOfBirth, firstName, lastName);
         }
+
+        public Person GetPatientByID(int patientID)
+        {
+            return PatientsDAL.GetPatientByID(patientID);
+        } 
     }
 }

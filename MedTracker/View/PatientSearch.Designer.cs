@@ -34,14 +34,13 @@
             System.Windows.Forms.Label firstNameLabel;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.searchButton = new System.Windows.Forms.Button();
-            this.messagelabel = new System.Windows.Forms.Label();
+            this.messageLabel = new System.Windows.Forms.Label();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dateOfBirthDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.patientDataGridView = new System.Windows.Forms.DataGridView();
-            this.appointmentsButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +50,7 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.appointmentsButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,15 +101,15 @@
             this.searchButton.UseVisualStyleBackColor = true;
             this.searchButton.Enter += new System.EventHandler(this.searchButton_Click);
             // 
-            // messagelabel
+            // messageLabel
             // 
-            this.messagelabel.AutoSize = true;
-            this.messagelabel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.messagelabel.Location = new System.Drawing.Point(13, 45);
-            this.messagelabel.Name = "messagelabel";
-            this.messagelabel.Size = new System.Drawing.Size(0, 13);
-            this.messagelabel.TabIndex = 9;
-            this.messagelabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.messageLabel.AutoSize = true;
+            this.messageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.messageLabel.Location = new System.Drawing.Point(13, 45);
+            this.messageLabel.Name = "messageLabel";
+            this.messageLabel.Size = new System.Drawing.Size(0, 13);
+            this.messageLabel.TabIndex = 9;
+            this.messageLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // dateOfBirthDateTimePicker
             // 
@@ -172,16 +172,6 @@
             this.patientDataGridView.Size = new System.Drawing.Size(1043, 367);
             this.patientDataGridView.TabIndex = 10;
             this.patientDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientDataGridView_CellContentClick);
-            // 
-            // appointmentsButton
-            // 
-            this.appointmentsButton.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.appointmentsButton.HeaderText = "";
-            this.appointmentsButton.Name = "appointmentsButton";
-            this.appointmentsButton.ReadOnly = true;
-            this.appointmentsButton.Text = "Create/View/Edit Appointments";
-            this.appointmentsButton.UseColumnTextForButtonValue = true;
-            this.appointmentsButton.Width = 5;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -251,6 +241,16 @@
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
             this.dataGridViewTextBoxColumn9.Width = 120;
             // 
+            // appointmentsButton
+            // 
+            this.appointmentsButton.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.appointmentsButton.HeaderText = "";
+            this.appointmentsButton.Name = "appointmentsButton";
+            this.appointmentsButton.ReadOnly = true;
+            this.appointmentsButton.Text = "Create/View/Edit Appointments";
+            this.appointmentsButton.UseColumnTextForButtonValue = true;
+            this.appointmentsButton.Width = 5;
+            // 
             // dataGridViewTextBoxColumn10
             // 
             this.dataGridViewTextBoxColumn10.DataPropertyName = "patientID";
@@ -295,7 +295,7 @@
             this.ClientSize = new System.Drawing.Size(1067, 440);
             this.Controls.Add(this.patientDataGridView);
             this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.messagelabel);
+            this.Controls.Add(this.messageLabel);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(lastNameLabel);
             this.Controls.Add(this.lastNameTextBox);
@@ -304,7 +304,7 @@
             this.Controls.Add(dateOfBirthLabel);
             this.Controls.Add(this.dateOfBirthDateTimePicker);
             this.Name = "PatientSearch";
-            this.Text = "PatientSearch";
+            this.Text = "Patient Search";
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.personBindingSource)).EndInit();
@@ -317,7 +317,7 @@
 
         private System.Windows.Forms.BindingSource patientBindingSource;
         private System.Windows.Forms.Button searchButton;
-        private System.Windows.Forms.Label messagelabel;
+        private System.Windows.Forms.Label messageLabel;
         private System.Windows.Forms.DateTimePicker dateOfBirthDateTimePicker;
         private System.Windows.Forms.TextBox lastNameTextBox;
         private System.Windows.Forms.TextBox firstNameTextBox;

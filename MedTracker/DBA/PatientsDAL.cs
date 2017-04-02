@@ -101,7 +101,7 @@ namespace MedTracker.DBA
                         selectCommand.Parameters.AddWithValue("@patientID", patientID);
                         using (reader = selectCommand.ExecuteReader())
                         {
-                            while (reader.Read())
+                            if (reader.Read())
                             {
                                 patient.peopleID      = (int)reader["peopleID"];
                                 patient.patientID     = (int)reader["patientID"];
@@ -113,6 +113,10 @@ namespace MedTracker.DBA
                                 patient.state         = reader["state"].ToString();
                                 patient.zip           = reader["zip"].ToString();
                                 patient.phoneNumber   = reader["phoneNumber"].ToString();
+                            }
+                            else
+                            {
+                                patient = null;
                             }
                         }
                     }

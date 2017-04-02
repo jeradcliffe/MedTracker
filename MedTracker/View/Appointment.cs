@@ -33,6 +33,7 @@ namespace MedTracker.View
             appointmentsController = new AppointmentsController();
             clearFields();
             updateButton.Enabled = false;
+            checkupButton.Enabled = false;
         }
 
         private void AppointmentForm_Load(object sender, EventArgs e)
@@ -116,6 +117,19 @@ namespace MedTracker.View
         }
 
         /// <summary>
+        /// If appoinment has passed, this will allow the user to add and view check
+        /// up information for the user. This includes diagnostic and 
+        /// </summary>
+        private void checkupButton_Click(object sender, EventArgs e)
+        {
+            CheckUpForm checkUpForm = new CheckUpForm();
+            checkUpForm.appointmentDate = currentAppointment.date;
+            checkUpForm.patientID = this.patientID;
+            checkUpForm.doctorID = currentAppointment.doctorID;
+            checkUpForm.ShowDialog();
+        }
+
+        /// <summary>
         /// Highlights the rows we are working with and will input appointment information
         /// into the correct fields in the case that an appointment has not past its due date.
         /// </summary>
@@ -157,11 +171,13 @@ namespace MedTracker.View
                         doctorsComboBox.FindString(currentAppointment.doctorFullName.ToString());
                 reasonTextBox.Text = currentAppointment.reason;
                 updateButton.Enabled = true;
+                checkupButton.Enabled = false;
             }
             else
             {
                 clearFields();
                 updateButton.Enabled = false;
+                checkupButton.Enabled = true;
             }
         }
 
@@ -173,7 +189,7 @@ namespace MedTracker.View
         private void fillPatientInformation()
         {
             patient = patientsController.GetPatientByID(patientID);
-            firstNameTextBox.Text   = patient.firstName + " " + patient.lastName;
+            patientNameTextBox.Text   = patient.firstName + " " + patient.lastName;
             phoneNumberTextBox.Text = patient.phoneNumber;
             cityTextBox.Text        = patient.city;
             stateTextBox.Text       = patient.state;
@@ -209,11 +225,14 @@ namespace MedTracker.View
 
                     // Highlight current appointment that we are working with
                     if (currentAppointment != null && 
-                        currentAppointment.date == rowDate)
+                        currentAppointment.date == rowDate &&
+                        currentAppointment.doctorFullName.Equals(rowDoctor))
                     {
                         row = gridRow;
                         row.DefaultCellStyle.BackColor = SystemColors.Highlight;
                         row.DefaultCellStyle.ForeColor = SystemColors.HighlightText;
+
+                        MessageBox.Show(currentAppointment.doctorFullName, "title");
                     }
                 }
 
@@ -248,6 +267,7 @@ namespace MedTracker.View
             appointment.patientID = patient.patientID; 
             appointment.doctorID  = (int)doctorsComboBox.SelectedValue;
             appointment.reason    = reasonTextBox.Text;
+            appointment.doctorFullName = ((Person)doctorsComboBox.SelectedItem).fullName;
             
             DateTime date = appointmentDatePicker.Value.Date;
             TimeSpan ts = new TimeSpan(
@@ -293,5 +313,6 @@ namespace MedTracker.View
             doctorsComboBox.SelectedValue      = -1;
             reasonTextBox.Text                 = "";
         }
+
     }
 }

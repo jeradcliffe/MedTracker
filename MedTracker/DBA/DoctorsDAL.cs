@@ -124,5 +124,51 @@ namespace MedTracker.DBA
             }
             return doctorList;
         }
+
+        // Gets doctor information by doctorID
+        public static Person GetDoctorByID(int doctorID)
+        {
+            Person doctor = new Person();
+            string selectStatement =
+                    @"SELECT ppl.*, d.doctorID 
+                        FROM doctors d
+	                        JOIN people ppl ON ppl.peopleID = d.peopleID 
+                        WHERE doctorID = @doctorID; ";
+            try
+            {
+                using (SqlConnection connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@doctorID", doctorID);
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                doctor.peopleID  = (int)reader["peopleID"];
+                                doctor.doctorID  = (int)reader["doctorID"];
+                                doctor.firstName = reader["firstName"].ToString();
+                                doctor.lastName  = reader["lastName"].ToString();
+                            }
+                            else
+                            {
+                                doctor = null;
+                            }
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return doctor;
+        }
     }
 }

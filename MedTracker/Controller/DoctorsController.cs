@@ -24,5 +24,10 @@ namespace MedTracker.Controller
         {
             return DoctorsDAL.GetDoctorList();
         }
+
+        public Person GetDoctorByID(int doctorID)
+        {
+            return DoctorsDAL.GetDoctorByID(doctorID);
+        }
     }
 }

@@ -59,15 +59,6 @@ SELECT * FROM appointment
 	ORDER BY date DESC;
 
 -- Update Appointment
-SELECT apt.*, 
-	CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
-FROM appointment apt
-	JOIN patients pt ON apt.patientID = pt.patientID
-	JOIN doctors d   ON d.doctorID    = apt.doctorID
-	JOIN people p    ON p.peopleID    = d.peopleID
-WHERE pt.patientID = 6
-ORDER BY apt.date DESC;
-
 DECLARE 
 @olddate DATETIME = '2017-05-06 12:00:00',
 @olddoctorID INT = 1,
@@ -90,14 +81,23 @@ WHERE date = @olddate
 	AND patientID = @oldpatientID 
 	AND reasonForVisit = @oldreason;
 
-SELECT apt.*, 
-	CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
-FROM appointment apt
-	JOIN patients pt ON apt.patientID = pt.patientID
-	JOIN doctors d   ON d.doctorID    = apt.doctorID
-	JOIN people p    ON p.peopleID    = d.peopleID
-WHERE pt.patientID = 6
-ORDER BY apt.date DESC;
+-- GetTestsForAppointment
+SELECT * FROM appointment_has_tests;
+SELECT aht.*
+FROM appointment_has_tests aht
+WHERE aht.appointment_patientID = 6
+	AND aht.appointment_doctorID = 4 
+	AND aht.appointment_date = '2015-02-10 09:00:00.000';
+
+-- GetVitalsForAppointment
+SELECT * FROM vitals;
+SELECT v.*, ppl.firstName, ppl.lastName
+FROM vitals v
+	JOIN nurses n ON v.nurses_nurseID = n.nurseID
+	JOIN people ppl ON n.peopleID = ppl.peopleID
+WHERE v.appointment_patientID = 6
+	AND v.appointment_doctorID = 4 
+	AND v.appointment_date = '2015-02-10 09:00:00.000';
 
 -------- Doctors DAL -------- 
 -- GetDoctorList

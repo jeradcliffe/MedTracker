@@ -69,6 +69,8 @@ namespace MedTracker.DBA
             return appointmentList;
         }
 
+
+
         /// <summary>
         /// Used to retrieve add an appointment to the DB
         /// </summary>
@@ -112,5 +114,66 @@ namespace MedTracker.DBA
                     connection.Close();
             }
         }
+
+
+        /// <summary>
+        /// Used to update an appointment in our DB
+        /// </summary>
+        /// <param name="oldAppointment">Original appointment information.</param>
+        /// <param name="newAppointment">Appointment information we want to update our DB with.</param>
+        /// <returns></returns>
+        public static bool UpdateAppointment(Appointment oldAppointment, Appointment newAppointment)
+        {
+            string updateStatement =
+                @"UPDATE appointment SET
+	                date = @newdate,
+	                doctorID = @newdoctorID,
+	                patientID = @newpatientID, 
+	                reasonForVisit = @newreason
+                  WHERE date = @olddate
+	                AND doctorID = @olddoctorID
+	                AND patientID = @oldpatientID 
+	                AND reasonForVisit = @oldreason; ";
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = DBConnection.GetConnection()) {
+                    connection.Open();
+
+                    using (SqlCommand updateCommand = new SqlCommand(updateStatement, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@olddate", oldAppointment.date);
+                        updateCommand.Parameters.AddWithValue("@olddoctorID", oldAppointment.doctorID);
+                        updateCommand.Parameters.AddWithValue("@oldpatientID", oldAppointment.patientID);
+                        updateCommand.Parameters.AddWithValue("@oldreason", oldAppointment.reason);
+
+                        updateCommand.Parameters.AddWithValue("@newdate", newAppointment.date);
+                        updateCommand.Parameters.AddWithValue("@newdoctorID", newAppointment.doctorID);
+                        updateCommand.Parameters.AddWithValue("@newpatientID", newAppointment.patientID);
+                        updateCommand.Parameters.AddWithValue("@newreason", newAppointment.reason);
+
+                        int count = updateCommand.ExecuteNonQuery();
+                        if (count > 0)
+                            return true;
+                        else
+                            return false; 
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+    
     }
 }

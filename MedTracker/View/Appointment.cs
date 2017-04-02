@@ -20,7 +20,7 @@ namespace MedTracker.View
         private List<Appointment> appointmentList;
         private Person patient;
         public int patientID;
-        private Appointment appointment;
+        private Appointment currentAppointment;
         private Boolean dateChosen = false;
         private DataGridViewRow row;
 
@@ -55,55 +55,90 @@ namespace MedTracker.View
         }
 
 
-        ///////////////////////////////////////////////////////////////
-        /////////////////////// Actions/Buttons ///////////////////////
-        ///////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Actions/Buttons //////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Creates an appointment for our current patient. Highlights the row after
+        /// to clearly show the changes that have been made. 
+        /// </summary>
         private void createAppointmentButton_Click(object sender, EventArgs e)
         {
             if (isValidNewAppointment())
             {
                 try
                 {
-                    appointment = new Appointment();
-                    putAppointmentData(appointment);
+                    currentAppointment = new Appointment();
+                    putAppointmentData(currentAppointment);
 
-                    if (appointmentsController.AddApointment(appointment))
+                    if (appointmentsController.AddApointment(currentAppointment))
                     {
                         messageLabel.Text = "Appointment successfully added.";
-                        appointmentList.Add(appointment);
+                        appointmentList.Add(currentAppointment);
                         fillAppointmentInformation();
                     }
                     
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
                 }
             }
         }
 
+        /// <summary>
+        /// Updates our appointment and leaves the updated row highlighted so that the 
+        /// user can see clearly where changes have been made.
+        /// </summary>
+        private void updateAppointmentButton_click(object sender, EventArgs e)
+        {
+            if (isValidNewAppointment())
+            {
+                try
+                {
+                    Appointment newAppointment = new Appointment();
+                    putAppointmentData(newAppointment);
+
+                    if (appointmentsController.UpdateAppointment(currentAppointment, newAppointment))
+                    {
+                        currentAppointment = newAppointment;
+                        messageLabel.Text = "Successfully updated appointment.";
+                        fillAppointmentInformation();
+                    }
+                        
+                }
+                catch (Exception ex)
+                {
+                    messageLabel.Text = "Unable to update information. Please try again.";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Highlights the rows we are working with and will input appointment information
+        /// into the correct fields in the case that an appointment has not past its due date.
+        /// </summary>
         private void appointmentDataGridView_CellClick(
             object sender, DataGridViewCellEventArgs e)
         {
-            // Change the previous selected row back to normal color if exists
+            // Clear previously highlighted row
             if (row != null)
             {
                 row.DefaultCellStyle.BackColor = SystemColors.Window;
                 row.DefaultCellStyle.ForeColor = SystemColors.WindowText;
             }
 
-            // Get row data, and highlight it for user convenience
-            // Try catch necessary to prevent OutOfBounds exception
-            // in the case that the user selects a column header
+            // Get row data and highlight it for user convenience
+            // Return exception used to avoid OutOfBoundsException
+            // in case user clicks header and not an actual row.
             try
             {
                 int i = e.RowIndex;
                 row = appointmentDataGridView.Rows[i];
                 row.DefaultCellStyle.BackColor = SystemColors.Highlight;
                 row.DefaultCellStyle.ForeColor = SystemColors.HighlightText;
-                appointment = (Appointment)row.DataBoundItem;
+                currentAppointment = (Appointment)row.DataBoundItem;
             }
             catch (Exception ex)
             {
@@ -116,11 +151,11 @@ namespace MedTracker.View
             DateTime expirationDate = DateTime.Parse(row.Cells[0].Value.ToString());
             if (now < expirationDate)
             {
-                appointmentDatePicker.Value = appointment.date;
-                appointmentTimePicker.Value = appointment.date;
+                appointmentDatePicker.Value = currentAppointment.date;
+                appointmentTimePicker.Value = currentAppointment.date;
                 doctorsComboBox.SelectedIndex = 
-                        doctorsComboBox.FindString(appointment.doctorFullName.ToString());
-                reasonTextBox.Text = appointment.reason;
+                        doctorsComboBox.FindString(currentAppointment.doctorFullName.ToString());
+                reasonTextBox.Text = currentAppointment.reason;
                 updateButton.Enabled = true;
             }
             else
@@ -128,13 +163,11 @@ namespace MedTracker.View
                 clearFields();
                 updateButton.Enabled = false;
             }
-
-            MessageBox.Show(appointment.date.ToString(), "Apt Date");
         }
 
-        ///////////////////////////////////////////////////////////////
-        /////////////////////// Private Helpers ///////////////////////
-        ///////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Private Helpers //////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Fills our patient info into the form
         private void fillPatientInformation()
@@ -154,17 +187,37 @@ namespace MedTracker.View
             {
                 appointmentList = appointmentsController.GetAppointmentsByPatient(patientID);
                 appointmentDataGridView.DataSource = appointmentList;
+                appointmentDataGridView.ClearSelection();
 
-                foreach (DataGridViewRow row in appointmentDataGridView.Rows)
+                // Clear any previously highlighted rows
+                if (row != null)
                 {
-                    DateTime now = DateTime.Now;
-                    DateTime expirationDate = DateTime.Parse(row.Cells[0].Value.ToString());
+                    row.DefaultCellStyle.BackColor = SystemColors.Window;
+                    row.DefaultCellStyle.ForeColor = SystemColors.WindowText;
+                }
 
-                    if (now > expirationDate)
+
+                foreach (DataGridViewRow gridRow in appointmentDataGridView.Rows)
+                {
+                    DateTime expirationDate = DateTime.Now;
+                    DateTime rowDate = DateTime.Parse(gridRow.Cells[0].Value.ToString());
+                    string rowDoctor = gridRow.Cells[7].Value.ToString();
+
+                    // Gray out any past due appointments
+                    if (expirationDate >= rowDate)
+                        gridRow.DefaultCellStyle.BackColor = Color.Gray;
+
+                    // Highlight current appointment that we are working with
+                    if (currentAppointment != null && 
+                        currentAppointment.date == rowDate)
                     {
-                        row.DefaultCellStyle.BackColor = Color.Gray;
+                        row = gridRow;
+                        row.DefaultCellStyle.BackColor = SystemColors.Highlight;
+                        row.DefaultCellStyle.ForeColor = SystemColors.HighlightText;
                     }
                 }
+
+
             }
             catch(Exception ex)
             {
@@ -195,8 +248,11 @@ namespace MedTracker.View
             appointment.patientID = patient.patientID; 
             appointment.doctorID  = (int)doctorsComboBox.SelectedValue;
             appointment.reason    = reasonTextBox.Text;
-            appointment.date      = appointmentDatePicker.Value.Date +
-                    appointmentTimePicker.Value.TimeOfDay;
+            
+            DateTime date = appointmentDatePicker.Value.Date;
+            TimeSpan ts = new TimeSpan(
+                appointmentTimePicker.Value.Hour, appointmentTimePicker.Value.Minute, 0);
+            appointment.date = date + ts;
         }
 
         // Checks if new appointment has valid data
@@ -231,10 +287,11 @@ namespace MedTracker.View
         private void clearFields()
         {
             appointmentDatePicker.CustomFormat = " ";
-            appointmentDatePicker.Format = DateTimePickerFormat.Custom;
-            dateChosen = false;
-            doctorsComboBox.SelectedValue = -1;
-            reasonTextBox.Text = "";
+            appointmentDatePicker.Format       = DateTimePickerFormat.Custom;
+            appointmentTimePicker.Value        = new DateTime(2000, 1, 1, 12, 0, 0);
+            dateChosen                         = false;
+            doctorsComboBox.SelectedValue      = -1;
+            reasonTextBox.Text                 = "";
         }
     }
 }

@@ -58,6 +58,47 @@ INSERT INTO appointment
 SELECT * FROM appointment
 	ORDER BY date DESC;
 
+-- Update Appointment
+SELECT apt.*, 
+	CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
+FROM appointment apt
+	JOIN patients pt ON apt.patientID = pt.patientID
+	JOIN doctors d   ON d.doctorID    = apt.doctorID
+	JOIN people p    ON p.peopleID    = d.peopleID
+WHERE pt.patientID = 6
+ORDER BY apt.date DESC;
+
+DECLARE 
+@olddate DATETIME = '2017-05-06 12:00:00',
+@olddoctorID INT = 1,
+@oldpatientID INT = 6,
+@oldreason VARCHAR(150) = 'Fever'
+
+DECLARE 
+@newdate DATETIME = '2017-05-06 13:45:00',
+@newdoctorID INT = 2,
+@newpatientID INT = 6,
+@newreason VARCHAR(150) = 'Measles'
+
+UPDATE appointment SET
+	date = @newdate,
+	doctorID = @newdoctorID,
+	patientID = @newpatientID, 
+	reasonForVisit = @newreason
+WHERE date = @olddate
+	AND doctorID = @olddoctorID
+	AND patientID = @oldpatientID 
+	AND reasonForVisit = @oldreason;
+
+SELECT apt.*, 
+	CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
+FROM appointment apt
+	JOIN patients pt ON apt.patientID = pt.patientID
+	JOIN doctors d   ON d.doctorID    = apt.doctorID
+	JOIN people p    ON p.peopleID    = d.peopleID
+WHERE pt.patientID = 6
+ORDER BY apt.date DESC;
+
 -------- Doctors DAL -------- 
 -- GetDoctorList
 SELECT d.doctorID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'

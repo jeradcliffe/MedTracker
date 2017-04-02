@@ -19,5 +19,10 @@ namespace MedTracker.Controller
         {
             return AppointmentsDAL.AddAppointment(appointment);
         }
+
+        public Boolean UpdateAppointment(Appointment oldAppointment, Appointment newAppointment)
+        {
+            return AppointmentsDAL.UpdateAppointment(oldAppointment, newAppointment);
+        }
     }
 }

@@ -18,5 +18,9 @@ namespace MedTracker.Controller
         {
             return NursesDAL.getNurse(username);
         }
+        public List<Person> GetNurseList()
+        {
+            return NursesDAL.GetNurseList();
+        }
     }
 }

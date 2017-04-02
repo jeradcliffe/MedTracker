@@ -189,7 +189,7 @@ namespace MedTracker.View
         private void fillPatientInformation()
         {
             patient = patientsController.GetPatientByID(patientID);
-            patientNameTextBox.Text   = patient.firstName + " " + patient.lastName;
+            patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
             phoneNumberTextBox.Text = patient.phoneNumber;
             cityTextBox.Text        = patient.city;
             stateTextBox.Text       = patient.state;

@@ -22,6 +22,7 @@ namespace MedTracker.View
         public int patientID;
         private Appointment appointment;
         private Boolean dateChosen = false;
+        private DataGridViewRow row;
 
 
         public AppointmentForm()
@@ -31,6 +32,7 @@ namespace MedTracker.View
             patientsController = new PatientsController();
             appointmentsController = new AppointmentsController();
             clearFields();
+            updateButton.Enabled = false;
         }
 
         private void AppointmentForm_Load(object sender, EventArgs e)
@@ -82,6 +84,54 @@ namespace MedTracker.View
             }
         }
 
+        private void appointmentDataGridView_CellClick(
+            object sender, DataGridViewCellEventArgs e)
+        {
+            // Change the previous selected row back to normal color if exists
+            if (row != null)
+            {
+                row.DefaultCellStyle.BackColor = SystemColors.Window;
+                row.DefaultCellStyle.ForeColor = SystemColors.WindowText;
+            }
+
+            // Get row data, and highlight it for user convenience
+            // Try catch necessary to prevent OutOfBounds exception
+            // in the case that the user selects a column header
+            try
+            {
+                int i = e.RowIndex;
+                row = appointmentDataGridView.Rows[i];
+                row.DefaultCellStyle.BackColor = SystemColors.Highlight;
+                row.DefaultCellStyle.ForeColor = SystemColors.HighlightText;
+                appointment = (Appointment)row.DataBoundItem;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
+            // Fill apt info and enable update if apt isn't past current date
+            // else clear fields and disable update button
+            DateTime now = DateTime.Now;
+            DateTime expirationDate = DateTime.Parse(row.Cells[0].Value.ToString());
+            if (now < expirationDate)
+            {
+                appointmentDatePicker.Value = appointment.date;
+                appointmentTimePicker.Value = appointment.date;
+                doctorsComboBox.SelectedIndex = 
+                        doctorsComboBox.FindString(appointment.doctorFullName.ToString());
+                reasonTextBox.Text = appointment.reason;
+                updateButton.Enabled = true;
+            }
+            else
+            {
+                clearFields();
+                updateButton.Enabled = false;
+            }
+
+            MessageBox.Show(appointment.date.ToString(), "Apt Date");
+        }
+
         ///////////////////////////////////////////////////////////////
         /////////////////////// Private Helpers ///////////////////////
         ///////////////////////////////////////////////////////////////
@@ -104,6 +154,17 @@ namespace MedTracker.View
             {
                 appointmentList = appointmentsController.GetAppointmentsByPatient(patientID);
                 appointmentDataGridView.DataSource = appointmentList;
+
+                foreach (DataGridViewRow row in appointmentDataGridView.Rows)
+                {
+                    DateTime now = DateTime.Now;
+                    DateTime expirationDate = DateTime.Parse(row.Cells[0].Value.ToString());
+
+                    if (now > expirationDate)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Gray;
+                    }
+                }
             }
             catch(Exception ex)
             {
@@ -154,6 +215,7 @@ namespace MedTracker.View
                 
         }
 
+        // Changes the date time to specified format when value has been chosen
         private void appointmentDatePicker_ValueChanged(object sender, EventArgs e)
         {
             appointmentDatePicker.CustomFormat = ("ddd MMM d, yyyy");
@@ -173,21 +235,6 @@ namespace MedTracker.View
             dateChosen = false;
             doctorsComboBox.SelectedValue = -1;
             reasonTextBox.Text = "";
-        }
-
-        /// <summary>
-        /// Formats the DOB as a result of whether or not someone has chosen one 
-        /// for their search feature. This has to be done because the date time picker
-        /// auto-chooses the current date as a default. 
-        /// </summary>
-        /// <param name="datePicker"></param>
-        /// <returns></returns>
-        private string formatDateOfBirth(DateTimePicker datePicker)
-        {
-            if (dateChosen)
-                return appointmentDatePicker.Value.ToString("yyyy-MM-dd");
-            else
-                return "";
         }
     }
 }

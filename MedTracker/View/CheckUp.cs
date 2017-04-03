@@ -17,6 +17,7 @@ namespace MedTracker.View
         private AppointmentsController appointmentsController;
         private PatientsController patientsController;
         private DoctorsController doctorsController;
+        private NursesController nursesController;
         //private Person patient;
         public int patientID;
         //private Person doctor;
@@ -28,25 +29,105 @@ namespace MedTracker.View
         public CheckUpForm()
         {
             InitializeComponent();
+            nursesController = new NursesController();
             doctorsController = new DoctorsController();
             patientsController = new PatientsController();
             appointmentsController = new AppointmentsController();
+            addVitalsButton.Enabled = false;
         }
 
         private void CheckUpForm_Load(object sender, EventArgs e)
         {
+            fillComboBoxes();
             fillAppointmentDoctorPatientInformation();
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// Private Helpers //////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Vitals Private Helpers ///////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Fills all of the vitals informationo into the table if exists
+        private void fillVitals()
+        {
+            appointmentVitals = appointmentsController.GetAppointmentVitals(appointmentDate, doctorID, patientID);
+
+            if (appointmentVitals != null)
+            {
+                // set attending nurse
+                // List<Person> nurses = nursesController.GetNurses();
+                nursesComboBox.SelectedIndex =
+                        nursesComboBox.FindString(appointmentVitals.nurseFullName.ToString());
+                systolicTextBox.Text = appointmentVitals.systolic;
+                diastolicTextBox.Text = appointmentVitals.diastolic;
+                temperatureTextBox.Text = appointmentVitals.temperature;
+                pulseTextBox.Text = appointmentVitals.pulse;
+                symptomsTextBox.Text = appointmentVitals.symptoms;
+                diagnosisTextBox.Text = appointmentVitals.diagnosis;
+
+                nursesComboBox.Enabled = false;
+                systolicTextBox.ReadOnly = true;
+                diastolicTextBox.ReadOnly = true;
+                temperatureTextBox.ReadOnly = true;
+                pulseTextBox.ReadOnly = true;
+                symptomsTextBox.ReadOnly = true;
+                diagnosisTextBox.ReadOnly = true;
+
+                clearVitalsButton.Enabled = false;
+            }
+            else
+            {
+                nursesComboBox.SelectedIndex = -1;
+
+                addVitalsButton.Enabled = true;
+                clearVitalsButton.Enabled = true;
+            }
+                
+        }
+
+        // Clears our vitals fields if necessary
+        private void clearVitalsButton_Click(object sender, EventArgs e)
+        {
+            nursesComboBox.SelectedIndex = -1;
+            systolicTextBox.Text = "";
+            diastolicTextBox.Text = "";
+            temperatureTextBox.Text = "";
+            pulseTextBox.Text = "";
+            symptomsTextBox.Text = "";
+            diagnosisTextBox.Text = "";
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Tests Private Helpers ////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Other Private Helpers ////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Fills info into our nurses combobox
+        private void fillComboBoxes()
+        {
+            try
+            {
+                List<Person> nurses = nursesController.GetNurseList();
+                nursesComboBox.DataSource = nurses;
+                nursesComboBox.DisplayMember = "fullName";
+                nursesComboBox.ValueMember = "nurseID";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
+            }
+        }
 
         // Fills our patient info into the form
         private void fillAppointmentDoctorPatientInformation()
         {
-            appointmentTests  = appointmentsController.GetAppointmentTests(appointmentDate, doctorID, patientID);
-            appointmentVitals = appointmentsController.GetAppointmentVitals(appointmentDate, doctorID, patientID);
+            appointmentTests = appointmentsController.GetAppointmentTests(appointmentDate, doctorID, patientID);
+            fillVitals();
+
             appointmentDateTextBox.Text = appointmentDate.ToString("ddd MMM d, yyyy");
 
             Person patient = patientsController.GetPatientByID(patientID);
@@ -55,7 +136,5 @@ namespace MedTracker.View
             Person doctor = doctorsController.GetDoctorByID(doctorID);
             doctorNameTextBox.Text = doctor.firstName + " " + doctor.lastName;
         }
-
-
     }
 }

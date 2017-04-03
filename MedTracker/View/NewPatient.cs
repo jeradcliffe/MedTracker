@@ -5,16 +5,16 @@ using System.Windows.Forms;
 
 namespace MedTracker.View
 {
-    public partial class NewPatient : Form
+    public partial class NewPatientForm : Form
     {
         private bool dateChosen;
-        private PatientsController patController;
+        private PatientsController patientsController;
 
-        public NewPatient()
+        public NewPatientForm()
         {
             InitializeComponent();
-            patController = new PatientsController();
-            dateChosen = false;
+            this.patientsController = new PatientsController();
+            this.dateChosen = false;
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -29,6 +29,7 @@ namespace MedTracker.View
                 !dateChosen ||
                 streetAddressTextBox.Text == "" ||
                 cityTextBox.Text == "" ||
+                stateTextBox.Text == "" ||
                 zipTextBox.Text == "" ||
                 phoneNumberTextBox.Text == "")
             {
@@ -38,16 +39,16 @@ namespace MedTracker.View
             {
                 Person newPatient = new Person();
 
-                newPatient.firstName = firstNameTextBox.Text;
-                newPatient.lastName = lastNameTextBox.Text;
-                newPatient.dateOfBirth = dobDateTimePicker.Value.ToString("yyyy-MM-dd");
+                newPatient.firstName     = firstNameTextBox.Text;
+                newPatient.lastName      = lastNameTextBox.Text;
+                newPatient.dateOfBirth   = dobDateTimePicker.Value.ToString("yyyy-MM-dd");
                 newPatient.streetAddress = streetAddressTextBox.Text;
-                newPatient.city = cityTextBox.Text;
-                newPatient.state = stateTextBox.Text;
-                newPatient.zip = zipTextBox.Text;
-                newPatient.phoneNumber = phoneNumberTextBox.Text;
+                newPatient.city          = cityTextBox.Text;
+                newPatient.state         = stateTextBox.Text;
+                newPatient.zip           = zipTextBox.Text;
+                newPatient.phoneNumber   = phoneNumberTextBox.Text;
 
-                int statusOfCreate = patController.createPatient(newPatient);
+                int statusOfCreate = patientsController.CreatePatient(newPatient);
 
                 //if create patient was successful
                 if (statusOfCreate == 0)

@@ -39,6 +39,7 @@ namespace MedTracker.DBA
                 throw ex;
             }
         }
+
         public static Doctors getDoctor(string username)
         {
             Doctors doctor = new Doctors();

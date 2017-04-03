@@ -3,12 +3,13 @@ using MedTracker.Model;
 using System.Data.SqlClient;
 using System.Text;
 using System.Windows.Forms;
+using System.Data;
 
 namespace MedTracker.DBA
 {
     class PersonDAL
     {
-        public static int createPerson(Person newPerson)
+        public static int CreatePerson(Person newPerson)
         {
             int exitStatus = 0;
 
@@ -56,16 +57,91 @@ namespace MedTracker.DBA
             return exitStatus;
         }
 
+        public static int UpdatePerson(Person personWithOldData, Person updatedPerson)
+        {
+            int exitStatus = 1;
+            SqlConnection connection = DBConnection.GetConnection();
+            SqlTransaction updateTran = null;
+            SqlCommand updateCommand = new SqlCommand();
+            updateCommand.Connection = connection;
+
+            updateCommand.CommandText =
+                "UPDATE people " +
+                "SET firstName = @updatedFirstName, " +
+                  "lastName = @updatedLastName, " +
+                  "dateOfBirth = @updatedDateOfBirth, " +
+                  "streetAddress = @updatedStreetAddress, " +
+                  "city = @updatedCity, " +
+                  "state = @updatedState, " +
+                  "zip = @updatedZip, " +
+                  "phoneNumber = @updatedPhoneNumber " +
+                "WHERE peopleID = @peopleID";
+
+            updateCommand.Parameters.AddWithValue("@updatedFirstName", updatedPerson.firstName);
+            updateCommand.Parameters.AddWithValue("@updatedLastName", updatedPerson.lastName);
+            updateCommand.Parameters.AddWithValue("@updatedDateOfBirth", updatedPerson.dateOfBirth);
+            updateCommand.Parameters.AddWithValue("@updatedStreetAddress", updatedPerson.streetAddress);
+            updateCommand.Parameters.AddWithValue("@updatedCity", updatedPerson.city);
+            updateCommand.Parameters.AddWithValue("@updatedState", updatedPerson.state);
+            updateCommand.Parameters.AddWithValue("@updatedZip", updatedPerson.zip);
+            updateCommand.Parameters.AddWithValue("@updatedPhoneNumber", updatedPerson.phoneNumber);
+            updateCommand.Parameters.AddWithValue("@peopleID", personWithOldData.peopleID);
+
+            try
+            {
+                connection.Open();
+                updateTran = connection.BeginTransaction(IsolationLevel.Serializable);
+                updateCommand.Transaction = updateTran;
+
+                int successfulUpdatesCount = updateCommand.ExecuteNonQuery();
+
+                if (successfulUpdatesCount > 0)
+                {
+                    updateTran.Commit();
+                    exitStatus = 0;
+                }
+                else
+                {
+                    updateTran.Rollback();
+                    exitStatus = 1;
+                }
+            }
+            catch (SqlException ex)
+            {
+                exitStatus = 2;
+                if (updateTran != null)
+                {
+                    updateTran.Rollback();
+                }
+
+                StringBuilder errorDetails = new StringBuilder();
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                    errorDetails.Append("Index #" + i + "\n" +
+                        "Message: " + ex.Errors[i].Message + "\n" +
+                        "Error Number: " + ex.Errors[i].Number + "\n" +
+                        "Procedure: " + ex.Errors[i].Procedure + "\n");
+                }
+                MessageBox.Show(errorDetails.ToString(), "SQL Exception");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return exitStatus;
+        }
+
         public static int getPeopleID(string firstName, string lastName, string dateOfBirth)
         {
             int matchingPeopleID = 0;
 
-            string selectStatement = 
+            string selectStatement =
                 "SELECT peopleID " +
                 "FROM people " +
                 "WHERE firstName = @firstName " +
-                  "AND lastName = @lastName " +
-                  "AND dateOfBirth = @dateOfBirth";
+                    "AND lastName = @lastName " +
+                    "AND dateOfBirth = @dateOfBirth";
 
             try
             {
@@ -93,7 +169,7 @@ namespace MedTracker.DBA
             catch (SqlException ex)
             {
                 StringBuilder errorDetails = new StringBuilder();
-                for (int i = 0; i < ex.Errors.Count; i++)
+                for (int i = 0; i<ex.Errors.Count; i++)
                 {
                     errorDetails.Append("Index #" + i + "\n" +
                         "Message: " + ex.Errors[i].Message + "\n" +
@@ -106,7 +182,7 @@ namespace MedTracker.DBA
             return matchingPeopleID;
         }
 
-        public static Person getPerson(int peopleID)
+        public static Person GetPerson(int peopleID)
         {
             Person person = new Model.Person();
             string selectStatement = "SELECT * FROM people " +

@@ -63,19 +63,19 @@ namespace MedTracker.View
             {
                 role = "Nurse";
                 tempNurse = nurseController.getNurse(Login.currentUser);
-                currentPerson = personController.getPerson(tempNurse.peopleID);
+                currentPerson = personController.GetPerson(tempNurse.peopleID);
             }
             else if(isDoctor)
             {
                 role = "Doctor";
                 tempDoct = doctorController.getDoctor(Login.currentUser);
-                currentPerson = personController.getPerson(tempDoct.peopleID);
+                currentPerson = personController.GetPerson(tempDoct.peopleID);
             }
             else if(isAdmin)
             {
                 role = "Administrator";
                 tempAdmin = adminController.getAdministrator(Login.currentUser);
-                currentPerson = personController.getPerson(tempAdmin.peopleID);
+                currentPerson = personController.GetPerson(tempAdmin.peopleID);
             }
             else
             {

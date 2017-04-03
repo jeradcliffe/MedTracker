@@ -10,9 +10,9 @@ namespace MedTracker.Controller
 {
     class PersonController
     {
-        public Person getPerson(int peopleID)
+        public Person GetPerson(int peopleID)
         {
-            return PersonDAL.getPerson(peopleID);
+            return PersonDAL.GetPerson(peopleID);
         }
     }
 }

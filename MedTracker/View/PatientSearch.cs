@@ -99,6 +99,16 @@ namespace MedTracker.View
                 appointmentForm.patientID = patientSelected.patientID;
                 appointmentForm.ShowDialog();
             }
+
+            if (e.ColumnIndex == 10)
+            {
+                int i = e.RowIndex;
+                DataGridViewRow row = patientDataGridView.Rows[i];
+                Person patientSelected = (Person)row.DataBoundItem;
+
+                UpdatePatientForm updatePatientForm = new UpdatePatientForm(patientSelected);
+                updatePatientForm.ShowDialog();
+            }
         }
 
         ///////////////////////////////////////////////////////////////
@@ -162,7 +172,7 @@ namespace MedTracker.View
 
         private void newPatientButton_Click(object sender, EventArgs e)
         {
-            NewPatient newPatientForm = new NewPatient();
+            NewPatientForm newPatientForm = new NewPatientForm();
             newPatientForm.Show();
         }
     }

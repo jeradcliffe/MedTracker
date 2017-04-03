@@ -16,13 +16,11 @@ namespace MedTracker.DBA
             int exitStatus = 0;
             
             //first adding to person table
-            int personCreationStatus = PersonDAL.createPerson(newPatient);
+            int personCreationStatus = PersonDAL.CreatePerson(newPatient);            
 
             //if person creation is successful, proceed to create patient
             if (personCreationStatus == 0)
             {
-                int newPatientsPeopleID = PersonDAL.getPeopleID(newPatient.firstName, newPatient.lastName, newPatient.dateOfBirth);
-
                 SqlConnection connection = DBConnection.GetConnection();
 
                 string insertStatement =
@@ -30,7 +28,9 @@ namespace MedTracker.DBA
 
                 SqlCommand insertCommand = new SqlCommand(insertStatement, connection);
 
-                insertCommand.Parameters.AddWithValue("@peopleID", newPatientsPeopleID);
+                int newPersonsPeopleID = PersonDAL.getPeopleID(newPatient.firstName, newPatient.lastName, newPatient.dateOfBirth);
+
+                insertCommand.Parameters.AddWithValue("@peopleID", newPersonsPeopleID);
 
                 try
                 {
@@ -58,6 +58,72 @@ namespace MedTracker.DBA
             }
 
             return exitStatus;
+        }
+
+        public static int UpdatePatient(Person patientWithOldData, Person updatedPatient)
+        {
+            int exitStatus = 1;
+            bool personIsPatient = CheckIfPersonIsPatient(patientWithOldData);
+
+            if (personIsPatient)
+            {
+                exitStatus = PersonDAL.UpdatePerson(patientWithOldData, updatedPatient);
+            }
+
+            return exitStatus;
+        }
+
+        public static bool CheckIfPersonIsPatient(Person possiblePatient)
+        {
+            bool personIsPatient = true;
+
+            string selectStatement =
+                "SELECT patientID " +
+                "FROM patients " +
+                "WHERE peopleID = @peopleID";
+
+            try
+            {
+                using (SqlConnection connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+
+                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@peopleID", possiblePatient.peopleID);
+
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                try
+                                {
+                                    string returnedPatientID = reader["patientID"].ToString();
+                                }
+                                catch (Exception ex)
+                                {
+                                    personIsPatient = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                StringBuilder errorDetails = new StringBuilder();
+                for (int i = 0; i < ex.Errors.Count; i++)
+                {
+                    errorDetails.Append("Index #" + i + "\n" +
+                        "Message: " + ex.Errors[i].Message + "\n" +
+                        "Error Number: " + ex.Errors[i].Number + "\n" +
+                        "Procedure: " + ex.Errors[i].Procedure + "\n");
+                }
+                MessageBox.Show(errorDetails.ToString(), "SQL Exception");
+            }
+
+            return personIsPatient;
         }
 
         /// <summary>

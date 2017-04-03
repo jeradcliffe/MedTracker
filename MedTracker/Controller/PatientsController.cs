@@ -10,9 +10,14 @@ namespace MedTracker.Controller
 {
     class PatientsController
     {
-        public int createPatient(Person newPatient)
+        public int CreatePatient(Person newPatient)
         {
             return PatientsDAL.CreatePatient(newPatient);
+        }
+
+        public int UpdatePatient(Person patientWithOldData, Person updatedPatient)
+        {
+            return PatientsDAL.UpdatePatient(patientWithOldData, updatedPatient);
         }
 
         public List<Person> GetSelectedPatients(string dateOfBirth, string firstName, string lastName)

@@ -1,6 +1,6 @@
 ﻿namespace MedTracker.View
 {
-    partial class NewPatient
+    partial class NewPatientForm
     {
         /// <summary>
         /// Required designer variable.
@@ -53,7 +53,7 @@
             this.createPatientButton.Location = new System.Drawing.Point(64, 272);
             this.createPatientButton.Name = "createPatientButton";
             this.createPatientButton.Size = new System.Drawing.Size(82, 29);
-            this.createPatientButton.TabIndex = 0;
+            this.createPatientButton.TabIndex = 17;
             this.createPatientButton.Text = "Create";
             this.createPatientButton.UseVisualStyleBackColor = true;
             this.createPatientButton.Click += new System.EventHandler(this.createPatientButton_Click);
@@ -63,7 +63,7 @@
             this.cancelButton.Location = new System.Drawing.Point(310, 272);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 29);
-            this.cancelButton.TabIndex = 1;
+            this.cancelButton.TabIndex = 18;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -164,21 +164,21 @@
             this.zipTextBox.Location = new System.Drawing.Point(151, 197);
             this.zipTextBox.Name = "zipTextBox";
             this.zipTextBox.Size = new System.Drawing.Size(241, 22);
-            this.zipTextBox.TabIndex = 14;
+            this.zipTextBox.TabIndex = 15;
             // 
             // phoneNumberTextBox
             // 
             this.phoneNumberTextBox.Location = new System.Drawing.Point(151, 225);
             this.phoneNumberTextBox.Name = "phoneNumberTextBox";
             this.phoneNumberTextBox.Size = new System.Drawing.Size(241, 22);
-            this.phoneNumberTextBox.TabIndex = 15;
+            this.phoneNumberTextBox.TabIndex = 16;
             // 
             // dobDateTimePicker
             // 
             this.dobDateTimePicker.Location = new System.Drawing.Point(151, 88);
             this.dobDateTimePicker.Name = "dobDateTimePicker";
             this.dobDateTimePicker.Size = new System.Drawing.Size(241, 22);
-            this.dobDateTimePicker.TabIndex = 16;
+            this.dobDateTimePicker.TabIndex = 11;
             this.dobDateTimePicker.ValueChanged += new System.EventHandler(this.dobDateTimePicker_ValueChanged);
             // 
             // stateLabel
@@ -195,7 +195,7 @@
             this.stateTextBox.Location = new System.Drawing.Point(151, 171);
             this.stateTextBox.Name = "stateTextBox";
             this.stateTextBox.Size = new System.Drawing.Size(241, 22);
-            this.stateTextBox.TabIndex = 18;
+            this.stateTextBox.TabIndex = 14;
             // 
             // NewPatient
             // 

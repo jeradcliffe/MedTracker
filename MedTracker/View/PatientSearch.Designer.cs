@@ -32,7 +32,7 @@
             System.Windows.Forms.Label dateOfBirthLabel;
             System.Windows.Forms.Label lastNameLabel;
             System.Windows.Forms.Label firstNameLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.searchButton = new System.Windows.Forms.Button();
             this.messageLabel = new System.Windows.Forms.Label();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -41,6 +41,8 @@
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.patientDataGridView = new System.Windows.Forms.DataGridView();
+            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.newPatientButton = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,12 +53,11 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.appointmentsButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.updatePatientColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.newPatientButton = new System.Windows.Forms.Button();
             dateOfBirthLabel = new System.Windows.Forms.Label();
             lastNameLabel = new System.Windows.Forms.Label();
             firstNameLabel = new System.Windows.Forms.Label();
@@ -171,6 +172,7 @@
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9,
             this.appointmentsButton,
+            this.updatePatientColumn,
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
@@ -183,6 +185,21 @@
             this.patientDataGridView.Size = new System.Drawing.Size(1391, 452);
             this.patientDataGridView.TabIndex = 10;
             this.patientDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientDataGridView_CellContentClick);
+            // 
+            // personBindingSource
+            // 
+            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
+            // 
+            // newPatientButton
+            // 
+            this.newPatientButton.Location = new System.Drawing.Point(1288, 12);
+            this.newPatientButton.Margin = new System.Windows.Forms.Padding(4);
+            this.newPatientButton.Name = "newPatientButton";
+            this.newPatientButton.Size = new System.Drawing.Size(100, 28);
+            this.newPatientButton.TabIndex = 11;
+            this.newPatientButton.Text = "New Patient";
+            this.newPatientButton.UseVisualStyleBackColor = true;
+            this.newPatientButton.Click += new System.EventHandler(this.newPatientButton_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -209,9 +226,9 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "dateOfBirth";
-            dataGridViewCellStyle2.Format = "d";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn4.HeaderText = "Date Of Birth";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -262,6 +279,16 @@
             this.appointmentsButton.UseColumnTextForButtonValue = true;
             this.appointmentsButton.Width = 93;
             // 
+            // updatePatientColumn
+            // 
+            this.updatePatientColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.updatePatientColumn.HeaderText = "Patient Info";
+            this.updatePatientColumn.Name = "updatePatientColumn";
+            this.updatePatientColumn.ReadOnly = true;
+            this.updatePatientColumn.Text = "Update";
+            this.updatePatientColumn.UseColumnTextForButtonValue = true;
+            this.updatePatientColumn.Width = 77;
+            // 
             // dataGridViewTextBoxColumn10
             // 
             this.dataGridViewTextBoxColumn10.DataPropertyName = "patientID";
@@ -294,21 +321,6 @@
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Visible = false;
-            // 
-            // personBindingSource
-            // 
-            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
-            // 
-            // newPatientButton
-            // 
-            this.newPatientButton.Location = new System.Drawing.Point(1288, 12);
-            this.newPatientButton.Margin = new System.Windows.Forms.Padding(4);
-            this.newPatientButton.Name = "newPatientButton";
-            this.newPatientButton.Size = new System.Drawing.Size(100, 28);
-            this.newPatientButton.TabIndex = 11;
-            this.newPatientButton.Text = "New Patient";
-            this.newPatientButton.UseVisualStyleBackColor = true;
-            this.newPatientButton.Click += new System.EventHandler(this.newPatientButton_Click);
             // 
             // PatientSearch
             // 
@@ -348,6 +360,7 @@
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.BindingSource personBindingSource;
         private System.Windows.Forms.DataGridView patientDataGridView;
+        private System.Windows.Forms.Button newPatientButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -358,10 +371,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewButtonColumn appointmentsButton;
+        private System.Windows.Forms.DataGridViewButtonColumn updatePatientColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.Button newPatientButton;
     }
 }

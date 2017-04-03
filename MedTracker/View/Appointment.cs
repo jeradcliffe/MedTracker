@@ -140,7 +140,6 @@ namespace MedTracker.View
             if (row != null)
             {
                 row.DefaultCellStyle.BackColor = SystemColors.Window;
-                row.DefaultCellStyle.ForeColor = SystemColors.WindowText;
             }
 
             // Get row data and highlight it for user convenience
@@ -151,7 +150,6 @@ namespace MedTracker.View
                 int i = e.RowIndex;
                 row = appointmentDataGridView.Rows[i];
                 row.DefaultCellStyle.BackColor = SystemColors.Highlight;
-                row.DefaultCellStyle.ForeColor = SystemColors.HighlightText;
                 currentAppointment = (Appointment)row.DataBoundItem;
             }
             catch (Exception ex)
@@ -179,6 +177,21 @@ namespace MedTracker.View
                 updateButton.Enabled = false;
                 checkupButton.Enabled = true;
             }
+        }
+
+        // Clears the fields
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            clearFields();
+        }
+        private void clearFields()
+        {
+            appointmentDatePicker.CustomFormat = " ";
+            appointmentDatePicker.Format = DateTimePickerFormat.Custom;
+            appointmentTimePicker.Value = new DateTime(2000, 1, 1, 12, 0, 0);
+            dateChosen = false;
+            doctorsComboBox.SelectedValue = -1;
+            reasonTextBox.Text = "";
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -209,7 +222,6 @@ namespace MedTracker.View
                 if (row != null)
                 {
                     row.DefaultCellStyle.BackColor = SystemColors.Window;
-                    row.DefaultCellStyle.ForeColor = SystemColors.WindowText;
                 }
 
 
@@ -221,7 +233,7 @@ namespace MedTracker.View
 
                     // Gray out any past due appointments
                     if (expirationDate >= rowDate)
-                        gridRow.DefaultCellStyle.BackColor = Color.Gray;
+                        gridRow.DefaultCellStyle.ForeColor = Color.Red;
 
                     // Highlight current appointment that we are working with
                     if (currentAppointment != null && 
@@ -278,7 +290,6 @@ namespace MedTracker.View
         // Checks if new appointment has valid data
         private Boolean isValidNewAppointment()
         {
-
             if (dateChosen &&
                 doctorsComboBox.SelectedIndex != -1 &&
                 !String.IsNullOrEmpty(reasonTextBox.Text))
@@ -287,8 +298,7 @@ namespace MedTracker.View
             {
                 messageLabel.Text = "Date, time, doctor, and reason are needed for new appointment.";
                 return false;
-            }
-                
+            }     
         }
 
         // Changes the date time to specified format when value has been chosen
@@ -299,19 +309,46 @@ namespace MedTracker.View
         }
 
 
-        // Clears the fields
-        private void clearButton_Click(object sender, EventArgs e)
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private bool stringExists(TextBox textBox)
         {
-            clearFields();
+            if (!String.IsNullOrEmpty(textBox.Text))
+                return true;
+            else
+            {
+                textBox.Focus();
+                return false;
+            }
         }
-        private void clearFields()
+
+        private bool isInt32(TextBox textBox)
         {
-            appointmentDatePicker.CustomFormat = " ";
-            appointmentDatePicker.Format       = DateTimePickerFormat.Custom;
-            appointmentTimePicker.Value        = new DateTime(2000, 1, 1, 12, 0, 0);
-            dateChosen                         = false;
-            doctorsComboBox.SelectedValue      = -1;
-            reasonTextBox.Text                 = "";
+            try
+            {
+                Convert.ToInt32(textBox.Text);
+                return true;
+            }
+            catch (FormatException ex)
+            {
+                textBox.Focus();
+                return false;
+            }
+        }
+
+        private bool isDateValid(DateTimePicker date)
+        {
+            if (date.Value >= DateTime.Now)
+                return true;
+            else
+            {
+                date.Focus();
+                return false;
+            }
         }
 
     }

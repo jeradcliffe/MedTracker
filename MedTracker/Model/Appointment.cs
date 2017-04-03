@@ -14,9 +14,10 @@ namespace MedTracker.Model
         public string   reason    { get; set; }
 
         // From appointment has tests
-        public string testCode { get; set; } //PK
-        public string testDate { get; set; }
-        public string results  { get; set; }
+        public string testCode   { get; set; } //PK
+        public DateTime testDate { get; set; }
+        public string results    { get; set; }
+        
 
         // From vitals
         public int nurseID        { get; set; } //PK
@@ -28,8 +29,9 @@ namespace MedTracker.Model
         public string diagnosis   { get; set; }
 
 
-        // So user can see doctor name instead of just ID
+        // For convenience
         public string doctorFullName { get; set; }
         public string nurseFullName  { get; set; }
+        public string testName { get; set; }
     }
 }

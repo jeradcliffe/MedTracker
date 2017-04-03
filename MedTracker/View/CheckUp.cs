@@ -19,6 +19,7 @@ namespace MedTracker.View
         private DoctorsController doctorsController;
         private NursesController nursesController;
         private VitalsController vitalsController;
+        private TestsController testsController;
         //private Person patient;
         public int patientID;
         //private Person doctor;
@@ -30,6 +31,7 @@ namespace MedTracker.View
         public CheckUpForm()
         {
             InitializeComponent();
+            testsController = new TestsController();
             vitalsController = new VitalsController();
             nursesController = new NursesController();
             doctorsController = new DoctorsController();
@@ -39,8 +41,7 @@ namespace MedTracker.View
 
         private void CheckUpForm_Load(object sender, EventArgs e)
         {
-            fillComboBoxes();
-            fillAppointmentDoctorPatientInformation();
+            fillForm();
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,29 +49,36 @@ namespace MedTracker.View
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Fills all of the vitals informationo into the table if exists
-        private void fillVitals()
+        private void fillVitalFields()
         {
-            appointmentVitals = vitalsController.GetAppointmentVitals(appointmentDate, doctorID, patientID);
-
-            if (appointmentVitals != null)
+            try
             {
-                nursesComboBox.SelectedIndex =
-                        nursesComboBox.FindString(appointmentVitals.nurseFullName.ToString());
-                systolicTextBox.Text = appointmentVitals.systolic;
-                diastolicTextBox.Text = appointmentVitals.diastolic;
-                temperatureTextBox.Text = appointmentVitals.temperature;
-                pulseTextBox.Text = appointmentVitals.pulse;
-                symptomsTextBox.Text = appointmentVitals.symptoms;
-                diagnosisTextBox.Text = appointmentVitals.diagnosis;
+                appointmentVitals = vitalsController.GetAppointmentVitals(appointmentDate, doctorID, patientID);
 
-                disableVitalsFieldsAndButtons();
+                if (appointmentVitals != null)
+                {
+                    nursesComboBox.SelectedIndex =
+                            nursesComboBox.FindString(appointmentVitals.nurseFullName.ToString());
+                    systolicTextBox.Text = appointmentVitals.systolic;
+                    diastolicTextBox.Text = appointmentVitals.diastolic;
+                    temperatureTextBox.Text = appointmentVitals.temperature;
+                    pulseTextBox.Text = appointmentVitals.pulse;
+                    symptomsTextBox.Text = appointmentVitals.symptoms;
+                    diagnosisTextBox.Text = appointmentVitals.diagnosis;
+
+                    disableVitalsFieldsAndButtons();
+                }
+                else
+                {
+                    nursesComboBox.SelectedIndex = -1;
+
+                    addVitalsButton.Enabled = true;
+                    clearVitalsButton.Enabled = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                nursesComboBox.SelectedIndex = -1;
-
-                addVitalsButton.Enabled = true;
-                clearVitalsButton.Enabled = true;
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
             }
                 
         }
@@ -95,15 +103,14 @@ namespace MedTracker.View
             {
                 try
                 {
-                    Appointment appointmentVitals = new Appointment();
-                    appointmentVitals = putAppointmentVitals(appointmentVitals);
+                    Appointment appointmentVitals = putAppointmentVitals(new Appointment());
                     if (vitalsController.AddVitals(appointmentVitals))
                     {
-                        messageLabel.Text = "Vitals successfully added.";
+                        vitalsMessageLabel.Text = "Vitals successfully added.";
                         disableVitalsFieldsAndButtons();
                     }
                     else
-                        messageLabel.Text = "Unable to add vitals to database. Please try again.";
+                        vitalsMessageLabel.Text = "Unable to add vitals to database. Please try again.";
                 }
                 catch (Exception ex)
                 {
@@ -112,7 +119,23 @@ namespace MedTracker.View
             }
         }
 
-
+        // Checks if vitals are vaild
+        private bool vitalsAreValid()
+        {
+            if (nursesComboBox.SelectedIndex != -1 &&
+                stringExists(systolicTextBox) && isInt32(systolicTextBox) &&
+                stringExists(diastolicTextBox) && isInt32(diastolicTextBox) &&
+                stringExists(temperatureTextBox) && isInt32(temperatureTextBox) &&
+                stringExists(pulseTextBox) && isInt32(temperatureTextBox) &&
+                stringExists(symptomsTextBox) &&
+                stringExists(diagnosisTextBox))
+                return true;
+            else
+            {
+                vitalsMessageLabel.Text = "Invalid input. Please try again.";
+                return false;
+            }
+        }
 
         // Puts vitals into an appointment 
         private Appointment putAppointmentVitals(Appointment appointmentVitals)
@@ -145,41 +168,81 @@ namespace MedTracker.View
             addVitalsButton.Enabled = false;
         }
 
-        // Checks if vitals are vaild
-        private bool vitalsAreValid()
-        {
-            if (nursesComboBox.SelectedIndex != -1 &&
-                !String.IsNullOrEmpty(systolicTextBox.Text) && isInt32(systolicTextBox) &&
-                !String.IsNullOrEmpty(diastolicTextBox.Text) && isInt32(diastolicTextBox) &&
-                !String.IsNullOrEmpty(temperatureTextBox.Text) && isInt32(temperatureTextBox) &&
-                !String.IsNullOrEmpty(pulseTextBox.Text) && isInt32(temperatureTextBox) &&
-                !String.IsNullOrEmpty(symptomsTextBox.Text) &&
-                !String.IsNullOrEmpty(diagnosisTextBox.Text))
-                return true;
-            else
-            {
-                messageLabel.Text = "Invalid input. Please try again.";
-                return false;
-            }
-        }
-
-        private bool isInt32(TextBox textBox)
-        {
-            try
-            {
-                Convert.ToInt32(textBox.Text);
-                return true;
-            }
-            catch(FormatException ex)
-            {
-                textBox.Focus();
-                return false;
-            }
-        }
-
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////// Tests Private Helpers ////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void fillTestFields()
+        {
+            try
+            {
+                appointmentTests                   = testsController.GetAppointmentTests(appointmentDate, doctorID, patientID);
+                appointmentDataGridView.DataSource = appointmentTests;
+                testDateDateTimePicker.Value       = appointmentDate;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
+            }
+        }
+
+        // Clears test info and sets time to original apt date
+        private void clearTestsButton_Click(object sender, EventArgs e)
+        {
+            testComboBox.SelectedIndex   = -1;
+            testDateDateTimePicker.Value = appointmentDate;
+            resultsTextBox.Text          = "";
+        }
+
+        // Adds new test to order
+        private void orderTestButton_Click(object sender, EventArgs e)
+        {
+            if (testIsValid())
+            {
+                try
+                {
+                    Appointment test = putTest(new Appointment());
+                    if (testsController.AddTest(test))
+                    {
+                        testsMessageLabel.Text = "Test successfully added.";
+                        fillTestFields();
+                    }
+                    else
+                        testsMessageLabel.Text = "Unable to add test to database. Please try again.";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            }
+        }
+
+        // Check of test data is valid
+        private bool testIsValid()
+        {
+            if (testComboBox.SelectedIndex != -1 &&
+                isDateValid(testDateDateTimePicker) &&
+                stringExists(resultsTextBox) &&
+                stringExists(resultsTextBox))
+                return true;
+            else
+            {
+                testsMessageLabel.Text = "Invalid input. Please try again.";
+                return false;
+            }
+        }
+
+        // Puts test info into object 
+        private Appointment putTest(Appointment test)
+        {
+            test.date      = appointmentDate;
+            test.doctorID  = doctorID;
+            test.patientID = patientID;
+            test.testCode  = testComboBox.SelectedValue.ToString();
+            test.testDate  = testDateDateTimePicker.Value;
+            test.results   = resultsTextBox.Text;
+            return test;
+        }
 
 
 
@@ -196,6 +259,12 @@ namespace MedTracker.View
                 nursesComboBox.DataSource = nurses;
                 nursesComboBox.DisplayMember = "fullName";
                 nursesComboBox.ValueMember = "nurseID";
+
+                List<Appointment> tests = testsController.GetTests();
+                testComboBox.DataSource = tests;
+                testComboBox.DisplayMember = "testName";
+                testComboBox.ValueMember = "testCode";
+                testComboBox.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -204,18 +273,57 @@ namespace MedTracker.View
         }
 
         // Fills our patient info into the form
-        private void fillAppointmentDoctorPatientInformation()
+        private void fillForm()
         {
-            appointmentTests = appointmentsController.GetAppointmentTests(appointmentDate, doctorID, patientID);
-            fillVitals();
+            fillVitalFields();
+            fillTestFields();
+            fillComboBoxes();
 
             appointmentDateTextBox.Text = appointmentDate.ToString("ddd MMM d, yyyy");
+            Person patient              = patientsController.GetPatientByID(patientID);
+            patientNameTextBox.Text     = patient.firstName + " " + patient.lastName;
+            Person doctor               = doctorsController.GetDoctorByID(doctorID);
+            doctorNameTextBox.Text      = doctor.firstName + " " + doctor.lastName;
+        }
 
-            Person patient = patientsController.GetPatientByID(patientID);
-            patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            Person doctor = doctorsController.GetDoctorByID(doctorID);
-            doctorNameTextBox.Text = doctor.firstName + " " + doctor.lastName;
+        private bool stringExists(TextBox textBox)
+        {
+            if (!String.IsNullOrEmpty(textBox.Text))
+                return true;
+            else
+            {
+                textBox.Focus();
+                return false;
+            }
+        }
+
+        private bool isInt32(TextBox textBox)
+        {
+            try
+            {
+                Convert.ToInt32(textBox.Text);
+                return true;
+            }
+            catch (FormatException ex)
+            {
+                textBox.Focus();
+                return false;
+            }
+        }
+
+        private bool isDateValid(DateTimePicker date)
+        {
+            if (date.Value >= appointmentDate)
+                return true;
+            else
+            {
+                date.Focus();
+                return false;
+            }
         }
 
 

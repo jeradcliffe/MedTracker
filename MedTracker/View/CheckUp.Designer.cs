@@ -43,17 +43,17 @@
             this.patientNameTextBox = new System.Windows.Forms.TextBox();
             this.doctorNameTextBox = new System.Windows.Forms.TextBox();
             this.vitalsGroupBox = new System.Windows.Forms.GroupBox();
-            this.messageLabel = new System.Windows.Forms.Label();
-            this.systolicTextBox = new System.Windows.Forms.TextBox();
-            this.diastolicTextBox = new System.Windows.Forms.TextBox();
-            this.temperatureTextBox = new System.Windows.Forms.TextBox();
-            this.pulseTextBox = new System.Windows.Forms.TextBox();
-            this.symptomsTextBox = new System.Windows.Forms.TextBox();
-            this.diagnosisTextBox = new System.Windows.Forms.TextBox();
-            this.nursesComboBox = new System.Windows.Forms.ComboBox();
-            this.addVitalsButton = new System.Windows.Forms.Button();
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clearVitalsButton = new System.Windows.Forms.Button();
+            this.addVitalsButton = new System.Windows.Forms.Button();
+            this.nursesComboBox = new System.Windows.Forms.ComboBox();
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.diagnosisTextBox = new System.Windows.Forms.TextBox();
+            this.symptomsTextBox = new System.Windows.Forms.TextBox();
+            this.pulseTextBox = new System.Windows.Forms.TextBox();
+            this.temperatureTextBox = new System.Windows.Forms.TextBox();
+            this.diastolicTextBox = new System.Windows.Forms.TextBox();
+            this.systolicTextBox = new System.Windows.Forms.TextBox();
+            this.messageLabel = new System.Windows.Forms.Label();
             systolicLabel = new System.Windows.Forms.Label();
             diastolicLabel = new System.Windows.Forms.Label();
             temperatureLabel = new System.Windows.Forms.Label();
@@ -64,6 +64,69 @@
             this.vitalsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // systolicLabel
+            // 
+            systolicLabel.AutoSize = true;
+            systolicLabel.Location = new System.Drawing.Point(6, 38);
+            systolicLabel.Name = "systolicLabel";
+            systolicLabel.Size = new System.Drawing.Size(46, 13);
+            systolicLabel.TabIndex = 2;
+            systolicLabel.Text = "Systolic:";
+            // 
+            // diastolicLabel
+            // 
+            diastolicLabel.AutoSize = true;
+            diastolicLabel.Location = new System.Drawing.Point(6, 60);
+            diastolicLabel.Name = "diastolicLabel";
+            diastolicLabel.Size = new System.Drawing.Size(50, 13);
+            diastolicLabel.TabIndex = 4;
+            diastolicLabel.Text = "Diastolic:";
+            // 
+            // temperatureLabel
+            // 
+            temperatureLabel.AutoSize = true;
+            temperatureLabel.Location = new System.Drawing.Point(6, 82);
+            temperatureLabel.Name = "temperatureLabel";
+            temperatureLabel.Size = new System.Drawing.Size(70, 13);
+            temperatureLabel.TabIndex = 6;
+            temperatureLabel.Text = "Temperature:";
+            // 
+            // pulseLabel
+            // 
+            pulseLabel.AutoSize = true;
+            pulseLabel.Location = new System.Drawing.Point(6, 104);
+            pulseLabel.Name = "pulseLabel";
+            pulseLabel.Size = new System.Drawing.Size(36, 13);
+            pulseLabel.TabIndex = 8;
+            pulseLabel.Text = "Pulse:";
+            // 
+            // symptomsLabel
+            // 
+            symptomsLabel.AutoSize = true;
+            symptomsLabel.Location = new System.Drawing.Point(6, 126);
+            symptomsLabel.Name = "symptomsLabel";
+            symptomsLabel.Size = new System.Drawing.Size(58, 13);
+            symptomsLabel.TabIndex = 10;
+            symptomsLabel.Text = "Symptoms:";
+            // 
+            // diagnosisLabel
+            // 
+            diagnosisLabel.AutoSize = true;
+            diagnosisLabel.Location = new System.Drawing.Point(6, 148);
+            diagnosisLabel.Name = "diagnosisLabel";
+            diagnosisLabel.Size = new System.Drawing.Size(56, 13);
+            diagnosisLabel.TabIndex = 12;
+            diagnosisLabel.Text = "Diagnosis:";
+            // 
+            // nurseFullNameLabel
+            // 
+            nurseFullNameLabel.AutoSize = true;
+            nurseFullNameLabel.Location = new System.Drawing.Point(6, 16);
+            nurseFullNameLabel.Name = "nurseFullNameLabel";
+            nurseFullNameLabel.Size = new System.Drawing.Size(86, 13);
+            nurseFullNameLabel.TabIndex = 13;
+            nurseFullNameLabel.Text = "Attending Nurse:";
             // 
             // patientNameLabel
             // 
@@ -141,124 +204,25 @@
             this.vitalsGroupBox.TabStop = false;
             this.vitalsGroupBox.Text = "Vitals";
             // 
-            // messageLabel
+            // clearVitalsButton
             // 
-            this.messageLabel.AutoSize = true;
-            this.messageLabel.Location = new System.Drawing.Point(12, 72);
-            this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(0, 13);
-            this.messageLabel.TabIndex = 7;
+            this.clearVitalsButton.Location = new System.Drawing.Point(179, 171);
+            this.clearVitalsButton.Name = "clearVitalsButton";
+            this.clearVitalsButton.Size = new System.Drawing.Size(75, 23);
+            this.clearVitalsButton.TabIndex = 16;
+            this.clearVitalsButton.Text = "Clear";
+            this.clearVitalsButton.UseVisualStyleBackColor = true;
+            this.clearVitalsButton.Click += new System.EventHandler(this.clearVitalsButton_Click);
             // 
-            // systolicLabel
+            // addVitalsButton
             // 
-            systolicLabel.AutoSize = true;
-            systolicLabel.Location = new System.Drawing.Point(6, 38);
-            systolicLabel.Name = "systolicLabel";
-            systolicLabel.Size = new System.Drawing.Size(46, 13);
-            systolicLabel.TabIndex = 2;
-            systolicLabel.Text = "Systolic:";
-            // 
-            // systolicTextBox
-            // 
-            this.systolicTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "systolic", true));
-            this.systolicTextBox.Location = new System.Drawing.Point(98, 35);
-            this.systolicTextBox.Name = "systolicTextBox";
-            this.systolicTextBox.Size = new System.Drawing.Size(237, 20);
-            this.systolicTextBox.TabIndex = 3;
-            // 
-            // diastolicLabel
-            // 
-            diastolicLabel.AutoSize = true;
-            diastolicLabel.Location = new System.Drawing.Point(6, 60);
-            diastolicLabel.Name = "diastolicLabel";
-            diastolicLabel.Size = new System.Drawing.Size(50, 13);
-            diastolicLabel.TabIndex = 4;
-            diastolicLabel.Text = "Diastolic:";
-            // 
-            // diastolicTextBox
-            // 
-            this.diastolicTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "diastolic", true));
-            this.diastolicTextBox.Location = new System.Drawing.Point(98, 57);
-            this.diastolicTextBox.Name = "diastolicTextBox";
-            this.diastolicTextBox.Size = new System.Drawing.Size(237, 20);
-            this.diastolicTextBox.TabIndex = 5;
-            // 
-            // temperatureLabel
-            // 
-            temperatureLabel.AutoSize = true;
-            temperatureLabel.Location = new System.Drawing.Point(6, 82);
-            temperatureLabel.Name = "temperatureLabel";
-            temperatureLabel.Size = new System.Drawing.Size(70, 13);
-            temperatureLabel.TabIndex = 6;
-            temperatureLabel.Text = "Temperature:";
-            // 
-            // temperatureTextBox
-            // 
-            this.temperatureTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "temperature", true));
-            this.temperatureTextBox.Location = new System.Drawing.Point(98, 79);
-            this.temperatureTextBox.Name = "temperatureTextBox";
-            this.temperatureTextBox.Size = new System.Drawing.Size(237, 20);
-            this.temperatureTextBox.TabIndex = 7;
-            // 
-            // pulseLabel
-            // 
-            pulseLabel.AutoSize = true;
-            pulseLabel.Location = new System.Drawing.Point(6, 104);
-            pulseLabel.Name = "pulseLabel";
-            pulseLabel.Size = new System.Drawing.Size(36, 13);
-            pulseLabel.TabIndex = 8;
-            pulseLabel.Text = "Pulse:";
-            // 
-            // pulseTextBox
-            // 
-            this.pulseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "pulse", true));
-            this.pulseTextBox.Location = new System.Drawing.Point(98, 101);
-            this.pulseTextBox.Name = "pulseTextBox";
-            this.pulseTextBox.Size = new System.Drawing.Size(237, 20);
-            this.pulseTextBox.TabIndex = 9;
-            // 
-            // symptomsLabel
-            // 
-            symptomsLabel.AutoSize = true;
-            symptomsLabel.Location = new System.Drawing.Point(6, 126);
-            symptomsLabel.Name = "symptomsLabel";
-            symptomsLabel.Size = new System.Drawing.Size(58, 13);
-            symptomsLabel.TabIndex = 10;
-            symptomsLabel.Text = "Symptoms:";
-            // 
-            // symptomsTextBox
-            // 
-            this.symptomsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "symptoms", true));
-            this.symptomsTextBox.Location = new System.Drawing.Point(98, 123);
-            this.symptomsTextBox.Name = "symptomsTextBox";
-            this.symptomsTextBox.Size = new System.Drawing.Size(237, 20);
-            this.symptomsTextBox.TabIndex = 11;
-            // 
-            // diagnosisLabel
-            // 
-            diagnosisLabel.AutoSize = true;
-            diagnosisLabel.Location = new System.Drawing.Point(6, 148);
-            diagnosisLabel.Name = "diagnosisLabel";
-            diagnosisLabel.Size = new System.Drawing.Size(56, 13);
-            diagnosisLabel.TabIndex = 12;
-            diagnosisLabel.Text = "Diagnosis:";
-            // 
-            // diagnosisTextBox
-            // 
-            this.diagnosisTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "diagnosis", true));
-            this.diagnosisTextBox.Location = new System.Drawing.Point(98, 145);
-            this.diagnosisTextBox.Name = "diagnosisTextBox";
-            this.diagnosisTextBox.Size = new System.Drawing.Size(237, 20);
-            this.diagnosisTextBox.TabIndex = 13;
-            // 
-            // nurseFullNameLabel
-            // 
-            nurseFullNameLabel.AutoSize = true;
-            nurseFullNameLabel.Location = new System.Drawing.Point(6, 16);
-            nurseFullNameLabel.Name = "nurseFullNameLabel";
-            nurseFullNameLabel.Size = new System.Drawing.Size(86, 13);
-            nurseFullNameLabel.TabIndex = 13;
-            nurseFullNameLabel.Text = "Attending Nurse:";
+            this.addVitalsButton.Location = new System.Drawing.Point(260, 171);
+            this.addVitalsButton.Name = "addVitalsButton";
+            this.addVitalsButton.Size = new System.Drawing.Size(75, 23);
+            this.addVitalsButton.TabIndex = 15;
+            this.addVitalsButton.Text = "Add Vitals";
+            this.addVitalsButton.UseVisualStyleBackColor = true;
+            this.addVitalsButton.Click += new System.EventHandler(this.addVitalsButton_Click);
             // 
             // nursesComboBox
             // 
@@ -270,28 +234,66 @@
             this.nursesComboBox.Size = new System.Drawing.Size(237, 21);
             this.nursesComboBox.TabIndex = 14;
             // 
-            // addVitalsButton
-            // 
-            this.addVitalsButton.Location = new System.Drawing.Point(260, 171);
-            this.addVitalsButton.Name = "addVitalsButton";
-            this.addVitalsButton.Size = new System.Drawing.Size(75, 23);
-            this.addVitalsButton.TabIndex = 15;
-            this.addVitalsButton.Text = "Add Vitals";
-            this.addVitalsButton.UseVisualStyleBackColor = true;
-            // 
             // appointmentBindingSource
             // 
             this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
             // 
-            // clearVitalsButton
+            // diagnosisTextBox
             // 
-            this.clearVitalsButton.Location = new System.Drawing.Point(179, 171);
-            this.clearVitalsButton.Name = "clearVitalsButton";
-            this.clearVitalsButton.Size = new System.Drawing.Size(75, 23);
-            this.clearVitalsButton.TabIndex = 16;
-            this.clearVitalsButton.Text = "Clear";
-            this.clearVitalsButton.UseVisualStyleBackColor = true;
-            this.clearVitalsButton.Click += new System.EventHandler(this.clearVitalsButton_Click);
+            this.diagnosisTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "diagnosis", true));
+            this.diagnosisTextBox.Location = new System.Drawing.Point(98, 145);
+            this.diagnosisTextBox.Name = "diagnosisTextBox";
+            this.diagnosisTextBox.Size = new System.Drawing.Size(237, 20);
+            this.diagnosisTextBox.TabIndex = 13;
+            // 
+            // symptomsTextBox
+            // 
+            this.symptomsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "symptoms", true));
+            this.symptomsTextBox.Location = new System.Drawing.Point(98, 123);
+            this.symptomsTextBox.Name = "symptomsTextBox";
+            this.symptomsTextBox.Size = new System.Drawing.Size(237, 20);
+            this.symptomsTextBox.TabIndex = 11;
+            // 
+            // pulseTextBox
+            // 
+            this.pulseTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "pulse", true));
+            this.pulseTextBox.Location = new System.Drawing.Point(98, 101);
+            this.pulseTextBox.Name = "pulseTextBox";
+            this.pulseTextBox.Size = new System.Drawing.Size(237, 20);
+            this.pulseTextBox.TabIndex = 9;
+            // 
+            // temperatureTextBox
+            // 
+            this.temperatureTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "temperature", true));
+            this.temperatureTextBox.Location = new System.Drawing.Point(98, 79);
+            this.temperatureTextBox.Name = "temperatureTextBox";
+            this.temperatureTextBox.Size = new System.Drawing.Size(237, 20);
+            this.temperatureTextBox.TabIndex = 7;
+            // 
+            // diastolicTextBox
+            // 
+            this.diastolicTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "diastolic", true));
+            this.diastolicTextBox.Location = new System.Drawing.Point(98, 57);
+            this.diastolicTextBox.Name = "diastolicTextBox";
+            this.diastolicTextBox.Size = new System.Drawing.Size(237, 20);
+            this.diastolicTextBox.TabIndex = 5;
+            // 
+            // systolicTextBox
+            // 
+            this.systolicTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "systolic", true));
+            this.systolicTextBox.Location = new System.Drawing.Point(98, 35);
+            this.systolicTextBox.Name = "systolicTextBox";
+            this.systolicTextBox.Size = new System.Drawing.Size(237, 20);
+            this.systolicTextBox.TabIndex = 3;
+            // 
+            // messageLabel
+            // 
+            this.messageLabel.AutoSize = true;
+            this.messageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.messageLabel.Location = new System.Drawing.Point(12, 72);
+            this.messageLabel.Name = "messageLabel";
+            this.messageLabel.Size = new System.Drawing.Size(0, 13);
+            this.messageLabel.TabIndex = 7;
             // 
             // CheckUpForm
             // 

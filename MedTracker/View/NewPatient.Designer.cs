@@ -46,11 +46,15 @@
             this.dobDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.stateLabel = new System.Windows.Forms.Label();
             this.stateTextBox = new System.Windows.Forms.TextBox();
+            this.ssnTextBox = new System.Windows.Forms.TextBox();
+            this.ssnLabel = new System.Windows.Forms.Label();
+            this.genderTextBox = new System.Windows.Forms.TextBox();
+            this.genderLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // createPatientButton
             // 
-            this.createPatientButton.Location = new System.Drawing.Point(64, 272);
+            this.createPatientButton.Location = new System.Drawing.Point(102, 335);
             this.createPatientButton.Name = "createPatientButton";
             this.createPatientButton.Size = new System.Drawing.Size(82, 29);
             this.createPatientButton.TabIndex = 17;
@@ -60,7 +64,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(310, 272);
+            this.cancelButton.Location = new System.Drawing.Point(348, 335);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 29);
             this.cancelButton.TabIndex = 18;
@@ -71,7 +75,7 @@
             // firstNameLabel
             // 
             this.firstNameLabel.AutoSize = true;
-            this.firstNameLabel.Location = new System.Drawing.Point(65, 31);
+            this.firstNameLabel.Location = new System.Drawing.Point(104, 32);
             this.firstNameLabel.Name = "firstNameLabel";
             this.firstNameLabel.Size = new System.Drawing.Size(80, 17);
             this.firstNameLabel.TabIndex = 2;
@@ -80,7 +84,7 @@
             // lastNameLabel
             // 
             this.lastNameLabel.AutoSize = true;
-            this.lastNameLabel.Location = new System.Drawing.Point(66, 60);
+            this.lastNameLabel.Location = new System.Drawing.Point(105, 61);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(80, 17);
             this.lastNameLabel.TabIndex = 3;
@@ -89,7 +93,7 @@
             // dobLabel
             // 
             this.dobLabel.AutoSize = true;
-            this.dobLabel.Location = new System.Drawing.Point(55, 88);
+            this.dobLabel.Location = new System.Drawing.Point(95, 119);
             this.dobLabel.Name = "dobLabel";
             this.dobLabel.Size = new System.Drawing.Size(91, 17);
             this.dobLabel.TabIndex = 4;
@@ -98,7 +102,7 @@
             // streetAddressLabel
             // 
             this.streetAddressLabel.AutoSize = true;
-            this.streetAddressLabel.Location = new System.Drawing.Point(40, 116);
+            this.streetAddressLabel.Location = new System.Drawing.Point(80, 147);
             this.streetAddressLabel.Name = "streetAddressLabel";
             this.streetAddressLabel.Size = new System.Drawing.Size(106, 17);
             this.streetAddressLabel.TabIndex = 5;
@@ -107,7 +111,7 @@
             // cityLabel
             // 
             this.cityLabel.AutoSize = true;
-            this.cityLabel.Location = new System.Drawing.Point(110, 144);
+            this.cityLabel.Location = new System.Drawing.Point(150, 175);
             this.cityLabel.Name = "cityLabel";
             this.cityLabel.Size = new System.Drawing.Size(35, 17);
             this.cityLabel.TabIndex = 6;
@@ -116,7 +120,7 @@
             // zipLabel
             // 
             this.zipLabel.AutoSize = true;
-            this.zipLabel.Location = new System.Drawing.Point(114, 197);
+            this.zipLabel.Location = new System.Drawing.Point(154, 228);
             this.zipLabel.Name = "zipLabel";
             this.zipLabel.Size = new System.Drawing.Size(32, 17);
             this.zipLabel.TabIndex = 7;
@@ -125,7 +129,7 @@
             // phoneNumberLabel
             // 
             this.phoneNumberLabel.AutoSize = true;
-            this.phoneNumberLabel.Location = new System.Drawing.Point(40, 225);
+            this.phoneNumberLabel.Location = new System.Drawing.Point(80, 256);
             this.phoneNumberLabel.Name = "phoneNumberLabel";
             this.phoneNumberLabel.Size = new System.Drawing.Size(107, 17);
             this.phoneNumberLabel.TabIndex = 8;
@@ -133,49 +137,49 @@
             // 
             // firstNameTextBox
             // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(152, 31);
+            this.firstNameTextBox.Location = new System.Drawing.Point(191, 32);
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(241, 22);
             this.firstNameTextBox.TabIndex = 9;
             // 
             // lastNameTextBox
             // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(152, 60);
+            this.lastNameTextBox.Location = new System.Drawing.Point(191, 61);
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(241, 22);
             this.lastNameTextBox.TabIndex = 10;
             // 
             // streetAddressTextBox
             // 
-            this.streetAddressTextBox.Location = new System.Drawing.Point(151, 116);
+            this.streetAddressTextBox.Location = new System.Drawing.Point(191, 147);
             this.streetAddressTextBox.Name = "streetAddressTextBox";
             this.streetAddressTextBox.Size = new System.Drawing.Size(241, 22);
             this.streetAddressTextBox.TabIndex = 12;
             // 
             // cityTextBox
             // 
-            this.cityTextBox.Location = new System.Drawing.Point(151, 144);
+            this.cityTextBox.Location = new System.Drawing.Point(191, 175);
             this.cityTextBox.Name = "cityTextBox";
             this.cityTextBox.Size = new System.Drawing.Size(241, 22);
             this.cityTextBox.TabIndex = 13;
             // 
             // zipTextBox
             // 
-            this.zipTextBox.Location = new System.Drawing.Point(151, 197);
+            this.zipTextBox.Location = new System.Drawing.Point(191, 228);
             this.zipTextBox.Name = "zipTextBox";
             this.zipTextBox.Size = new System.Drawing.Size(241, 22);
             this.zipTextBox.TabIndex = 15;
             // 
             // phoneNumberTextBox
             // 
-            this.phoneNumberTextBox.Location = new System.Drawing.Point(151, 225);
+            this.phoneNumberTextBox.Location = new System.Drawing.Point(191, 256);
             this.phoneNumberTextBox.Name = "phoneNumberTextBox";
             this.phoneNumberTextBox.Size = new System.Drawing.Size(241, 22);
             this.phoneNumberTextBox.TabIndex = 16;
             // 
             // dobDateTimePicker
             // 
-            this.dobDateTimePicker.Location = new System.Drawing.Point(151, 88);
+            this.dobDateTimePicker.Location = new System.Drawing.Point(191, 119);
             this.dobDateTimePicker.Name = "dobDateTimePicker";
             this.dobDateTimePicker.Size = new System.Drawing.Size(241, 22);
             this.dobDateTimePicker.TabIndex = 11;
@@ -184,7 +188,7 @@
             // stateLabel
             // 
             this.stateLabel.AutoSize = true;
-            this.stateLabel.Location = new System.Drawing.Point(100, 171);
+            this.stateLabel.Location = new System.Drawing.Point(140, 202);
             this.stateLabel.Name = "stateLabel";
             this.stateLabel.Size = new System.Drawing.Size(45, 17);
             this.stateLabel.TabIndex = 17;
@@ -192,16 +196,54 @@
             // 
             // stateTextBox
             // 
-            this.stateTextBox.Location = new System.Drawing.Point(151, 171);
+            this.stateTextBox.Location = new System.Drawing.Point(191, 202);
             this.stateTextBox.Name = "stateTextBox";
             this.stateTextBox.Size = new System.Drawing.Size(241, 22);
             this.stateTextBox.TabIndex = 14;
             // 
-            // NewPatient
+            // ssnTextBox
+            // 
+            this.ssnTextBox.Location = new System.Drawing.Point(191, 286);
+            this.ssnTextBox.Name = "ssnTextBox";
+            this.ssnTextBox.Size = new System.Drawing.Size(241, 22);
+            this.ssnTextBox.TabIndex = 20;
+            this.ssnTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ssnTextBox_KeyPress);
+            // 
+            // ssnLabel
+            // 
+            this.ssnLabel.AutoSize = true;
+            this.ssnLabel.Location = new System.Drawing.Point(26, 286);
+            this.ssnLabel.Name = "ssnLabel";
+            this.ssnLabel.Size = new System.Drawing.Size(159, 17);
+            this.ssnLabel.TabIndex = 19;
+            this.ssnLabel.Text = "Social Security Number:";
+            // 
+            // genderTextBox
+            // 
+            this.genderTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTabList;
+            this.genderTextBox.Location = new System.Drawing.Point(191, 89);
+            this.genderTextBox.Name = "genderTextBox";
+            this.genderTextBox.Size = new System.Drawing.Size(241, 22);
+            this.genderTextBox.TabIndex = 22;
+            // 
+            // genderLabel
+            // 
+            this.genderLabel.AutoSize = true;
+            this.genderLabel.Location = new System.Drawing.Point(125, 89);
+            this.genderLabel.Name = "genderLabel";
+            this.genderLabel.Size = new System.Drawing.Size(60, 17);
+            this.genderLabel.TabIndex = 21;
+            this.genderLabel.Text = "Gender:";
+            // 
+            // NewPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 322);
+            this.ClientSize = new System.Drawing.Size(480, 389);
+            this.Controls.Add(this.genderTextBox);
+            this.Controls.Add(this.genderLabel);
+            this.Controls.Add(this.ssnTextBox);
+            this.Controls.Add(this.ssnLabel);
             this.Controls.Add(this.stateTextBox);
             this.Controls.Add(this.stateLabel);
             this.Controls.Add(this.dobDateTimePicker);
@@ -220,7 +262,7 @@
             this.Controls.Add(this.firstNameLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createPatientButton);
-            this.Name = "NewPatient";
+            this.Name = "NewPatientForm";
             this.Text = "New Patient";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -247,5 +289,9 @@
         private System.Windows.Forms.DateTimePicker dobDateTimePicker;
         private System.Windows.Forms.Label stateLabel;
         private System.Windows.Forms.TextBox stateTextBox;
+        private System.Windows.Forms.TextBox ssnTextBox;
+        private System.Windows.Forms.Label ssnLabel;
+        private System.Windows.Forms.TextBox genderTextBox;
+        private System.Windows.Forms.Label genderLabel;
     }
 }

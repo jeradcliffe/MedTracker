@@ -32,7 +32,7 @@
             System.Windows.Forms.Label dateOfBirthLabel;
             System.Windows.Forms.Label lastNameLabel;
             System.Windows.Forms.Label firstNameLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.searchButton = new System.Windows.Forms.Button();
             this.messageLabel = new System.Windows.Forms.Label();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -41,7 +41,6 @@
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.patientDataGridView = new System.Windows.Forms.DataGridView();
-            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +55,8 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.newPatientButton = new System.Windows.Forms.Button();
             dateOfBirthLabel = new System.Windows.Forms.Label();
             lastNameLabel = new System.Windows.Forms.Label();
             firstNameLabel = new System.Windows.Forms.Label();
@@ -97,7 +98,7 @@
             // searchButton
             // 
             this.searchButton.Location = new System.Drawing.Point(1072, 12);
-            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(100, 28);
             this.searchButton.TabIndex = 8;
@@ -120,7 +121,7 @@
             // 
             this.dateOfBirthDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateOfBirthDateTimePicker.Location = new System.Drawing.Point(117, 15);
-            this.dateOfBirthDateTimePicker.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateOfBirthDateTimePicker.Margin = new System.Windows.Forms.Padding(4);
             this.dateOfBirthDateTimePicker.Name = "dateOfBirthDateTimePicker";
             this.dateOfBirthDateTimePicker.Size = new System.Drawing.Size(232, 22);
             this.dateOfBirthDateTimePicker.TabIndex = 2;
@@ -129,7 +130,7 @@
             // lastNameTextBox
             // 
             this.lastNameTextBox.Location = new System.Drawing.Point(792, 15);
-            this.lastNameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lastNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(256, 22);
             this.lastNameTextBox.TabIndex = 6;
@@ -137,7 +138,7 @@
             // firstNameTextBox
             // 
             this.firstNameTextBox.Location = new System.Drawing.Point(443, 15);
-            this.firstNameTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.firstNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(256, 22);
             this.firstNameTextBox.TabIndex = 4;
@@ -145,7 +146,7 @@
             // clearButton
             // 
             this.clearButton.Location = new System.Drawing.Point(1180, 12);
-            this.clearButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(100, 28);
             this.clearButton.TabIndex = 10;
@@ -176,16 +177,12 @@
             this.dataGridViewTextBoxColumn13});
             this.patientDataGridView.DataSource = this.personBindingSource;
             this.patientDataGridView.Location = new System.Drawing.Point(16, 75);
-            this.patientDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.patientDataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.patientDataGridView.Name = "patientDataGridView";
             this.patientDataGridView.ReadOnly = true;
             this.patientDataGridView.Size = new System.Drawing.Size(1391, 452);
             this.patientDataGridView.TabIndex = 10;
             this.patientDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientDataGridView_CellContentClick);
-            // 
-            // personBindingSource
-            // 
-            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -212,9 +209,9 @@
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.DataPropertyName = "dateOfBirth";
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn4.HeaderText = "Date Of Birth";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -298,11 +295,27 @@
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Visible = false;
             // 
+            // personBindingSource
+            // 
+            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
+            // 
+            // newPatientButton
+            // 
+            this.newPatientButton.Location = new System.Drawing.Point(1288, 12);
+            this.newPatientButton.Margin = new System.Windows.Forms.Padding(4);
+            this.newPatientButton.Name = "newPatientButton";
+            this.newPatientButton.Size = new System.Drawing.Size(100, 28);
+            this.newPatientButton.TabIndex = 11;
+            this.newPatientButton.Text = "New Patient";
+            this.newPatientButton.UseVisualStyleBackColor = true;
+            this.newPatientButton.Click += new System.EventHandler(this.newPatientButton_Click);
+            // 
             // PatientSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1423, 542);
+            this.Controls.Add(this.newPatientButton);
             this.Controls.Add(this.patientDataGridView);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.messageLabel);
@@ -313,7 +326,7 @@
             this.Controls.Add(this.firstNameTextBox);
             this.Controls.Add(dateOfBirthLabel);
             this.Controls.Add(this.dateOfBirthDateTimePicker);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PatientSearch";
             this.Text = "Patient Search";
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
@@ -349,5 +362,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.Button newPatientButton;
     }
 }

@@ -5,11 +5,61 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MedTracker.DBA
 {
     class PatientsDAL
     {
+        public static int CreatePatient(Person newPatient)
+        {
+            int exitStatus = 0;
+            
+            //first adding to person table
+            int personCreationStatus = PersonDAL.createPerson(newPatient);
+
+            //if person creation is successful, proceed to create patient
+            if (personCreationStatus == 0)
+            {
+                int newPatientsPeopleID = PersonDAL.getPeopleID(newPatient.firstName, newPatient.lastName, newPatient.dateOfBirth);
+
+                SqlConnection connection = DBConnection.GetConnection();
+
+                string insertStatement =
+                    "INSERT patients (peopleID) VALUES (@peopleID)";
+
+                SqlCommand insertCommand = new SqlCommand(insertStatement, connection);
+
+                insertCommand.Parameters.AddWithValue("@peopleID", newPatientsPeopleID);
+
+                try
+                {
+                    connection.Open();
+                    insertCommand.ExecuteNonQuery();
+                    exitStatus = 0;
+                }
+                catch (SqlException ex)
+                {
+                    exitStatus = 1;
+                    StringBuilder errorDetails = new StringBuilder();
+                    for (int i = 0; i < ex.Errors.Count; i++)
+                    {
+                        errorDetails.Append("Index #" + i + "\n" +
+                            "Message: " + ex.Errors[i].Message + "\n" +
+                            "Error Number: " + ex.Errors[i].Number + "\n" +
+                            "Procedure: " + ex.Errors[i].Procedure + "\n");
+                    }
+                    MessageBox.Show(errorDetails.ToString(), "SQL Exception");
+                }
+            }
+            else
+            {
+                exitStatus = 1;
+            }
+
+            return exitStatus;
+        }
+
         /// <summary>
         /// Used to search for patients in the database according to the DOB, first name, and last name.
         /// </summary>

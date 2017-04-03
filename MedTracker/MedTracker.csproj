@@ -93,6 +93,12 @@
     <Compile Include="View\MainDashboard.Designer.cs">
       <DependentUpon>MainDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\NewPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\NewPatient.Designer.cs">
+      <DependentUpon>NewPatient.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\PatientSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainDashboard.resx">
       <DependentUpon>MainDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\NewPatient.resx">
+      <DependentUpon>NewPatient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\PatientSearch.resx">
       <DependentUpon>PatientSearch.cs</DependentUpon>

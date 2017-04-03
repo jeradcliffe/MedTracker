@@ -160,5 +160,10 @@ namespace MedTracker.View
             return false;
         }
 
+        private void newPatientButton_Click(object sender, EventArgs e)
+        {
+            NewPatient newPatientForm = new NewPatient();
+            newPatientForm.Show();
+        }
     }
 }

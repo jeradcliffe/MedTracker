@@ -73,7 +73,7 @@ namespace MedTracker.View
                     currentAppointment = new Appointment();
                     putAppointmentData(currentAppointment);
 
-                    if (appointmentsController.AddApointment(currentAppointment))
+                    if (appointmentsController.AddAppointment(currentAppointment))
                     {
                         messageLabel.Text = "Appointment successfully added.";
                         appointmentList.Add(currentAppointment);

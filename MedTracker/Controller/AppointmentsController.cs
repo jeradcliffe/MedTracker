@@ -25,9 +25,5 @@ namespace MedTracker.Controller
             return AppointmentsDAL.UpdateAppointment(oldAppointment, newAppointment);
         }
 
-        public List<Appointment> GetAppointmentTests(DateTime appointmentDate, int doctorID, int patientID)
-        {
-            return AppointmentsDAL.GetAppointmentTests(appointmentDate, doctorID, patientID);
-        }
     }
 }

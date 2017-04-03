@@ -172,57 +172,5 @@ namespace MedTracker.DBA
             }
         }
     
-        public static List<Appointment> GetAppointmentTests(DateTime appointmentDate, int doctorID, int patientID)
-        {
-            List<Appointment> testList = new List<Appointment>();
-            string selectStatement =
-                  @"SELECT aht.*
-                    FROM appointment_has_tests aht
-                    WHERE aht.appointment_patientID = @patientID
-	                  AND aht.appointment_doctorID  = @doctorID
-	                  AND aht.appointment_date      = @appointmentDate; ";
-            SqlDataReader reader = null;
-            SqlConnection connection = null;
-            try
-            {
-                using (connection = DBConnection.GetConnection())
-                {
-                    connection.Open();
-                    using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
-                    {
-                        selectCommand.Parameters.AddWithValue("@patientID", patientID);
-                        selectCommand.Parameters.AddWithValue("@doctorID", doctorID);
-                        selectCommand.Parameters.AddWithValue("@appointmentDate", appointmentDate);
-                        using (reader = selectCommand.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                Appointment test = new Appointment();
-                                test.testCode = reader["tests_testCode"].ToString();
-                                test.testCode = reader["testDate"].ToString();
-                                test.testCode = reader["results"].ToString();
-                                testList.Add(test);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (connection != null)
-                    connection.Close();
-                if (reader != null)
-                    reader.Close();
-            }
-            return testList;
-        }
     }
 }

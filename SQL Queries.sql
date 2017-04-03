@@ -91,7 +91,11 @@ WHERE aht.appointment_patientID = 6
 
 -- GetVitalsForAppointment
 SELECT * FROM vitals;
-SELECT v.*, ppl.firstName, ppl.lastName
+SELECT d.nurseID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Nurse'
+FROM nurses d
+	JOIN people p ON d.peopleID = p.peopleID;
+
+SELECT v.*, CONCAT(ppl.firstName, ' ', ppl.lastName) AS 'Nurse'
 FROM vitals v
 	JOIN nurses n ON v.nurses_nurseID = n.nurseID
 	JOIN people ppl ON n.peopleID = ppl.peopleID
@@ -99,8 +103,17 @@ WHERE v.appointment_patientID = 6
 	AND v.appointment_doctorID = 4 
 	AND v.appointment_date = '2015-02-10 09:00:00.000';
 
+
 -------- Doctors DAL -------- 
 -- GetDoctorList
 SELECT d.doctorID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
 FROM doctors d
 	JOIN people p ON d.peopleID = p.peopleID;
+
+-- GetNurseList
+SELECT n.nurseID, n.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'fullName'
+FROM nurses n
+	JOIN people p ON n.peopleID = p.peopleID
+
+-- GetTestList
+SELECT * FROM tests;

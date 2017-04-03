@@ -15,7 +15,7 @@ namespace MedTracker.Controller
             return AppointmentsDAL.GetAppointmentsByPatient(patientID);
         }
 
-        public Boolean AddApointment (Appointment appointment)
+        public Boolean AddAppointment (Appointment appointment)
         {
             return AppointmentsDAL.AddAppointment(appointment);
         }

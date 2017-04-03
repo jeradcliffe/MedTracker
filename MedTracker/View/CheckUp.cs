@@ -18,6 +18,7 @@ namespace MedTracker.View
         private PatientsController patientsController;
         private DoctorsController doctorsController;
         private NursesController nursesController;
+        private VitalsController vitalsController;
         //private Person patient;
         public int patientID;
         //private Person doctor;
@@ -29,11 +30,11 @@ namespace MedTracker.View
         public CheckUpForm()
         {
             InitializeComponent();
+            vitalsController = new VitalsController();
             nursesController = new NursesController();
             doctorsController = new DoctorsController();
             patientsController = new PatientsController();
             appointmentsController = new AppointmentsController();
-            addVitalsButton.Enabled = false;
         }
 
         private void CheckUpForm_Load(object sender, EventArgs e)
@@ -43,18 +44,16 @@ namespace MedTracker.View
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// Vitals Private Helpers ///////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Vitals Actions/Helpers ///////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Fills all of the vitals informationo into the table if exists
         private void fillVitals()
         {
-            appointmentVitals = appointmentsController.GetAppointmentVitals(appointmentDate, doctorID, patientID);
+            appointmentVitals = vitalsController.GetAppointmentVitals(appointmentDate, doctorID, patientID);
 
             if (appointmentVitals != null)
             {
-                // set attending nurse
-                // List<Person> nurses = nursesController.GetNurses();
                 nursesComboBox.SelectedIndex =
                         nursesComboBox.FindString(appointmentVitals.nurseFullName.ToString());
                 systolicTextBox.Text = appointmentVitals.systolic;
@@ -64,15 +63,7 @@ namespace MedTracker.View
                 symptomsTextBox.Text = appointmentVitals.symptoms;
                 diagnosisTextBox.Text = appointmentVitals.diagnosis;
 
-                nursesComboBox.Enabled = false;
-                systolicTextBox.ReadOnly = true;
-                diastolicTextBox.ReadOnly = true;
-                temperatureTextBox.ReadOnly = true;
-                pulseTextBox.ReadOnly = true;
-                symptomsTextBox.ReadOnly = true;
-                diagnosisTextBox.ReadOnly = true;
-
-                clearVitalsButton.Enabled = false;
+                disableVitalsFieldsAndButtons();
             }
             else
             {
@@ -84,6 +75,7 @@ namespace MedTracker.View
                 
         }
 
+
         // Clears our vitals fields if necessary
         private void clearVitalsButton_Click(object sender, EventArgs e)
         {
@@ -94,6 +86,95 @@ namespace MedTracker.View
             pulseTextBox.Text = "";
             symptomsTextBox.Text = "";
             diagnosisTextBox.Text = "";
+        }
+
+        // Adds vitals to our database
+        private void addVitalsButton_Click(object sender, EventArgs e)
+        {
+            if (vitalsAreValid())
+            {
+                try
+                {
+                    Appointment appointmentVitals = new Appointment();
+                    appointmentVitals = putAppointmentVitals(appointmentVitals);
+                    if (vitalsController.AddVitals(appointmentVitals))
+                    {
+                        messageLabel.Text = "Vitals successfully added.";
+                        disableVitalsFieldsAndButtons();
+                    }
+                    else
+                        messageLabel.Text = "Unable to add vitals to database. Please try again.";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            }
+        }
+
+
+
+        // Puts vitals into an appointment 
+        private Appointment putAppointmentVitals(Appointment appointmentVitals)
+        {
+            appointmentVitals.date = appointmentDate;
+            appointmentVitals.doctorID = doctorID;
+            appointmentVitals.patientID = patientID;
+            appointmentVitals.nurseID = (int)nursesComboBox.SelectedValue;
+            appointmentVitals.systolic = systolicTextBox.Text;
+            appointmentVitals.diastolic = diastolicTextBox.Text;
+            appointmentVitals.temperature = temperatureTextBox.Text;
+            appointmentVitals.pulse = pulseTextBox.Text;
+            appointmentVitals.symptoms = symptomsTextBox.Text;
+            appointmentVitals.diagnosis = diagnosisTextBox.Text;
+            return appointmentVitals;
+        }
+
+        // Disables all vitals fields or sets to read only 
+        private void disableVitalsFieldsAndButtons()
+        {
+            nursesComboBox.Enabled = false;
+            systolicTextBox.ReadOnly = true;
+            diastolicTextBox.ReadOnly = true;
+            temperatureTextBox.ReadOnly = true;
+            pulseTextBox.ReadOnly = true;
+            symptomsTextBox.ReadOnly = true;
+            diagnosisTextBox.ReadOnly = true;
+
+            clearVitalsButton.Enabled = false;
+            addVitalsButton.Enabled = false;
+        }
+
+        // Checks if vitals are vaild
+        private bool vitalsAreValid()
+        {
+            if (nursesComboBox.SelectedIndex != -1 &&
+                !String.IsNullOrEmpty(systolicTextBox.Text) && isInt32(systolicTextBox) &&
+                !String.IsNullOrEmpty(diastolicTextBox.Text) && isInt32(diastolicTextBox) &&
+                !String.IsNullOrEmpty(temperatureTextBox.Text) && isInt32(temperatureTextBox) &&
+                !String.IsNullOrEmpty(pulseTextBox.Text) && isInt32(temperatureTextBox) &&
+                !String.IsNullOrEmpty(symptomsTextBox.Text) &&
+                !String.IsNullOrEmpty(diagnosisTextBox.Text))
+                return true;
+            else
+            {
+                messageLabel.Text = "Invalid input. Please try again.";
+                return false;
+            }
+        }
+
+        private bool isInt32(TextBox textBox)
+        {
+            try
+            {
+                Convert.ToInt32(textBox.Text);
+                return true;
+            }
+            catch(FormatException ex)
+            {
+                textBox.Focus();
+                return false;
+            }
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,5 +217,7 @@ namespace MedTracker.View
             Person doctor = doctorsController.GetDoctorByID(doctorID);
             doctorNameTextBox.Text = doctor.firstName + " " + doctor.lastName;
         }
+
+
     }
 }

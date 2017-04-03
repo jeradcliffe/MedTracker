@@ -53,6 +53,8 @@
     <Compile Include="Controller\DoctorsController.cs" />
     <Compile Include="Controller\PatientsController.cs" />
     <Compile Include="Controller\PersonController.cs" />
+    <Compile Include="Controller\TestsController.cs" />
+    <Compile Include="Controller\VitalsController.cs" />
     <Compile Include="DBA\AdministratorsDAL.cs" />
     <Compile Include="DBA\AppointmentsDAL.cs" />
     <Compile Include="DBA\ClinicEmployeesDAL.cs" />
@@ -61,6 +63,8 @@
     <Compile Include="DBA\NursesDAL.cs" />
     <Compile Include="DBA\PatientsDAL.cs" />
     <Compile Include="DBA\PersonDAL.cs" />
+    <Compile Include="DBA\TestsDAL.cs" />
+    <Compile Include="DBA\VitalsDAL.cs" />
     <Compile Include="Model\Doctors.cs" />
     <Compile Include="Model\Administrators.cs" />
     <Compile Include="Model\Appointment.cs" />

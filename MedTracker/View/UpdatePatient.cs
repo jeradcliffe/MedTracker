@@ -47,6 +47,8 @@ namespace MedTracker.View
                 stateTextBox.Text         = patientToBeUpdated.state;
                 zipTextBox.Text           = patientToBeUpdated.zip;
                 phoneNumberTextBox.Text   = patientToBeUpdated.phoneNumber;
+                genderTextBox.Text        = patientToBeUpdated.gender;
+                ssnTextBox.Text           = patientToBeUpdated.ssn;
             }
         }
 
@@ -54,13 +56,19 @@ namespace MedTracker.View
         {
             if (firstNameTextBox.Text == "" ||
                 lastNameTextBox.Text == "" ||
+                genderTextBox.Text == "" ||
                 streetAddressTextBox.Text == "" ||
                 cityTextBox.Text == "" ||
                 stateTextBox.Text == "" ||
                 zipTextBox.Text == "" ||
-                phoneNumberTextBox.Text == "")
+                phoneNumberTextBox.Text == "" ||
+                ssnTextBox.Text == "")
             {
                 MessageBox.Show("ALL fields are required! Do not leave any blank.");
+            }
+            else if (ssnTextBox.Text.Length < 9 || ssnTextBox.Text.Length > 9)
+            {
+                MessageBox.Show("Social Security Number must be exactly 9 digits, using valid numbers only!", "Invalid SSN");
             }
             else
             {
@@ -74,6 +82,8 @@ namespace MedTracker.View
                 updatedPatient.state = stateTextBox.Text;
                 updatedPatient.zip = zipTextBox.Text;
                 updatedPatient.phoneNumber = phoneNumberTextBox.Text;
+                updatedPatient.gender = genderTextBox.Text;
+                updatedPatient.ssn = ssnTextBox.Text;
 
                 int statusOfUpdate = patientsController.UpdatePatient(patientToBeUpdated, updatedPatient);
 
@@ -87,6 +97,15 @@ namespace MedTracker.View
                 {
                     MessageBox.Show("The selected person is not a patient!", "Patient Update Failed");
                 }
+            }
+        }
+
+        private void ssnTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Used to validate for numbers only
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

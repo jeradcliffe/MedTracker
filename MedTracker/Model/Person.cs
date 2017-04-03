@@ -32,6 +32,10 @@ namespace MedTracker.Model
         // Type varchar(12) in the DB
         public string phoneNumber   { get; set; }
 
+        public string ssn { get; set; }
+
+        public string gender { get; set; }
+
         // IDs used by other tables that are linked
         // to the people table
 

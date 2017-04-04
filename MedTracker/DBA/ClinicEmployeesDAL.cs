@@ -14,7 +14,7 @@ namespace MedTracker.DBA
         public static bool checkLoginCredentials(string username, string password)
         {
 
-            string selectStatement = "SELECT COUNT(*) FROM clinicemployees " +
+            string selectStatement = "SELECT COUNT(*) AS 'count' FROM clinicemployees " +
                 "WHERE username = @username AND passwords = @password";
 
             try
@@ -26,11 +26,22 @@ namespace MedTracker.DBA
                     {
                         selectCommand.Parameters.AddWithValue("@username", username);
                         selectCommand.Parameters.AddWithValue("@password", password);
-                        int count = selectCommand.ExecuteReader().FieldCount;
-                        if (count == 1)
-                            return true;
-                        else
-                            return false;
+
+                        using (SqlDataReader reader = selectCommand.ExecuteReader())
+                        {
+                            //int count = selectCommand.ExecuteReader().FieldCount;
+                            int count = 0;
+                            if (reader.Read())
+                            {
+                                count = (int)reader["count"];
+                            }
+
+                            if (count == 1)
+                                return true;
+                            else
+                                return false;
+                        }
+                            
                     }
                 }
             }
@@ -38,7 +49,7 @@ namespace MedTracker.DBA
             {
                 throw ex;
             }
-           catch (Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

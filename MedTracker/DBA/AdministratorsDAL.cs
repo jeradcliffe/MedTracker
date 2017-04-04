@@ -55,13 +55,13 @@ namespace MedTracker.DBA
                         selectCommand.Parameters.AddWithValue("@username", username);
                         using (SqlDataReader reader = selectCommand.ExecuteReader())
                         {
-                            int adminPeopleID = reader.GetOrdinal("peopleID");
-                            int adminAdminID = reader.GetOrdinal("adminID");
+                            //int adminPeopleID = reader.GetOrdinal("peopleID");
+                            //int adminAdminID = reader.GetOrdinal("adminID");
                             int adminUsername = reader.GetOrdinal("userName");
                             if (reader.Read())
                             {
-                                adminstrator.peopleID = (int)reader["adminPeopleID"];
-                                adminstrator.adminID = (int)reader["adminAdminID"];
+                                adminstrator.peopleID = (int)reader["peopleID"];
+                                adminstrator.adminID = (int)reader["adminID"];
                                 adminstrator.userName = reader.GetString(adminUsername);
                             }
                             else

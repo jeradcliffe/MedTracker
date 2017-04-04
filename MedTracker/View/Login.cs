@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedTracker.Controller;
 using MedTracker.Model;
+using MedTracker.View;
 
 namespace MedTracker
 {
@@ -41,10 +42,14 @@ namespace MedTracker
                     bool loginSuccessful = clinicEmployeesController.checkLoginCredentials(username, password);
                     if (loginSuccessful)
                     {
+                        // Clear pass and username fields so form is clear after logout happens
+                        txtBoxUserName.Text = "";
+                        txtBoxPassword.Text = "";
 
-                        View.MainDashboard mainDashboard = new View.MainDashboard();
+                        //Will be adding more features to make a nice main dashboard in Iteration 2
+                        MainDashboard mainDashboard = new MainDashboard();
+                        mainDashboard.loginForm = this;
                         mainDashboard.Show();
-                        
                         Hide();
                     }
                     else

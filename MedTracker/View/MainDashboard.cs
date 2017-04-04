@@ -27,6 +27,7 @@ namespace MedTracker.View
         private Nurses tempNurse;
         private Administrators tempAdmin;
         private Doctors tempDoct;
+        public Login loginForm;
         
         public MainDashboard()
         {
@@ -45,11 +46,6 @@ namespace MedTracker.View
             lblRole.Text = role;
             lblName.Text = currentPerson.lastName.ToString() + ", " + currentPerson.firstName.ToString();
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Application.Restart();
         }
         
         private void assignPerson()
@@ -81,6 +77,25 @@ namespace MedTracker.View
             {
                 role = "Role not assigned. Contact Administrator";
             }
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            currentPerson = null; 
+            loginForm.Show();
+            this.Close();
+        }
+
+        // Kills the hidden login form as well as the main dashboard
+        private void MainDashboard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void searchImage_click(object sender, EventArgs e)
+        {
+            PatientSearch searchForm = new PatientSearch();
+            searchForm.ShowDialog();
         }
     }
 }

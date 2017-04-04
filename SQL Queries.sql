@@ -1,4 +1,9 @@
 USE Clinic;
+
+SELECT * FROM clinicemployees;
+SELECT username from nurses;
+SELECT username from doctors;
+SELECT username from administrators;
 SELECT * FROM patients pt
 	JOIN People ppl ON pt.peopleID = ppl.peopleID;
 SELECT * FROM doctors d
@@ -117,3 +122,7 @@ FROM nurses n
 
 -- GetTestList
 SELECT * FROM tests;
+
+
+SELECT COUNT(*) AS 'count' FROM clinicemployees " +
+"WHERE username = 'jake' AND passwords = 'haha';

@@ -242,7 +242,6 @@ namespace MedTracker.View
                     {
                         row = gridRow;
                         row.DefaultCellStyle.BackColor = SystemColors.Highlight;
-                        row.DefaultCellStyle.ForeColor = SystemColors.HighlightText;
 
                         MessageBox.Show(currentAppointment.doctorFullName, "title");
                     }

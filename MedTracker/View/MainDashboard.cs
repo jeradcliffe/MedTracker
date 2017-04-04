@@ -86,10 +86,12 @@ namespace MedTracker.View
             this.Close();
         }
 
-        // Kills the hidden login form as well as the main dashboard
+        // Redirects to loginForm instead of closing form and keeping loginform open
         private void MainDashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            currentPerson = null;
+            loginForm.Show();
+            this.Dispose();
         }
 
         private void searchImage_click(object sender, EventArgs e)

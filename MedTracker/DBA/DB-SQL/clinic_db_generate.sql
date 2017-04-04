@@ -2,7 +2,7 @@
 /* Check if database already exists and delete it if it does exist*/
 IF EXISTS(SELECT 1 FROM master.dbo.sysdatabases WHERE name = 'CS6232-g3') 
 BEGIN
-DROP DATABASE CS6232-g3
+DROP DATABASE "CS6232-g3"
 END
 GO
 

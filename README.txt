@@ -21,3 +21,5 @@ Role: Nurse
 Username: ejackaven9
 Password: somepasswords
 
+DB scripts are all located in: 
+MedTracker/MedTracker/DB

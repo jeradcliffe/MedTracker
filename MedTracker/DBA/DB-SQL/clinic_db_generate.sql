@@ -47,6 +47,8 @@ CREATE TABLE [dbo].[people]
    [state] varchar(2)  NOT NULL,
    [zip] varchar(5)  NOT NULL,
    [phoneNumber] varchar(12)  NOT NULL,
+   [ssn] varchar(9) NOT NULL,
+   [gender] varchar(20) NOT NULL,
 CONSTRAINT [PK_people_peopleID] PRIMARY KEY CLUSTERED ([peopleID])
 )
 

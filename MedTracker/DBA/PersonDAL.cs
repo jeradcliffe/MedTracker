@@ -18,10 +18,10 @@ namespace MedTracker.DBA
             string insertStatement =
                 "INSERT people " +
                     "(lastName, firstName, dateOfBirth, streetAddress, city, " +
-                    "state, zip, phoneNumber)" +
+                    "state, zip, phoneNumber, gender, ssn)" +
                 "VALUES " +
                     "(@lastName, @firstName, @dateOfBirth, @streetAddress, @city, " +
-                    "@state, @zip, @phoneNumber)";
+                    "@state, @zip, @phoneNumber, @gender, @ssn)";
 
             SqlCommand insertCommand = new SqlCommand(insertStatement, connection);
 
@@ -33,6 +33,8 @@ namespace MedTracker.DBA
             insertCommand.Parameters.AddWithValue("@state", newPerson.state);
             insertCommand.Parameters.AddWithValue("@zip", newPerson.zip);
             insertCommand.Parameters.AddWithValue("@phoneNumber", newPerson.phoneNumber);
+            insertCommand.Parameters.AddWithValue("@gender", newPerson.gender);
+            insertCommand.Parameters.AddWithValue("@ssn", newPerson.ssn);
 
             try
             {
@@ -74,7 +76,9 @@ namespace MedTracker.DBA
                   "city = @updatedCity, " +
                   "state = @updatedState, " +
                   "zip = @updatedZip, " +
-                  "phoneNumber = @updatedPhoneNumber " +
+                  "phoneNumber = @updatedPhoneNumber, " +
+                  "gender = @updatedGender, " +
+                  "ssn = @updatedSSN " +
                 "WHERE peopleID = @peopleID";
 
             updateCommand.Parameters.AddWithValue("@updatedFirstName", updatedPerson.firstName);
@@ -86,6 +90,8 @@ namespace MedTracker.DBA
             updateCommand.Parameters.AddWithValue("@updatedZip", updatedPerson.zip);
             updateCommand.Parameters.AddWithValue("@updatedPhoneNumber", updatedPerson.phoneNumber);
             updateCommand.Parameters.AddWithValue("@peopleID", personWithOldData.peopleID);
+            updateCommand.Parameters.AddWithValue("@updatedGender", updatedPerson.gender);
+            updateCommand.Parameters.AddWithValue("@updatedSSN", updatedPerson.ssn);
 
             try
             {
@@ -205,6 +211,9 @@ namespace MedTracker.DBA
                             int perState = reader.GetOrdinal("state");
                             int perZip = reader.GetOrdinal("zip");
                             int perPhoneNumber = reader.GetOrdinal("phoneNumber");
+                            int perGender = reader.GetOrdinal("gender");
+                            int perSSN = reader.GetOrdinal("ssn");
+
                             if (reader.Read())
                             {
                                 person.peopleID = (int)reader["peopleID"];
@@ -216,6 +225,8 @@ namespace MedTracker.DBA
                                 person.state = reader.GetString(perState);
                                 person.zip = reader.GetString(perZip);
                                 person.phoneNumber = reader.GetString(perPhoneNumber);
+                                person.gender = reader.GetString(perGender);
+                                person.ssn = reader.GetString(perSSN);
                             }
                             else
                             {

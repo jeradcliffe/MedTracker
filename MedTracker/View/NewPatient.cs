@@ -26,14 +26,20 @@ namespace MedTracker.View
         {
             if (firstNameTextBox.Text == "" ||
                 lastNameTextBox.Text == "" ||
+                genderTextBox.Text == "" ||
                 !dateChosen ||
                 streetAddressTextBox.Text == "" ||
                 cityTextBox.Text == "" ||
                 stateTextBox.Text == "" ||
                 zipTextBox.Text == "" ||
-                phoneNumberTextBox.Text == "")
+                phoneNumberTextBox.Text == "" ||
+                ssnTextBox.Text == "")
             {
                 MessageBox.Show("ALL fields are required! Do not leave any blank.");
+            }
+            else if (ssnTextBox.Text.Length < 9 || ssnTextBox.Text.Length > 9)
+            {
+                MessageBox.Show("Social Security Number must be exactly 9 digits, using valid numbers only!", "Invalid SSN");
             }
             else
             {
@@ -63,6 +69,15 @@ namespace MedTracker.View
         {
             dobDateTimePicker.CustomFormat = "MMMM dd, yyyy";
             dateChosen = true;
+        }
+
+        private void ssnTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Used to validate for numbers only
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

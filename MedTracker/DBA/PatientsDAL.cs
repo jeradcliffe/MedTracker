@@ -169,6 +169,8 @@ namespace MedTracker.DBA
                                 patient.state = reader["state"].ToString();
                                 patient.zip = reader["zip"].ToString();
                                 patient.phoneNumber = reader["phoneNumber"].ToString();
+                                patient.ssn = reader["ssn"].ToString();
+                                patient.gender = reader["gender"].ToString();
                                 patientList.Add(patient);
                             }
                         }

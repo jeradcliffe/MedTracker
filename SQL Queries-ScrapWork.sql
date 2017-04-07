@@ -1,4 +1,4 @@
-USE Clinic;
+USE  "CS6232-g3";
 
 SELECT * FROM clinicemployees;
 SELECT username from nurses;
@@ -94,6 +94,7 @@ WHERE aht.appointment_patientID = 6
 	AND aht.appointment_doctorID = 4 
 	AND aht.appointment_date = '2015-02-10 09:00:00.000';
 
+-------- Vitals DAL -------- 
 -- GetVitalsForAppointment
 SELECT * FROM vitals;
 SELECT d.nurseID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Nurse'
@@ -108,8 +109,7 @@ WHERE v.appointment_patientID = 6
 	AND v.appointment_doctorID = 4 
 	AND v.appointment_date = '2015-02-10 09:00:00.000';
 
-
--------- Doctors DAL -------- 
+-------- ComboBoxPulling -------- 
 -- GetDoctorList
 SELECT d.doctorID, d.peopleID, CONCAT(p.firstName, ' ', p.lastName) AS 'Doctor'
 FROM doctors d
@@ -124,5 +124,7 @@ FROM nurses n
 SELECT * FROM tests;
 
 
+-------- Login Testing -------- 
+-- Test the login
 SELECT COUNT(*) AS 'count' FROM clinicemployees " +
 "WHERE username = 'jake' AND passwords = 'haha';

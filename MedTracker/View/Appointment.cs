@@ -192,6 +192,7 @@ namespace MedTracker.View
             dateChosen = false;
             doctorsComboBox.SelectedValue = -1;
             reasonTextBox.Text = "";
+            messageLabel.Text = "Please enter your search criteria.";
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,10 +221,7 @@ namespace MedTracker.View
 
                 // Clear any previously highlighted rows
                 if (row != null)
-                {
                     row.DefaultCellStyle.BackColor = SystemColors.Window;
-                }
-
 
                 foreach (DataGridViewRow gridRow in appointmentDataGridView.Rows)
                 {
@@ -242,12 +240,8 @@ namespace MedTracker.View
                     {
                         row = gridRow;
                         row.DefaultCellStyle.BackColor = SystemColors.Highlight;
-
-                        MessageBox.Show(currentAppointment.doctorFullName, "title");
                     }
                 }
-
-
             }
             catch(Exception ex)
             {
@@ -286,10 +280,15 @@ namespace MedTracker.View
             appointment.date = date + ts;
         }
 
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         // Checks if new appointment has valid data
         private Boolean isValidNewAppointment()
         {
-            if (dateChosen && 
+            if (dateChosen &&
                 isValidDate(appointmentDatePicker, appointmentTimePicker) &&
                 isValidCbox(doctorsComboBox) &&
                 isNotEmptyOrNull(reasonTextBox) &&
@@ -297,10 +296,9 @@ namespace MedTracker.View
                 return true;
             else
             {
-                messageLabel.Text = doctorsComboBox.SelectedIndex.ToString();
-                //messageLabel.Text = "Date, time, doctor, and reason are needed for new appointment.";
+                messageLabel.Text = "Valid date, time, doctor, and reason are needed.";
                 return false;
-            }     
+            }
         }
 
         // Changes the date time to specified format when value has been chosen
@@ -310,12 +308,6 @@ namespace MedTracker.View
             dateChosen = true;
         }
 
-
-
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private bool isNotEmptyOrNull(TextBox textBox)
         {
@@ -360,9 +352,7 @@ namespace MedTracker.View
         private bool isValidCbox(ComboBox cbox) 
         {
             if (cbox.SelectedIndex != -1)
-            {
                 return true;
-            }
             else
             {
                 cbox.Focus();

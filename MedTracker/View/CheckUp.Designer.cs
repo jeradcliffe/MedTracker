@@ -39,7 +39,7 @@
             System.Windows.Forms.Label testCodeLabel;
             System.Windows.Forms.Label testDateLabel;
             System.Windows.Forms.Label resultsLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.patientNameLabel = new System.Windows.Forms.Label();
             this.doctorNameLabel = new System.Windows.Forms.Label();
             this.appointmentDateLabel = new System.Windows.Forms.Label();
@@ -51,7 +51,6 @@
             this.vitalsMessageLabel = new System.Windows.Forms.Label();
             this.addVitalsButton = new System.Windows.Forms.Button();
             this.nursesComboBox = new System.Windows.Forms.ComboBox();
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.diagnosisTextBox = new System.Windows.Forms.TextBox();
             this.symptomsTextBox = new System.Windows.Forms.TextBox();
             this.pulseTextBox = new System.Windows.Forms.TextBox();
@@ -66,6 +65,8 @@
             this.testDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.testComboBox = new System.Windows.Forms.ComboBox();
             this.testsDataGridView = new System.Windows.Forms.DataGridView();
+            this.updateVitalsButton = new System.Windows.Forms.Button();
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,9 +94,9 @@
             testDateLabel = new System.Windows.Forms.Label();
             resultsLabel = new System.Windows.Forms.Label();
             this.vitalsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.testsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // systolicLabel
@@ -241,6 +242,7 @@
             // 
             // vitalsGroupBox
             // 
+            this.vitalsGroupBox.Controls.Add(this.updateVitalsButton);
             this.vitalsGroupBox.Controls.Add(this.clearVitalsButton);
             this.vitalsGroupBox.Controls.Add(this.vitalsMessageLabel);
             this.vitalsGroupBox.Controls.Add(this.addVitalsButton);
@@ -260,7 +262,7 @@
             this.vitalsGroupBox.Controls.Add(this.systolicTextBox);
             this.vitalsGroupBox.Location = new System.Drawing.Point(12, 88);
             this.vitalsGroupBox.Name = "vitalsGroupBox";
-            this.vitalsGroupBox.Size = new System.Drawing.Size(404, 206);
+            this.vitalsGroupBox.Size = new System.Drawing.Size(404, 227);
             this.vitalsGroupBox.TabIndex = 6;
             this.vitalsGroupBox.TabStop = false;
             this.vitalsGroupBox.Text = "Vitals";
@@ -279,10 +281,11 @@
             // 
             this.vitalsMessageLabel.AutoSize = true;
             this.vitalsMessageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.vitalsMessageLabel.Location = new System.Drawing.Point(11, 176);
+            this.vitalsMessageLabel.Location = new System.Drawing.Point(6, 199);
             this.vitalsMessageLabel.Name = "vitalsMessageLabel";
             this.vitalsMessageLabel.Size = new System.Drawing.Size(0, 13);
             this.vitalsMessageLabel.TabIndex = 7;
+            this.vitalsMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // addVitalsButton
             // 
@@ -303,10 +306,6 @@
             this.nursesComboBox.Name = "nursesComboBox";
             this.nursesComboBox.Size = new System.Drawing.Size(293, 21);
             this.nursesComboBox.TabIndex = 14;
-            // 
-            // appointmentBindingSource
-            // 
-            this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
             // 
             // diagnosisTextBox
             // 
@@ -368,9 +367,9 @@
             this.testsGroupBox.Controls.Add(testCodeLabel);
             this.testsGroupBox.Controls.Add(this.testComboBox);
             this.testsGroupBox.Controls.Add(this.testsDataGridView);
-            this.testsGroupBox.Location = new System.Drawing.Point(13, 301);
+            this.testsGroupBox.Location = new System.Drawing.Point(12, 321);
             this.testsGroupBox.Name = "testsGroupBox";
-            this.testsGroupBox.Size = new System.Drawing.Size(410, 357);
+            this.testsGroupBox.Size = new System.Drawing.Size(404, 391);
             this.testsGroupBox.TabIndex = 8;
             this.testsGroupBox.TabStop = false;
             this.testsGroupBox.Text = "Tests";
@@ -379,10 +378,11 @@
             // 
             this.testsMessageLabel.AutoSize = true;
             this.testsMessageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.testsMessageLabel.Location = new System.Drawing.Point(10, 96);
+            this.testsMessageLabel.Location = new System.Drawing.Point(10, 117);
             this.testsMessageLabel.Name = "testsMessageLabel";
             this.testsMessageLabel.Size = new System.Drawing.Size(0, 13);
             this.testsMessageLabel.TabIndex = 9;
+            this.testsMessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // clearTestsButton
             // 
@@ -454,11 +454,25 @@
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewTextBoxColumn16});
             this.testsDataGridView.DataSource = this.appointmentBindingSource;
-            this.testsDataGridView.Location = new System.Drawing.Point(6, 120);
+            this.testsDataGridView.Location = new System.Drawing.Point(11, 143);
             this.testsDataGridView.Name = "testsDataGridView";
             this.testsDataGridView.ReadOnly = true;
-            this.testsDataGridView.Size = new System.Drawing.Size(384, 231);
+            this.testsDataGridView.Size = new System.Drawing.Size(384, 242);
             this.testsDataGridView.TabIndex = 0;
+            // 
+            // updateVitalsButton
+            // 
+            this.updateVitalsButton.Location = new System.Drawing.Point(154, 171);
+            this.updateVitalsButton.Name = "updateVitalsButton";
+            this.updateVitalsButton.Size = new System.Drawing.Size(75, 23);
+            this.updateVitalsButton.TabIndex = 17;
+            this.updateVitalsButton.Text = "Update";
+            this.updateVitalsButton.UseVisualStyleBackColor = true;
+            this.updateVitalsButton.Click += new System.EventHandler(this.updateVitalsButton_Click);
+            // 
+            // appointmentBindingSource
+            // 
+            this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -502,9 +516,9 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "testDate";
-            dataGridViewCellStyle1.Format = "D";
-            dataGridViewCellStyle1.NullValue = null;
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "D";
+            dataGridViewCellStyle2.NullValue = null;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn6.HeaderText = "Test Date";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
@@ -594,7 +608,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 658);
+            this.ClientSize = new System.Drawing.Size(428, 723);
             this.Controls.Add(this.testsGroupBox);
             this.Controls.Add(this.vitalsGroupBox);
             this.Controls.Add(this.doctorNameTextBox);
@@ -608,10 +622,10 @@
             this.Load += new System.EventHandler(this.CheckUpForm_Load);
             this.vitalsGroupBox.ResumeLayout(false);
             this.vitalsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.testsGroupBox.ResumeLayout(false);
             this.testsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -661,5 +675,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.Button updateVitalsButton;
     }
 }

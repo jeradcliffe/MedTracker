@@ -160,10 +160,10 @@
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
             this.appointmentDataGridView.DataSource = this.appointmentBindingSource;
-            this.appointmentDataGridView.Location = new System.Drawing.Point(12, 137);
+            this.appointmentDataGridView.Location = new System.Drawing.Point(12, 113);
             this.appointmentDataGridView.Name = "appointmentDataGridView";
             this.appointmentDataGridView.ReadOnly = true;
-            this.appointmentDataGridView.Size = new System.Drawing.Size(810, 269);
+            this.appointmentDataGridView.Size = new System.Drawing.Size(810, 293);
             this.appointmentDataGridView.TabIndex = 12;
             this.appointmentDataGridView.TabStop = false;
             this.appointmentDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.appointmentDataGridView_CellClick);
@@ -243,7 +243,7 @@
             // 
             this.messageLabel.AutoSize = true;
             this.messageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.messageLabel.Location = new System.Drawing.Point(12, 121);
+            this.messageLabel.Location = new System.Drawing.Point(12, 94);
             this.messageLabel.Name = "messageLabel";
             this.messageLabel.Size = new System.Drawing.Size(0, 13);
             this.messageLabel.TabIndex = 13;

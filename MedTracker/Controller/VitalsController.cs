@@ -19,5 +19,10 @@ namespace MedTracker.Controller
         {
             return VitalsDAL.AddVitals(appointmentVitals);
         }
+
+        public bool UpdateVitalsDiagnosis(Appointment appointmentVitals, string text)
+        {
+            return VitalsDAL.UpdateVitalsDiagnosis(appointmentVitals, text);
+        }
     }
 }

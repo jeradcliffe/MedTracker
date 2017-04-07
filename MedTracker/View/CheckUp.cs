@@ -59,12 +59,12 @@ namespace MedTracker.View
                 {
                     nursesComboBox.SelectedIndex =
                             nursesComboBox.FindString(appointmentVitals.nurseFullName.ToString());
-                    systolicTextBox.Text = appointmentVitals.systolic;
-                    diastolicTextBox.Text = appointmentVitals.diastolic;
+                    systolicTextBox.Text    = appointmentVitals.systolic;
+                    diastolicTextBox.Text   = appointmentVitals.diastolic;
                     temperatureTextBox.Text = appointmentVitals.temperature;
-                    pulseTextBox.Text = appointmentVitals.pulse;
-                    symptomsTextBox.Text = appointmentVitals.symptoms;
-                    diagnosisTextBox.Text = appointmentVitals.diagnosis;
+                    pulseTextBox.Text       = appointmentVitals.pulse;
+                    symptomsTextBox.Text    = appointmentVitals.symptoms;
+                    diagnosisTextBox.Text   = appointmentVitals.diagnosis;
 
                     disableVitalsFieldsAndButtons();
                 }
@@ -74,6 +74,7 @@ namespace MedTracker.View
 
                     addVitalsButton.Enabled = true;
                     clearVitalsButton.Enabled = true;
+                    updateVitalsButton.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -88,12 +89,12 @@ namespace MedTracker.View
         private void clearVitalsButton_Click(object sender, EventArgs e)
         {
             nursesComboBox.SelectedIndex = -1;
-            systolicTextBox.Text = "";
-            diastolicTextBox.Text = "";
-            temperatureTextBox.Text = "";
-            pulseTextBox.Text = "";
-            symptomsTextBox.Text = "";
-            diagnosisTextBox.Text = "";
+            systolicTextBox.Text         = "";
+            diastolicTextBox.Text        = "";
+            temperatureTextBox.Text      = "";
+            pulseTextBox.Text            = "";
+            symptomsTextBox.Text         = "";
+            diagnosisTextBox.Text        = "";
         }
 
         // Adds vitals to our database
@@ -103,14 +104,40 @@ namespace MedTracker.View
             {
                 try
                 {
-                    Appointment appointmentVitals = putAppointmentVitals(new Appointment());
-                    if (vitalsController.AddVitals(appointmentVitals))
+                    Appointment vitals = putAppointmentVitals();
+                    if (vitalsController.AddVitals(vitals))
                     {
                         vitalsMessageLabel.Text = "Vitals successfully added.";
                         disableVitalsFieldsAndButtons();
                     }
                     else
+                    {
                         vitalsMessageLabel.Text = "Unable to add vitals to database. Please try again.";
+                        fillVitalFields();
+                    }
+                        
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            }
+        }
+
+        // Updates the diagnosis for our vitals
+        private void updateVitalsButton_Click(object sender, EventArgs e)
+        {
+            if (vitalsAreValid())
+            {
+                try
+                {
+                    if (vitalsController.UpdateVitalsDiagnosis(appointmentVitals, diagnosisTextBox.Text))
+                        vitalsMessageLabel.Text = "Vitals successfully added.";
+                    else
+                    {
+                        vitalsMessageLabel.Text = "Unable to update diagnosis in database. Please try again.";
+                        fillVitalFields();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -123,12 +150,12 @@ namespace MedTracker.View
         private bool vitalsAreValid()
         {
             if (nursesComboBox.SelectedIndex != -1 &&
-                stringExists(systolicTextBox) && isInt32(systolicTextBox) &&
-                stringExists(diastolicTextBox) && isInt32(diastolicTextBox) &&
-                stringExists(temperatureTextBox) && isInt32(temperatureTextBox) &&
-                stringExists(pulseTextBox) && isInt32(temperatureTextBox) &&
-                stringExists(symptomsTextBox) &&
-                stringExists(diagnosisTextBox))
+                isNotNullorEmpty(systolicTextBox) && isInt32(systolicTextBox) &&
+                isNotNullorEmpty(diastolicTextBox) && isInt32(diastolicTextBox) &&
+                isNotNullorEmpty(temperatureTextBox) && isInt32(temperatureTextBox) &&
+                isNotNullorEmpty(pulseTextBox) && isInt32(temperatureTextBox) &&
+                isNotNullorEmpty(symptomsTextBox) && !isInt32(symptomsTextBox) &&
+                isNotNullorEmpty(diagnosisTextBox) && !isInt32(diagnosisTextBox))
                 return true;
             else
             {
@@ -138,19 +165,20 @@ namespace MedTracker.View
         }
 
         // Puts vitals into an appointment 
-        private Appointment putAppointmentVitals(Appointment appointmentVitals)
+        private Appointment putAppointmentVitals()
         {
-            appointmentVitals.date = appointmentDate;
-            appointmentVitals.doctorID = doctorID;
-            appointmentVitals.patientID = patientID;
-            appointmentVitals.nurseID = (int)nursesComboBox.SelectedValue;
-            appointmentVitals.systolic = systolicTextBox.Text;
-            appointmentVitals.diastolic = diastolicTextBox.Text;
-            appointmentVitals.temperature = temperatureTextBox.Text;
-            appointmentVitals.pulse = pulseTextBox.Text;
-            appointmentVitals.symptoms = symptomsTextBox.Text;
-            appointmentVitals.diagnosis = diagnosisTextBox.Text;
-            return appointmentVitals;
+            Appointment vitals = new Appointment();
+            vitals.date = appointmentDate;
+            vitals.doctorID = doctorID;
+            vitals.patientID = patientID;
+            vitals.nurseID = (int)nursesComboBox.SelectedValue;
+            vitals.systolic = systolicTextBox.Text;
+            vitals.diastolic = diastolicTextBox.Text;
+            vitals.temperature = temperatureTextBox.Text;
+            vitals.pulse = pulseTextBox.Text;
+            vitals.symptoms = symptomsTextBox.Text;
+            vitals.diagnosis = diagnosisTextBox.Text;
+            return vitals;
         }
 
         // Disables all vitals fields or sets to read only 
@@ -162,10 +190,11 @@ namespace MedTracker.View
             temperatureTextBox.ReadOnly = true;
             pulseTextBox.ReadOnly = true;
             symptomsTextBox.ReadOnly = true;
-            diagnosisTextBox.ReadOnly = true;
+            diagnosisTextBox.ReadOnly = false;
 
             clearVitalsButton.Enabled = false;
             addVitalsButton.Enabled = false;
+            updateVitalsButton.Enabled = true;
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,9 +250,9 @@ namespace MedTracker.View
         private bool testIsValid()
         {
             if (testComboBox.SelectedIndex != -1 &&
-                isDateValid(testDateDateTimePicker) &&
-                stringExists(resultsTextBox) &&
-                stringExists(resultsTextBox))
+                isValidDate(testDateDateTimePicker) &&
+                isNotNullorEmpty(resultsTextBox) &&
+                isNotNullorEmpty(resultsTextBox))
                 return true;
             else
             {
@@ -290,7 +319,7 @@ namespace MedTracker.View
         /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private bool stringExists(TextBox textBox)
+        private bool isNotNullorEmpty(TextBox textBox)
         {
             if (!String.IsNullOrEmpty(textBox.Text))
                 return true;
@@ -315,7 +344,7 @@ namespace MedTracker.View
             }
         }
 
-        private bool isDateValid(DateTimePicker date)
+        private bool isValidDate(DateTimePicker date)
         {
             if (date.Value >= appointmentDate)
                 return true;
@@ -325,7 +354,5 @@ namespace MedTracker.View
                 return false;
             }
         }
-
-
     }
 }

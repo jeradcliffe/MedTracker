@@ -72,7 +72,7 @@ namespace MedTracker.DBA
         /// <summary>
         /// Used to retrieve add an appointment to the DB
         /// </summary>
-        public static Boolean AddAppointment(Appointment appointment)
+        public static bool AddAppointment(Appointment appointment)
         {
             string insertStatement =
                     @"INSERT INTO appointment

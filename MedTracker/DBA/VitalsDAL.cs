@@ -41,12 +41,16 @@ namespace MedTracker.DBA
                         {
                             if (reader.Read())
                             {
-                                vitals.systolic = reader["systolic"].ToString();
-                                vitals.diastolic = reader["diastolic"].ToString();
-                                vitals.temperature = reader["temperature"].ToString();
-                                vitals.pulse = reader["pulse"].ToString();
-                                vitals.symptoms = reader["symptoms"].ToString();
-                                vitals.diagnosis = reader["diagnosis"].ToString();
+                                vitals.date          = (DateTime)reader["appointment_date"];
+                                vitals.doctorID      = (int)reader["appointment_doctorID"];
+                                vitals.patientID     = (int)reader["appointment_patientID"];
+                                vitals.nurseID       = (int)reader["nurses_nurseID"];
+                                vitals.systolic      = reader["systolic"].ToString();
+                                vitals.diastolic     = reader["diastolic"].ToString();
+                                vitals.temperature   = reader["temperature"].ToString();
+                                vitals.pulse         = reader["pulse"].ToString();
+                                vitals.symptoms      = reader["symptoms"].ToString();
+                                vitals.diagnosis     = reader["diagnosis"].ToString();
                                 vitals.nurseFullName = reader["Nurse"].ToString();
 
                             }
@@ -77,7 +81,7 @@ namespace MedTracker.DBA
             return vitals;
         }
 
-        internal static bool AddVitals(Appointment appointmentVitals)
+        public static bool AddVitals(Appointment appointmentVitals)
         {
             string insertStatement =
                     @"INSERT INTO vitals
@@ -103,6 +107,72 @@ namespace MedTracker.DBA
 
                         int count = insertCommand.ExecuteNonQuery();
                         if (count == 1)
+                            return true;
+                        else
+                            return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Used to update diagnosis in the Vitals table in our DB
+        /// </summary>
+        /// <param name="oldAppointment">Original vitals information.</param>
+        /// <param name="newAppointment">New diagnosis.</param>
+        /// <returns></returns>
+        public static bool UpdateVitalsDiagnosis(Appointment oldVitals, string newDiagnosis)
+        {
+            string updateStatement =
+                @"UPDATE vitals SET
+	                diagnosis = @newDiagnosis
+                  WHERE appointment_date        = @oldApptDate
+                    AND appointment_doctorID    = @oldApptDoctorID
+                    AND appointment_patientID   = @oldApptPatientID
+                    AND nurses_nurseID          = @oldApptNurseID
+                    AND systolic                = @oldSystolic
+                    AND diastolic               = @oldDiastolic
+                    AND temperature             = @oldTemperature
+                    AND pulse                   = @oldPulse
+                    AND symptoms                = @oldSymptoms
+                    AND diagnosis               = @oldDiagnosis; ";
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+
+                    using (SqlCommand updateCommand = new SqlCommand(updateStatement, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@oldApptDate", oldVitals.date);
+                        updateCommand.Parameters.AddWithValue("@oldApptDoctorID", oldVitals.doctorID);
+                        updateCommand.Parameters.AddWithValue("@oldApptPatientID", oldVitals.patientID);
+                        updateCommand.Parameters.AddWithValue("@oldApptNurseID", oldVitals.nurseID);
+                        updateCommand.Parameters.AddWithValue("@oldSystolic", oldVitals.systolic);
+                        updateCommand.Parameters.AddWithValue("@oldDiastolic", oldVitals.diastolic);
+                        updateCommand.Parameters.AddWithValue("@oldTemperature", oldVitals.temperature);
+                        updateCommand.Parameters.AddWithValue("@oldPulse", oldVitals.pulse);
+                        updateCommand.Parameters.AddWithValue("@oldSymptoms", oldVitals.symptoms);
+                        updateCommand.Parameters.AddWithValue("@oldDiagnosis", oldVitals.diagnosis);
+
+                        updateCommand.Parameters.AddWithValue("@newDiagnosis", newDiagnosis);
+
+                        int count = updateCommand.ExecuteNonQuery();
+                        if (count > 0)
                             return true;
                         else
                             return false;

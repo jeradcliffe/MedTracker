@@ -289,13 +289,16 @@ namespace MedTracker.View
         // Checks if new appointment has valid data
         private Boolean isValidNewAppointment()
         {
-            if (dateChosen &&
-                doctorsComboBox.SelectedIndex != -1 &&
-                !String.IsNullOrEmpty(reasonTextBox.Text))
+            if (dateChosen && 
+                isValidDate(appointmentDatePicker, appointmentTimePicker) &&
+                isValidCbox(doctorsComboBox) &&
+                isNotEmptyOrNull(reasonTextBox) &&
+                !isInt32(reasonTextBox))
                 return true;
             else
             {
-                messageLabel.Text = "Date, time, doctor, and reason are needed for new appointment.";
+                messageLabel.Text = doctorsComboBox.SelectedIndex.ToString();
+                //messageLabel.Text = "Date, time, doctor, and reason are needed for new appointment.";
                 return false;
             }     
         }
@@ -314,7 +317,7 @@ namespace MedTracker.View
         /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private bool stringExists(TextBox textBox)
+        private bool isNotEmptyOrNull(TextBox textBox)
         {
             if (!String.IsNullOrEmpty(textBox.Text))
                 return true;
@@ -339,13 +342,30 @@ namespace MedTracker.View
             }
         }
 
-        private bool isDateValid(DateTimePicker date)
+        private bool isValidDate(DateTimePicker date, DateTimePicker time)
         {
-            if (date.Value >= DateTime.Now)
+            DateTime apptDate = date.Value.Date;
+            TimeSpan ts = new TimeSpan(
+                appointmentTimePicker.Value.Hour, appointmentTimePicker.Value.Minute, 0);
+            apptDate = apptDate + ts;
+            if (apptDate >= DateTime.Now)
                 return true;
             else
             {
                 date.Focus();
+                return false;
+            }
+        }
+
+        private bool isValidCbox(ComboBox cbox) 
+        {
+            if (cbox.SelectedIndex != -1)
+            {
+                return true;
+            }
+            else
+            {
+                cbox.Focus();
                 return false;
             }
         }

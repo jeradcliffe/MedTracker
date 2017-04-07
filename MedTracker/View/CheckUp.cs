@@ -177,7 +177,7 @@ namespace MedTracker.View
             try
             {
                 appointmentTests                   = testsController.GetAppointmentTests(appointmentDate, doctorID, patientID);
-                appointmentDataGridView.DataSource = appointmentTests;
+                testsDataGridView.DataSource = appointmentTests;
                 testDateDateTimePicker.Value       = appointmentDate;
             }
             catch (Exception ex)

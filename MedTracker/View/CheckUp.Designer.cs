@@ -48,24 +48,24 @@
             this.doctorNameTextBox = new System.Windows.Forms.TextBox();
             this.vitalsGroupBox = new System.Windows.Forms.GroupBox();
             this.clearVitalsButton = new System.Windows.Forms.Button();
+            this.vitalsMessageLabel = new System.Windows.Forms.Label();
             this.addVitalsButton = new System.Windows.Forms.Button();
             this.nursesComboBox = new System.Windows.Forms.ComboBox();
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.diagnosisTextBox = new System.Windows.Forms.TextBox();
             this.symptomsTextBox = new System.Windows.Forms.TextBox();
             this.pulseTextBox = new System.Windows.Forms.TextBox();
             this.temperatureTextBox = new System.Windows.Forms.TextBox();
             this.diastolicTextBox = new System.Windows.Forms.TextBox();
             this.systolicTextBox = new System.Windows.Forms.TextBox();
-            this.vitalsMessageLabel = new System.Windows.Forms.Label();
             this.testsGroupBox = new System.Windows.Forms.GroupBox();
-            this.appointmentDataGridView = new System.Windows.Forms.DataGridView();
-            this.testComboBox = new System.Windows.Forms.ComboBox();
-            this.testDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.resultsTextBox = new System.Windows.Forms.TextBox();
-            this.orderTestButton = new System.Windows.Forms.Button();
-            this.clearTestsButton = new System.Windows.Forms.Button();
             this.testsMessageLabel = new System.Windows.Forms.Label();
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.clearTestsButton = new System.Windows.Forms.Button();
+            this.orderTestButton = new System.Windows.Forms.Button();
+            this.resultsTextBox = new System.Windows.Forms.TextBox();
+            this.testDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.testComboBox = new System.Windows.Forms.ComboBox();
+            this.testsDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,9 +93,9 @@
             testDateLabel = new System.Windows.Forms.Label();
             resultsLabel = new System.Windows.Forms.Label();
             this.vitalsGroupBox.SuspendLayout();
-            this.testsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
+            this.testsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.testsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // systolicLabel
@@ -160,6 +160,33 @@
             nurseFullNameLabel.Size = new System.Drawing.Size(86, 13);
             nurseFullNameLabel.TabIndex = 13;
             nurseFullNameLabel.Text = "Attending Nurse:";
+            // 
+            // testCodeLabel
+            // 
+            testCodeLabel.AutoSize = true;
+            testCodeLabel.Location = new System.Drawing.Point(10, 22);
+            testCodeLabel.Name = "testCodeLabel";
+            testCodeLabel.Size = new System.Drawing.Size(36, 13);
+            testCodeLabel.TabIndex = 1;
+            testCodeLabel.Text = "Tests:";
+            // 
+            // testDateLabel
+            // 
+            testDateLabel.AutoSize = true;
+            testDateLabel.Location = new System.Drawing.Point(10, 46);
+            testDateLabel.Name = "testDateLabel";
+            testDateLabel.Size = new System.Drawing.Size(57, 13);
+            testDateLabel.TabIndex = 3;
+            testDateLabel.Text = "Test Date:";
+            // 
+            // resultsLabel
+            // 
+            resultsLabel.AutoSize = true;
+            resultsLabel.Location = new System.Drawing.Point(10, 70);
+            resultsLabel.Name = "resultsLabel";
+            resultsLabel.Size = new System.Drawing.Size(45, 13);
+            resultsLabel.TabIndex = 5;
+            resultsLabel.Text = "Results:";
             // 
             // patientNameLabel
             // 
@@ -248,6 +275,15 @@
             this.clearVitalsButton.UseVisualStyleBackColor = true;
             this.clearVitalsButton.Click += new System.EventHandler(this.clearVitalsButton_Click);
             // 
+            // vitalsMessageLabel
+            // 
+            this.vitalsMessageLabel.AutoSize = true;
+            this.vitalsMessageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.vitalsMessageLabel.Location = new System.Drawing.Point(11, 176);
+            this.vitalsMessageLabel.Name = "vitalsMessageLabel";
+            this.vitalsMessageLabel.Size = new System.Drawing.Size(0, 13);
+            this.vitalsMessageLabel.TabIndex = 7;
+            // 
             // addVitalsButton
             // 
             this.addVitalsButton.Location = new System.Drawing.Point(235, 171);
@@ -267,6 +303,10 @@
             this.nursesComboBox.Name = "nursesComboBox";
             this.nursesComboBox.Size = new System.Drawing.Size(293, 21);
             this.nursesComboBox.TabIndex = 14;
+            // 
+            // appointmentBindingSource
+            // 
+            this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
             // 
             // diagnosisTextBox
             // 
@@ -316,15 +356,6 @@
             this.systolicTextBox.Size = new System.Drawing.Size(293, 20);
             this.systolicTextBox.TabIndex = 3;
             // 
-            // vitalsMessageLabel
-            // 
-            this.vitalsMessageLabel.AutoSize = true;
-            this.vitalsMessageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.vitalsMessageLabel.Location = new System.Drawing.Point(11, 176);
-            this.vitalsMessageLabel.Name = "vitalsMessageLabel";
-            this.vitalsMessageLabel.Size = new System.Drawing.Size(0, 13);
-            this.vitalsMessageLabel.TabIndex = 7;
-            // 
             // testsGroupBox
             // 
             this.testsGroupBox.Controls.Add(this.testsMessageLabel);
@@ -336,7 +367,7 @@
             this.testsGroupBox.Controls.Add(this.testDateDateTimePicker);
             this.testsGroupBox.Controls.Add(testCodeLabel);
             this.testsGroupBox.Controls.Add(this.testComboBox);
-            this.testsGroupBox.Controls.Add(this.appointmentDataGridView);
+            this.testsGroupBox.Controls.Add(this.testsDataGridView);
             this.testsGroupBox.Location = new System.Drawing.Point(13, 301);
             this.testsGroupBox.Name = "testsGroupBox";
             this.testsGroupBox.Size = new System.Drawing.Size(410, 357);
@@ -344,13 +375,68 @@
             this.testsGroupBox.TabStop = false;
             this.testsGroupBox.Text = "Tests";
             // 
-            // appointmentDataGridView
+            // testsMessageLabel
             // 
-            this.appointmentDataGridView.AllowUserToAddRows = false;
-            this.appointmentDataGridView.AllowUserToDeleteRows = false;
-            this.appointmentDataGridView.AutoGenerateColumns = false;
-            this.appointmentDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.appointmentDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.testsMessageLabel.AutoSize = true;
+            this.testsMessageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.testsMessageLabel.Location = new System.Drawing.Point(10, 96);
+            this.testsMessageLabel.Name = "testsMessageLabel";
+            this.testsMessageLabel.Size = new System.Drawing.Size(0, 13);
+            this.testsMessageLabel.TabIndex = 9;
+            // 
+            // clearTestsButton
+            // 
+            this.clearTestsButton.Location = new System.Drawing.Point(315, 90);
+            this.clearTestsButton.Name = "clearTestsButton";
+            this.clearTestsButton.Size = new System.Drawing.Size(75, 23);
+            this.clearTestsButton.TabIndex = 8;
+            this.clearTestsButton.Text = "Clear";
+            this.clearTestsButton.UseVisualStyleBackColor = true;
+            this.clearTestsButton.Click += new System.EventHandler(this.clearTestsButton_Click);
+            // 
+            // orderTestButton
+            // 
+            this.orderTestButton.Location = new System.Drawing.Point(234, 91);
+            this.orderTestButton.Name = "orderTestButton";
+            this.orderTestButton.Size = new System.Drawing.Size(75, 23);
+            this.orderTestButton.TabIndex = 7;
+            this.orderTestButton.Text = "Order Test";
+            this.orderTestButton.UseVisualStyleBackColor = true;
+            this.orderTestButton.Click += new System.EventHandler(this.orderTestButton_Click);
+            // 
+            // resultsTextBox
+            // 
+            this.resultsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "results", true));
+            this.resultsTextBox.Location = new System.Drawing.Point(97, 64);
+            this.resultsTextBox.Name = "resultsTextBox";
+            this.resultsTextBox.Size = new System.Drawing.Size(293, 20);
+            this.resultsTextBox.TabIndex = 6;
+            // 
+            // testDateDateTimePicker
+            // 
+            this.testDateDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.appointmentBindingSource, "testDate", true));
+            this.testDateDateTimePicker.Location = new System.Drawing.Point(97, 42);
+            this.testDateDateTimePicker.Name = "testDateDateTimePicker";
+            this.testDateDateTimePicker.Size = new System.Drawing.Size(293, 20);
+            this.testDateDateTimePicker.TabIndex = 4;
+            // 
+            // testComboBox
+            // 
+            this.testComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "testCode", true));
+            this.testComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.testComboBox.FormattingEnabled = true;
+            this.testComboBox.Location = new System.Drawing.Point(97, 19);
+            this.testComboBox.Name = "testComboBox";
+            this.testComboBox.Size = new System.Drawing.Size(293, 21);
+            this.testComboBox.TabIndex = 2;
+            // 
+            // testsDataGridView
+            // 
+            this.testsDataGridView.AllowUserToAddRows = false;
+            this.testsDataGridView.AllowUserToDeleteRows = false;
+            this.testsDataGridView.AutoGenerateColumns = false;
+            this.testsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.testsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
@@ -367,98 +453,12 @@
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewTextBoxColumn16});
-            this.appointmentDataGridView.DataSource = this.appointmentBindingSource;
-            this.appointmentDataGridView.Location = new System.Drawing.Point(6, 120);
-            this.appointmentDataGridView.Name = "appointmentDataGridView";
-            this.appointmentDataGridView.ReadOnly = true;
-            this.appointmentDataGridView.Size = new System.Drawing.Size(384, 231);
-            this.appointmentDataGridView.TabIndex = 0;
-            // 
-            // testCodeLabel
-            // 
-            testCodeLabel.AutoSize = true;
-            testCodeLabel.Location = new System.Drawing.Point(10, 22);
-            testCodeLabel.Name = "testCodeLabel";
-            testCodeLabel.Size = new System.Drawing.Size(36, 13);
-            testCodeLabel.TabIndex = 1;
-            testCodeLabel.Text = "Tests:";
-            // 
-            // testComboBox
-            // 
-            this.testComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "testCode", true));
-            this.testComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.testComboBox.FormattingEnabled = true;
-            this.testComboBox.Location = new System.Drawing.Point(97, 19);
-            this.testComboBox.Name = "testComboBox";
-            this.testComboBox.Size = new System.Drawing.Size(293, 21);
-            this.testComboBox.TabIndex = 2;
-            // 
-            // testDateLabel
-            // 
-            testDateLabel.AutoSize = true;
-            testDateLabel.Location = new System.Drawing.Point(10, 46);
-            testDateLabel.Name = "testDateLabel";
-            testDateLabel.Size = new System.Drawing.Size(57, 13);
-            testDateLabel.TabIndex = 3;
-            testDateLabel.Text = "Test Date:";
-            // 
-            // testDateDateTimePicker
-            // 
-            this.testDateDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.appointmentBindingSource, "testDate", true));
-            this.testDateDateTimePicker.Location = new System.Drawing.Point(97, 42);
-            this.testDateDateTimePicker.Name = "testDateDateTimePicker";
-            this.testDateDateTimePicker.Size = new System.Drawing.Size(293, 20);
-            this.testDateDateTimePicker.TabIndex = 4;
-            // 
-            // resultsLabel
-            // 
-            resultsLabel.AutoSize = true;
-            resultsLabel.Location = new System.Drawing.Point(10, 70);
-            resultsLabel.Name = "resultsLabel";
-            resultsLabel.Size = new System.Drawing.Size(45, 13);
-            resultsLabel.TabIndex = 5;
-            resultsLabel.Text = "Results:";
-            // 
-            // resultsTextBox
-            // 
-            this.resultsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "results", true));
-            this.resultsTextBox.Location = new System.Drawing.Point(97, 64);
-            this.resultsTextBox.Name = "resultsTextBox";
-            this.resultsTextBox.Size = new System.Drawing.Size(293, 20);
-            this.resultsTextBox.TabIndex = 6;
-            // 
-            // orderTestButton
-            // 
-            this.orderTestButton.Location = new System.Drawing.Point(234, 91);
-            this.orderTestButton.Name = "orderTestButton";
-            this.orderTestButton.Size = new System.Drawing.Size(75, 23);
-            this.orderTestButton.TabIndex = 7;
-            this.orderTestButton.Text = "Order Test";
-            this.orderTestButton.UseVisualStyleBackColor = true;
-            this.orderTestButton.Click += new System.EventHandler(this.orderTestButton_Click);
-            // 
-            // clearTestsButton
-            // 
-            this.clearTestsButton.Location = new System.Drawing.Point(315, 90);
-            this.clearTestsButton.Name = "clearTestsButton";
-            this.clearTestsButton.Size = new System.Drawing.Size(75, 23);
-            this.clearTestsButton.TabIndex = 8;
-            this.clearTestsButton.Text = "Clear";
-            this.clearTestsButton.UseVisualStyleBackColor = true;
-            this.clearTestsButton.Click += new System.EventHandler(this.clearTestsButton_Click);
-            // 
-            // testsMessageLabel
-            // 
-            this.testsMessageLabel.AutoSize = true;
-            this.testsMessageLabel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.testsMessageLabel.Location = new System.Drawing.Point(10, 96);
-            this.testsMessageLabel.Name = "testsMessageLabel";
-            this.testsMessageLabel.Size = new System.Drawing.Size(0, 13);
-            this.testsMessageLabel.TabIndex = 9;
-            // 
-            // appointmentBindingSource
-            // 
-            this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
+            this.testsDataGridView.DataSource = this.appointmentBindingSource;
+            this.testsDataGridView.Location = new System.Drawing.Point(6, 120);
+            this.testsDataGridView.Name = "testsDataGridView";
+            this.testsDataGridView.ReadOnly = true;
+            this.testsDataGridView.Size = new System.Drawing.Size(384, 231);
+            this.testsDataGridView.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -608,10 +608,10 @@
             this.Load += new System.EventHandler(this.CheckUpForm_Load);
             this.vitalsGroupBox.ResumeLayout(false);
             this.vitalsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.testsGroupBox.ResumeLayout(false);
             this.testsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -638,7 +638,7 @@
         private System.Windows.Forms.Button addVitalsButton;
         private System.Windows.Forms.Button clearVitalsButton;
         private System.Windows.Forms.GroupBox testsGroupBox;
-        private System.Windows.Forms.DataGridView appointmentDataGridView;
+        private System.Windows.Forms.DataGridView testsDataGridView;
         private System.Windows.Forms.TextBox resultsTextBox;
         private System.Windows.Forms.DateTimePicker testDateDateTimePicker;
         private System.Windows.Forms.ComboBox testComboBox;

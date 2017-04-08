@@ -41,7 +41,7 @@ CREATE TABLE [dbo].[people]
    [peopleID] int IDENTITY(1, 1)  NOT NULL,
    [lastName] varchar(45)  NOT NULL,
    [firstName] varchar(45)  NOT NULL,
-   [dateOfBirth] varchar(45)  NOT NULL,
+   [dateOfBirth] date  NOT NULL,
    [streetAddress] varchar(75)  NOT NULL,
    [city] varchar(65)  NOT NULL,
    [state] varchar(2)  NOT NULL,

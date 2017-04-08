@@ -25,11 +25,11 @@ namespace MedTracker.View
         private void UpdatePatient_Load(object sender, System.EventArgs e)
         {
             bool dateParsedSuccessfully = false;
-            DateTime parsedDateOfBirth = DateTime.Today;
+            DateTime parsedDateOfBirth = patientToBeUpdated.dateOfBirth;
 
             try
             {
-                parsedDateOfBirth = DateTime.Parse(patientToBeUpdated.dateOfBirth);
+                //parsedDateOfBirth = DateTime.Parse(patientToBeUpdated.dateOfBirth);
                 dateParsedSuccessfully = true;
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace MedTracker.View
 
                 updatedPatient.firstName = firstNameTextBox.Text;
                 updatedPatient.lastName = lastNameTextBox.Text;
-                updatedPatient.dateOfBirth = dobDateTimePicker.Value.ToString("yyyy-MM-dd");
+                updatedPatient.dateOfBirth = dobDateTimePicker.Value;
                 updatedPatient.streetAddress = streetAddressTextBox.Text;
                 updatedPatient.city = cityTextBox.Text;
                 updatedPatient.state = stateTextBox.Text;

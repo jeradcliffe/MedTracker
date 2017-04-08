@@ -34,11 +34,18 @@ namespace MedTracker.View
         // Search for a patient
         private void searchButton_Click(object sender, EventArgs e)
         {
-            string dateOfBirth = formatDateOfBirth(dateOfBirthDateTimePicker);
+            string dateOfBirth = "";
+            if (dateChosen)
+                dateOfBirth = dateOfBirthDateTimePicker.Value.Date.ToString();
             string firstName   = firstNameTextBox.Text;
             string lastName    = lastNameTextBox.Text;
 
-            if (searchValid(dateOfBirth, firstName, lastName))
+            MessageBox.Show("DOB--" + dateOfBirth + "--\n"
+                + "firstName--" + firstName + "--\n"
+                + "lastName--" + lastName + "--\n"
+                , "Show values for search");
+
+            if (searchValid(firstName, lastName))
             {
                 try
                 {
@@ -73,12 +80,12 @@ namespace MedTracker.View
         private void clearFields()
         {
             dateOfBirthDateTimePicker.CustomFormat = " ";
-            dateOfBirthDateTimePicker.Format = DateTimePickerFormat.Custom;
-            dateChosen = false;
-            firstNameTextBox.Text = "";
-            lastNameTextBox.Text = "";
-            patientDataGridView.DataSource = null;
-            messageLabel.Text = "Please enter your search criteria.";
+            dateOfBirthDateTimePicker.Format       = DateTimePickerFormat.Custom;
+            dateChosen                             = false;
+            firstNameTextBox.Text                  = "";
+            lastNameTextBox.Text                   = "";
+            patientDataGridView.DataSource         = null;
+            messageLabel.Text                      = "Please enter your search criteria.";
         }
 
         /// <summary>
@@ -115,21 +122,6 @@ namespace MedTracker.View
         /////////////////////// Private Helpers ///////////////////////
         ///////////////////////////////////////////////////////////////
 
-        /// <summary>
-        /// Formats the DOB as a result of whether or not someone has chosen one 
-        /// for their search feature. This has to be done because the date time picker
-        /// auto-chooses the current date as a default. 
-        /// </summary>
-        /// <param name="datePicker"></param>
-        /// <returns></returns>
-        private string formatDateOfBirth(DateTimePicker datePicker)
-        {
-            if (dateChosen)
-                return dateOfBirthDateTimePicker.Value.ToString("yyyy-MM-dd");
-            else
-                return ""; 
-        }
-
         // Changes the date format
         private void dateOfBirthDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
@@ -147,20 +139,25 @@ namespace MedTracker.View
         /// 2-DOB and last name may be searched
         /// 3-First and Last name may be searched
         /// </summary>
-        private Boolean searchValid(string dob, string firstName, string lastName)
+        private Boolean searchValid(string firstName, string lastName)
         {
             // DOB only is ok
-            if (!String.IsNullOrWhiteSpace(dob) && 
+            if (dateChosen == true &&
                 String.IsNullOrWhiteSpace(firstName) &&
                 String.IsNullOrWhiteSpace(lastName))
                 return true;
             // DOB and last name is ok
-            else if (!String.IsNullOrWhiteSpace(dob) &&
+            else if (dateChosen == true &&
                       String.IsNullOrWhiteSpace(firstName) &&
                      !String.IsNullOrWhiteSpace(lastName))
                 return true;
-            // last name and first name only is ok
-            else if (String.IsNullOrWhiteSpace(dob) &&
+            // Last name and first name only is ok
+            else if (dateChosen == false &&
+                     !String.IsNullOrWhiteSpace(firstName) &&
+                     !String.IsNullOrWhiteSpace(lastName))
+                return true;
+            // Having all search criteria is OK
+            else if (dateChosen == true &&
                      !String.IsNullOrWhiteSpace(firstName) &&
                      !String.IsNullOrWhiteSpace(lastName))
                 return true;

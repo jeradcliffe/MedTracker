@@ -39,7 +39,7 @@
             System.Windows.Forms.Label testCodeLabel;
             System.Windows.Forms.Label testDateLabel;
             System.Windows.Forms.Label resultsLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.patientNameLabel = new System.Windows.Forms.Label();
             this.doctorNameLabel = new System.Windows.Forms.Label();
             this.appointmentDateLabel = new System.Windows.Forms.Label();
@@ -471,7 +471,7 @@
             this.testsDataGridView.ReadOnly = true;
             this.testsDataGridView.Size = new System.Drawing.Size(384, 249);
             this.testsDataGridView.TabIndex = 0;
-            this.testsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.testsDataGridView_CellClick);
+            this.testsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.testsDataGridView_CellClick);
             // 
             // updateTestButton
             // 
@@ -528,9 +528,9 @@
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.DataPropertyName = "testDate";
-            dataGridViewCellStyle2.Format = "D";
-            dataGridViewCellStyle2.NullValue = null;
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Format = "D";
+            dataGridViewCellStyle1.NullValue = null;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn6.HeaderText = "Test Date";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;

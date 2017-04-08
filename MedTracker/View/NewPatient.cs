@@ -47,12 +47,14 @@ namespace MedTracker.View
 
                 newPatient.firstName     = firstNameTextBox.Text;
                 newPatient.lastName      = lastNameTextBox.Text;
-                newPatient.dateOfBirth   = dobDateTimePicker.Value.ToString("yyyy-MM-dd");
+                newPatient.dateOfBirth   = dobDateTimePicker.Value.Date;
                 newPatient.streetAddress = streetAddressTextBox.Text;
                 newPatient.city          = cityTextBox.Text;
                 newPatient.state         = stateTextBox.Text;
                 newPatient.zip           = zipTextBox.Text;
                 newPatient.phoneNumber   = phoneNumberTextBox.Text;
+                newPatient.gender        = genderTextBox.Text;
+                newPatient.ssn           = ssnTextBox.Text;
 
                 int statusOfCreate = patientsController.CreatePatient(newPatient);
 

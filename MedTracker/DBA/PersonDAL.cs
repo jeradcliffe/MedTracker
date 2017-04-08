@@ -138,7 +138,7 @@ namespace MedTracker.DBA
             return exitStatus;
         }
 
-        public static int getPeopleID(string firstName, string lastName, string dateOfBirth)
+        public static int getPeopleID(string firstName, string lastName, DateTime dateOfBirth)
         {
             int matchingPeopleID = 0;
 
@@ -219,7 +219,7 @@ namespace MedTracker.DBA
                                 person.peopleID = (int)reader["peopleID"];
                                 person.lastName = reader.GetString(perLastName);
                                 person.firstName = reader.GetString(perFirstName);
-                                person.dateOfBirth = reader.GetString(perDateOfBirth);
+                                person.dateOfBirth = (DateTime)reader["dateOfBirth"];
                                 person.streetAddress = reader.GetString(perStreetAddress);
                                 person.city = reader.GetString(perCity);
                                 person.state = reader.GetString(perState);

@@ -246,9 +246,7 @@ namespace MedTracker.View
         {
             // Clear previously highlighted row
             if (this.currentRow != null)
-            {
                 this.currentRow.DefaultCellStyle.BackColor = SystemColors.Window;
-            }
 
             try
             {

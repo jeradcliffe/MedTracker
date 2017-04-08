@@ -134,13 +134,14 @@ namespace MedTracker.DBA
         {
             List<Person> patientList = new List<Person>();
             string selectStatement =
-                    @"SELECT ppl.*,  pt.patientID
-                      FROM patients pt
-                        JOIN people ppl ON ppl.peopleID = pt.peopleID
-                      WHERE ppl.firstName LIKE @firstName
-                        AND ppl.lastName  LIKE @lastName
-                        AND ppl.dateOfBirth LIKE @dateOfBirth
-                      ORDER BY ppl.lastName, ppl.firstName; ";            
+                    @"SELECT ppl.*, 
+	                       pt.patientID
+                    FROM patients pt 
+	                    JOIN people ppl ON ppl.peopleID = pt.peopleID
+                    WHERE (ppl.firstName LIKE @firstName AND ppl.lastName LIKE @lastName)
+	                    OR (ppl.dateOfBirth = CAST(@dateOfBirth as datetime) AND ppl.lastName LIKE @lastName)
+	                    OR (ppl.dateOfBirth = CAST(@dateOfBirth as datetime))
+                    ORDER BY ppl.lastName, ppl.firstName; ";            
             SqlDataReader reader = null;
             SqlConnection connection = null;
             try
@@ -150,27 +151,36 @@ namespace MedTracker.DBA
                     connection.Open();
                     using (SqlCommand selectCommand = new SqlCommand(selectStatement, connection))
                     {
-                        selectCommand.Parameters.AddWithValue("@dateOfBirth", dateOfBirth + "%");
-                        selectCommand.Parameters.AddWithValue("@firstName", firstName + "%");
-                        selectCommand.Parameters.AddWithValue("@lastName", lastName + "%");
+                        selectCommand.Parameters.AddWithValue("@dateOfBirth", dateOfBirth);
+
+                        if (String.IsNullOrEmpty(firstName))
+                            selectCommand.Parameters.AddWithValue("@firstName", firstName);
+                        else
+                            selectCommand.Parameters.AddWithValue("@firstName", firstName + "%");
+
+                        if (String.IsNullOrEmpty(lastName))
+                            selectCommand.Parameters.AddWithValue("@lastName", lastName);
+                        else
+                            selectCommand.Parameters.AddWithValue("@lastName", lastName + "%");
+
 
                         using (reader = selectCommand.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                Person patient = new Person();
-                                patient.peopleID = (int)reader["peopleID"];
-                                patient.patientID = (int)reader["patientID"];
-                                patient.firstName = reader["firstName"].ToString();
-                                patient.lastName = reader["lastName"].ToString();
-                                patient.dateOfBirth = reader["dateOfBirth"].ToString();
-                                patient.streetAddress = reader["streetAddress"].ToString();
-                                patient.city = reader["city"].ToString();
-                                patient.state = reader["state"].ToString();
-                                patient.zip = reader["zip"].ToString();
-                                patient.phoneNumber = reader["phoneNumber"].ToString();
-                                patient.ssn = reader["ssn"].ToString();
-                                patient.gender = reader["gender"].ToString();
+                                Person patient          = new Person();
+                                patient.peopleID        = (int)reader["peopleID"];
+                                patient.patientID       = (int)reader["patientID"];
+                                patient.firstName       = reader["firstName"].ToString();
+                                patient.lastName        = reader["lastName"].ToString();
+                                patient.dateOfBirth     = (DateTime)reader["dateOfBirth"];
+                                patient.streetAddress   = reader["streetAddress"].ToString();
+                                patient.city            = reader["city"].ToString();
+                                patient.state           = reader["state"].ToString();
+                                patient.zip             = reader["zip"].ToString();
+                                patient.phoneNumber     = reader["phoneNumber"].ToString();
+                                patient.ssn             = reader["ssn"].ToString();
+                                patient.gender          = reader["gender"].ToString();
                                 patientList.Add(patient);
                             }
                         }
@@ -225,7 +235,7 @@ namespace MedTracker.DBA
                                 patient.patientID     = (int)reader["patientID"];
                                 patient.firstName     = reader["firstName"].ToString();
                                 patient.lastName      = reader["lastName"].ToString();
-                                patient.dateOfBirth   = reader["dateOfBirth"].ToString();
+                                patient.dateOfBirth   = (DateTime)reader["dateOfBirth"];
                                 patient.streetAddress = reader["streetAddress"].ToString();
                                 patient.city          = reader["city"].ToString();
                                 patient.state         = reader["state"].ToString();

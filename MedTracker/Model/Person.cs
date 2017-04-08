@@ -19,8 +19,8 @@ namespace MedTracker.Model
         public string firstName     { get; set; }
         // Type varchar(45) in the DB
         public string lastName      { get; set; }
-        // Type varchar(45) in the DB
-        public string dateOfBirth   { get; set; }
+        // Type datetime in the DB
+        public DateTime dateOfBirth { get; set; }
         // Type varchar(75) in the DB
         public string streetAddress { get; set; }
         // Type varchar(65) in the DB

@@ -2,7 +2,7 @@
 /* Check if database already exists and delete it if it does exist*/
 IF EXISTS(SELECT 1 FROM master.dbo.sysdatabases WHERE name = 'CS6232-g3') 
 BEGIN
-DROP DATABASE CS6232-g3
+DROP DATABASE [CS6232-g3]
 END
 GO
 
@@ -41,7 +41,7 @@ CREATE TABLE [dbo].[people]
    [peopleID] int IDENTITY(1, 1)  NOT NULL,
    [lastName] varchar(45)  NOT NULL,
    [firstName] varchar(45)  NOT NULL,
-   [dateOfBirth] varchar(45)  NOT NULL,
+   [dateOfBirth] datetime  NOT NULL,
    [streetAddress] varchar(75)  NOT NULL,
    [city] varchar(65)  NOT NULL,
    [state] varchar(2)  NOT NULL,

@@ -17,15 +17,15 @@ SELECT * FROM appointment_has_tests;
 DECLARE
 @firstName varchar(45) = '%',
 @lastName  varchar(45) = '%',
-@dateOfBirth varchar(45) = '%'
+@dateOfBirth varchar(45) = ''
 
 SELECT ppl.*, 
 	   pt.patientID
 FROM patients pt 
 	JOIN people ppl ON ppl.peopleID = pt.peopleID
-WHERE ppl.firstName LIKE @firstName
-	AND ppl.lastName LIKE @lastName
-	AND ppl.dateOfBirth LIKE @dateOfBirth
+WHERE (ppl.firstName LIKE @firstName AND ppl.lastName LIKE @lastName)
+	OR (ppl.dateOfBirth = CAST(@dateOfBirth as datetime) AND ppl.lastName LIKE @lastName)
+	OR (ppl.dateOfBirth = CAST(@dateOfBirth as datetime))
 ORDER BY ppl.lastName, ppl.firstName;
 
 -- GetPatientByID

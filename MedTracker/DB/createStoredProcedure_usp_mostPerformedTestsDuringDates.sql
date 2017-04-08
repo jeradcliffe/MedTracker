@@ -18,6 +18,10 @@ AS
 		THROW 50001, 'The end date cannot be null', 1;
 	IF @startDate IS NULL
 		THROW 50001, 'The start date cannot be null', 1;
+	IF @startDate = ''
+		THROW 50001, 'The start date is empty', 1;
+	IF @endDate = ''
+		THROW 50001, 'The end date is empty', 1;
 	 
     SELECT main1.tests_testCode AS 'Test Code', main1.testName AS 'Test Name',  
            main1.timesTestPerformed AS 'Times Test Performed', 

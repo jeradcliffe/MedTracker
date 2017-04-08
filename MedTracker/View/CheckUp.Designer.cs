@@ -47,6 +47,7 @@
             this.patientNameTextBox = new System.Windows.Forms.TextBox();
             this.doctorNameTextBox = new System.Windows.Forms.TextBox();
             this.vitalsGroupBox = new System.Windows.Forms.GroupBox();
+            this.updateVitalsButton = new System.Windows.Forms.Button();
             this.clearVitalsButton = new System.Windows.Forms.Button();
             this.vitalsMessageLabel = new System.Windows.Forms.Label();
             this.addVitalsButton = new System.Windows.Forms.Button();
@@ -62,10 +63,10 @@
             this.clearTestsButton = new System.Windows.Forms.Button();
             this.orderTestButton = new System.Windows.Forms.Button();
             this.resultsTextBox = new System.Windows.Forms.TextBox();
-            this.testDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.testComboBox = new System.Windows.Forms.ComboBox();
+            this.testDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.testsComboBox = new System.Windows.Forms.ComboBox();
             this.testsDataGridView = new System.Windows.Forms.DataGridView();
-            this.updateVitalsButton = new System.Windows.Forms.Button();
+            this.updateTestButton = new System.Windows.Forms.Button();
             this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -267,6 +268,16 @@
             this.vitalsGroupBox.TabStop = false;
             this.vitalsGroupBox.Text = "Vitals";
             // 
+            // updateVitalsButton
+            // 
+            this.updateVitalsButton.Location = new System.Drawing.Point(154, 171);
+            this.updateVitalsButton.Name = "updateVitalsButton";
+            this.updateVitalsButton.Size = new System.Drawing.Size(75, 23);
+            this.updateVitalsButton.TabIndex = 17;
+            this.updateVitalsButton.Text = "Update";
+            this.updateVitalsButton.UseVisualStyleBackColor = true;
+            this.updateVitalsButton.Click += new System.EventHandler(this.updateVitalsButton_Click);
+            // 
             // clearVitalsButton
             // 
             this.clearVitalsButton.Location = new System.Drawing.Point(316, 171);
@@ -357,15 +368,16 @@
             // 
             // testsGroupBox
             // 
+            this.testsGroupBox.Controls.Add(this.updateTestButton);
             this.testsGroupBox.Controls.Add(this.testsMessageLabel);
             this.testsGroupBox.Controls.Add(this.clearTestsButton);
             this.testsGroupBox.Controls.Add(this.orderTestButton);
             this.testsGroupBox.Controls.Add(resultsLabel);
             this.testsGroupBox.Controls.Add(this.resultsTextBox);
             this.testsGroupBox.Controls.Add(testDateLabel);
-            this.testsGroupBox.Controls.Add(this.testDateDateTimePicker);
+            this.testsGroupBox.Controls.Add(this.testDateTimePicker);
             this.testsGroupBox.Controls.Add(testCodeLabel);
-            this.testsGroupBox.Controls.Add(this.testComboBox);
+            this.testsGroupBox.Controls.Add(this.testsComboBox);
             this.testsGroupBox.Controls.Add(this.testsDataGridView);
             this.testsGroupBox.Location = new System.Drawing.Point(12, 321);
             this.testsGroupBox.Name = "testsGroupBox";
@@ -412,23 +424,23 @@
             this.resultsTextBox.Size = new System.Drawing.Size(293, 20);
             this.resultsTextBox.TabIndex = 6;
             // 
-            // testDateDateTimePicker
+            // testDateTimePicker
             // 
-            this.testDateDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.appointmentBindingSource, "testDate", true));
-            this.testDateDateTimePicker.Location = new System.Drawing.Point(97, 42);
-            this.testDateDateTimePicker.Name = "testDateDateTimePicker";
-            this.testDateDateTimePicker.Size = new System.Drawing.Size(293, 20);
-            this.testDateDateTimePicker.TabIndex = 4;
+            this.testDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.appointmentBindingSource, "testDate", true));
+            this.testDateTimePicker.Location = new System.Drawing.Point(97, 42);
+            this.testDateTimePicker.Name = "testDateTimePicker";
+            this.testDateTimePicker.Size = new System.Drawing.Size(293, 20);
+            this.testDateTimePicker.TabIndex = 4;
             // 
-            // testComboBox
+            // testsComboBox
             // 
-            this.testComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "testCode", true));
-            this.testComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.testComboBox.FormattingEnabled = true;
-            this.testComboBox.Location = new System.Drawing.Point(97, 19);
-            this.testComboBox.Name = "testComboBox";
-            this.testComboBox.Size = new System.Drawing.Size(293, 21);
-            this.testComboBox.TabIndex = 2;
+            this.testsComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "testCode", true));
+            this.testsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.testsComboBox.FormattingEnabled = true;
+            this.testsComboBox.Location = new System.Drawing.Point(97, 19);
+            this.testsComboBox.Name = "testsComboBox";
+            this.testsComboBox.Size = new System.Drawing.Size(293, 21);
+            this.testsComboBox.TabIndex = 2;
             // 
             // testsDataGridView
             // 
@@ -454,21 +466,21 @@
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewTextBoxColumn16});
             this.testsDataGridView.DataSource = this.appointmentBindingSource;
-            this.testsDataGridView.Location = new System.Drawing.Point(11, 143);
+            this.testsDataGridView.Location = new System.Drawing.Point(11, 136);
             this.testsDataGridView.Name = "testsDataGridView";
             this.testsDataGridView.ReadOnly = true;
-            this.testsDataGridView.Size = new System.Drawing.Size(384, 242);
+            this.testsDataGridView.Size = new System.Drawing.Size(384, 249);
             this.testsDataGridView.TabIndex = 0;
+            this.testsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.testsDataGridView_CellClick);
             // 
-            // updateVitalsButton
+            // updateTestButton
             // 
-            this.updateVitalsButton.Location = new System.Drawing.Point(154, 171);
-            this.updateVitalsButton.Name = "updateVitalsButton";
-            this.updateVitalsButton.Size = new System.Drawing.Size(75, 23);
-            this.updateVitalsButton.TabIndex = 17;
-            this.updateVitalsButton.Text = "Update";
-            this.updateVitalsButton.UseVisualStyleBackColor = true;
-            this.updateVitalsButton.Click += new System.EventHandler(this.updateVitalsButton_Click);
+            this.updateTestButton.Location = new System.Drawing.Point(153, 91);
+            this.updateTestButton.Name = "updateTestButton";
+            this.updateTestButton.Size = new System.Drawing.Size(75, 23);
+            this.updateTestButton.TabIndex = 10;
+            this.updateTestButton.Text = "Update";
+            this.updateTestButton.UseVisualStyleBackColor = true;
             // 
             // appointmentBindingSource
             // 
@@ -654,8 +666,8 @@
         private System.Windows.Forms.GroupBox testsGroupBox;
         private System.Windows.Forms.DataGridView testsDataGridView;
         private System.Windows.Forms.TextBox resultsTextBox;
-        private System.Windows.Forms.DateTimePicker testDateDateTimePicker;
-        private System.Windows.Forms.ComboBox testComboBox;
+        private System.Windows.Forms.DateTimePicker testDateTimePicker;
+        private System.Windows.Forms.ComboBox testsComboBox;
         private System.Windows.Forms.Button clearTestsButton;
         private System.Windows.Forms.Button orderTestButton;
         private System.Windows.Forms.Label testsMessageLabel;
@@ -676,5 +688,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.Button updateVitalsButton;
+        private System.Windows.Forms.Button updateTestButton;
     }
 }

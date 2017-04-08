@@ -23,7 +23,9 @@ namespace MedTracker.View
 
         private List<Appointment> appointmentTests;
         private Appointment appointmentVitals;
+        private Appointment currentTest;
         public DateTime appointmentDate;
+        private DataGridViewRow currentRow;
         private bool vitalsPresent;
         public int patientID;
         public int doctorID;
@@ -189,13 +191,11 @@ namespace MedTracker.View
                     {
                         testsMessageLabel.Text = "Test successfully added.";
                         fillTestFields();
-                    }
-                    else
-                        testsMessageLabel.Text = "Unable to add test to database. Please try again.";
+                    }                       
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    testsMessageLabel.Text = "Unable to order test. Please make sure it isn't a duplicate.";
                 }
             }
         }
@@ -203,10 +203,8 @@ namespace MedTracker.View
         // Check of test data is valid
         private bool testIsValid()
         {
-            if (testComboBox.SelectedIndex != -1 &&
-                isValidDate(testDateDateTimePicker) &&
-                isNotNullorEmpty(resultsTextBox) &&
-                isNotNullorEmpty(resultsTextBox))
+            if (testsComboBox.SelectedIndex != -1 &&
+                isValidDate(testDateTimePicker))
                 return true;
             else
             {
@@ -221,29 +219,72 @@ namespace MedTracker.View
             test.date      = this.appointmentDate;
             test.doctorID  = this.doctorID;
             test.patientID = this.patientID;
-            test.testCode  = testComboBox.SelectedValue.ToString();
-            test.testDate  = testDateDateTimePicker.Value;
+            test.testCode  = testsComboBox.SelectedValue.ToString();
+            test.testDate  = testDateTimePicker.Value;
             test.results   = resultsTextBox.Text;
             return test;
         }
 
         // Disables our testing fields
-        private void enableTestFields(bool shouldEnable)
+        private void toggleTestFieldsAndButtons(bool orderNotUpdate)
         {
-            testComboBox.Enabled            = shouldEnable;
-            testDateDateTimePicker.Enabled  = shouldEnable;
-            orderTestButton.Enabled         = shouldEnable;
-            clearTestsButton.Enabled        = shouldEnable;
+            testsComboBox.Enabled       = orderNotUpdate;
+            testDateTimePicker.Enabled  = orderNotUpdate;
+            orderTestButton.Enabled     = orderNotUpdate;
+            clearTestsButton.Enabled    = orderNotUpdate;
 
-            resultsTextBox.ReadOnly         = !shouldEnable;
+            resultsTextBox.ReadOnly     = !orderNotUpdate;
+            updateTestButton.Enabled        = !orderNotUpdate;
+        }
+
+        /// <summary>
+        /// Highlights the rows we are working with and will input test information
+        /// into the correct fields.
+        /// </summary>
+        private void testsDataGridView_CellClick(
+            object sender, DataGridViewCellEventArgs e)
+        {
+            // Clear previously highlighted row
+            if (this.currentRow != null)
+            {
+                this.currentRow.DefaultCellStyle.BackColor = SystemColors.Window;
+            }
+
+            try
+            {
+                // Highlight row and assign row to variable
+                int i = e.RowIndex;
+                this.currentRow = testsDataGridView.Rows[i];
+                this.currentRow.DefaultCellStyle.BackColor = SystemColors.Highlight;
+                this.currentTest = (Appointment)this.currentRow.DataBoundItem;
+
+                // Place data into test fields
+                testsComboBox.SelectedValue = this.currentTest.testCode;
+                testDateTimePicker.Value    = this.currentTest.testDate;
+                resultsTextBox.Text         = this.currentTest.results;
+
+                // Only allow update of selected tests to avoid duplicate PK entries
+                toggleTestFieldsAndButtons(false);
+                clearTestsButton.Enabled = true;
+                resultsTextBox.ReadOnly  = false;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
+            
         }
 
         // Clears test info and sets time to original apt date
         private void clearTestsButton_Click(object sender, EventArgs e)
         {
-            testComboBox.SelectedIndex   = -1;
-            testDateDateTimePicker.Value = this.appointmentDate;
-            resultsTextBox.Text          = "";
+            testsComboBox.SelectedIndex = -1;
+            testDateTimePicker.Value    = this.appointmentDate;
+            resultsTextBox.Text         = "";
+            testsMessageLabel.Text      = "";
+
+            toggleTestFieldsAndButtons(true);
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -276,12 +317,12 @@ namespace MedTracker.View
                 {
                     nursesComboBox.SelectedIndex =
                             nursesComboBox.FindString(this.appointmentVitals.nurseFullName.ToString());
-                    systolicTextBox.Text = this.appointmentVitals.systolic;
-                    diastolicTextBox.Text = this.appointmentVitals.diastolic;
+                    systolicTextBox.Text    = this.appointmentVitals.systolic;
+                    diastolicTextBox.Text   = this.appointmentVitals.diastolic;
                     temperatureTextBox.Text = this.appointmentVitals.temperature;
-                    pulseTextBox.Text = this.appointmentVitals.pulse;
-                    symptomsTextBox.Text = this.appointmentVitals.symptoms;
-                    diagnosisTextBox.Text = this.appointmentVitals.diagnosis;
+                    pulseTextBox.Text       = this.appointmentVitals.pulse;
+                    symptomsTextBox.Text    = this.appointmentVitals.symptoms;
+                    diagnosisTextBox.Text   = this.appointmentVitals.diagnosis;
 
                     this.vitalsPresent = true;
                     toggleVitalsFieldsAndButtons(true);
@@ -308,16 +349,17 @@ namespace MedTracker.View
                 if (vitalsPresent)
                 {
                     // Fill tests that exist
-                    this.appointmentTests = testsController.GetAppointmentTests(this.appointmentDate, this.doctorID, this.patientID);
+                    this.appointmentTests        = testsController.GetAppointmentTests(this.appointmentDate, this.doctorID, this.patientID);
                     testsDataGridView.DataSource = this.appointmentTests;
-                    testDateDateTimePicker.Value = this.appointmentDate;
+                    testDateTimePicker.Value     = this.appointmentDate;
+                    testsDataGridView.ClearSelection();
 
                     // Enable testing fields
-                    enableTestFields(true);
+                    toggleTestFieldsAndButtons(true);
                 }
                 else
                 {
-                    enableTestFields(false);
+                    toggleTestFieldsAndButtons(false);
                 }
             }
             catch (Exception ex)
@@ -331,16 +373,16 @@ namespace MedTracker.View
         {
             try
             {
-                List<Person> nurses = nursesController.GetNurseList();
-                nursesComboBox.DataSource = nurses;
+                List<Person> nurses          = nursesController.GetNurseList();
+                nursesComboBox.DataSource    = nurses;
                 nursesComboBox.DisplayMember = "fullName";
-                nursesComboBox.ValueMember = "nurseID";
+                nursesComboBox.ValueMember   = "nurseID";
 
-                List<Appointment> tests = testsController.GetTests();
-                testComboBox.DataSource = tests;
-                testComboBox.DisplayMember = "testName";
-                testComboBox.ValueMember = "testCode";
-                testComboBox.SelectedIndex = -1;
+                List<Appointment> tests      = testsController.GetTests();
+                testsComboBox.DataSource     = tests;
+                testsComboBox.DisplayMember  = "testName";
+                testsComboBox.ValueMember    = "testCode";
+                testsComboBox.SelectedIndex  = -1;
             }
             catch (Exception ex)
             {

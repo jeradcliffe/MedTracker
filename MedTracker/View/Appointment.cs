@@ -21,7 +21,6 @@ namespace MedTracker.View
         private Person patient;
         public int patientID;
         private Appointment currentAppointment;
-        private Boolean dateChosen = false;
         private DataGridViewRow row;
 
 
@@ -83,7 +82,7 @@ namespace MedTracker.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    messageLabel.Text = "Unable to update information. Doctor and patient may not have overlapping times. ";
                 }
             }
         }
@@ -111,7 +110,7 @@ namespace MedTracker.View
                 }
                 catch (Exception ex)
                 {
-                    messageLabel.Text = "Unable to update information. Please try again.";
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
                 }
             }
         }
@@ -186,10 +185,8 @@ namespace MedTracker.View
         }
         private void clearFields()
         {
-            appointmentDatePicker.CustomFormat = " ";
-            appointmentDatePicker.Format = DateTimePickerFormat.Custom;
+            appointmentDatePicker.Value = DateTime.Now;
             appointmentTimePicker.Value = new DateTime(2000, 1, 1, 12, 0, 0);
-            dateChosen = false;
             doctorsComboBox.SelectedValue = -1;
             reasonTextBox.Text = "";
             messageLabel.Text = "Please enter your search criteria.";
@@ -288,8 +285,7 @@ namespace MedTracker.View
         // Checks if new appointment has valid data
         private Boolean isValidNewAppointment()
         {
-            if (dateChosen &&
-                isValidDate(appointmentDatePicker, appointmentTimePicker) &&
+            if (isValidDate(appointmentDatePicker, appointmentTimePicker) &&
                 isValidCbox(doctorsComboBox) &&
                 isNotEmptyOrNull(reasonTextBox) &&
                 !isInt32(reasonTextBox))
@@ -300,14 +296,6 @@ namespace MedTracker.View
                 return false;
             }
         }
-
-        // Changes the date time to specified format when value has been chosen
-        private void appointmentDatePicker_ValueChanged(object sender, EventArgs e)
-        {
-            appointmentDatePicker.CustomFormat = ("ddd MMM d, yyyy");
-            dateChosen = true;
-        }
-
 
         private bool isNotEmptyOrNull(TextBox textBox)
         {

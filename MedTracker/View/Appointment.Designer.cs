@@ -292,7 +292,6 @@
             this.appointmentDatePicker.Name = "appointmentDatePicker";
             this.appointmentDatePicker.Size = new System.Drawing.Size(196, 20);
             this.appointmentDatePicker.TabIndex = 17;
-            this.appointmentDatePicker.ValueChanged += new System.EventHandler(this.appointmentDatePicker_ValueChanged);
             // 
             // reasonTextBox
             // 

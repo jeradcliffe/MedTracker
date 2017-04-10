@@ -18,10 +18,12 @@ namespace MedTracker.View
         private PatientsController patientsController;
         private DoctorsController doctorsController;
         private List<Appointment> appointmentList;
-        private Person patient;
-        public int patientID;
         private Appointment currentAppointment;
         private DataGridViewRow row;
+        private Person patient;
+        public int patientID;
+        public int nurseID;
+        
 
 
         public AppointmentForm()
@@ -123,6 +125,7 @@ namespace MedTracker.View
             CheckUpForm checkUpForm = new CheckUpForm();
             checkUpForm.appointmentDate = currentAppointment.date;
             checkUpForm.patientID = this.patientID;
+            checkUpForm.nurseID = this.nurseID;
             checkUpForm.doctorID = currentAppointment.doctorID;
             checkUpForm.ShowDialog();
         }
@@ -188,7 +191,7 @@ namespace MedTracker.View
             appointmentTimePicker.Value = new DateTime(2000, 1, 1, 12, 0, 0);
             doctorsComboBox.SelectedValue = -1;
             reasonTextBox.Text = "";
-            messageLabel.Text = "Please enter your search criteria.";
+            messageLabel.Text = "";
             updateButton.Enabled = false;
             checkupButton.Enabled = false;
         }

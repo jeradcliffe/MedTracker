@@ -96,8 +96,16 @@ namespace MedTracker.View
 
         private void searchImage_click(object sender, EventArgs e)
         {
-            PatientSearch searchForm = new PatientSearch();
-            searchForm.ShowDialog();
+
+            if (isNurse)
+            {
+                PatientSearch searchForm = new PatientSearch();
+                searchForm.nurseID = tempNurse.nurseID;
+                searchForm.ShowDialog();
+            }
+            else
+                MessageBox.Show("Must be a nurse to access patient information and appointments.", "Unauthorized access.");
         }
+
     }
 }

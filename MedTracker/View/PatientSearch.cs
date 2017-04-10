@@ -18,6 +18,7 @@ namespace MedTracker.View
         private List<Person> patientList;
         private PatientsController patientsController;
         private Boolean dateChosen;
+        public int nurseID;
 
         // Initialize the form
         public PatientSearch()
@@ -98,6 +99,7 @@ namespace MedTracker.View
                 Person patientSelected = (Person)row.DataBoundItem;
 
                 AppointmentForm appointmentForm = new AppointmentForm();
+                appointmentForm.nurseID = nurseID;
                 appointmentForm.patientID = patientSelected.patientID;
                 appointmentForm.ShowDialog();
             }

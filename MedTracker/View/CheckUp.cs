@@ -29,6 +29,7 @@ namespace MedTracker.View
         private bool vitalsPresent;
         public int patientID;
         public int doctorID;
+        public int nurseID;
 
 
         public CheckUpForm()
@@ -114,8 +115,7 @@ namespace MedTracker.View
         // Checks if vitals are vaild
         private bool vitalsAreValid()
         {
-            if (nursesComboBox.SelectedIndex != -1 &&
-                isNotNullorEmpty(systolicTextBox) && isInt32(systolicTextBox) &&
+            if (isNotNullorEmpty(systolicTextBox) && isInt32(systolicTextBox) &&
                 isNotNullorEmpty(diastolicTextBox) && isInt32(diastolicTextBox) &&
                 isNotNullorEmpty(temperatureTextBox) && isInt32(temperatureTextBox) &&
                 isNotNullorEmpty(pulseTextBox) && isInt32(temperatureTextBox) &&
@@ -136,7 +136,7 @@ namespace MedTracker.View
             vitals.date         = this.appointmentDate;
             vitals.doctorID     = this.doctorID;
             vitals.patientID    = this.patientID;
-            vitals.nurseID      = (int)nursesComboBox.SelectedValue;
+            vitals.nurseID      = this.nurseID;;
             vitals.systolic     = systolicTextBox.Text;
             vitals.diastolic    = diastolicTextBox.Text;
             vitals.temperature  = temperatureTextBox.Text;
@@ -157,7 +157,6 @@ namespace MedTracker.View
             symptomsTextBox.ReadOnly    = !enable;
             
             // Enable buttons? 
-            nursesComboBox.Enabled      = enable;
             clearVitalsButton.Enabled   = enable;
             addVitalsButton.Enabled     = enable;
 
@@ -167,7 +166,6 @@ namespace MedTracker.View
         // Clears our vitals fields if necessary
         private void clearVitalsButton_Click(object sender, EventArgs e)
         {
-            nursesComboBox.SelectedIndex = -1;
             systolicTextBox.Text         = "";
             diastolicTextBox.Text        = "";
             temperatureTextBox.Text      = "";
@@ -188,7 +186,7 @@ namespace MedTracker.View
             {
                 DialogResult result
                     = MessageBox.Show("Are you sure you would like to order this test? "
-                    + "Once you enter it you may not edit them it the future.",
+                    + "After ordering, you will only be able to update the results in the future.",
                     "Add Test?", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
@@ -200,8 +198,9 @@ namespace MedTracker.View
                         {
                             testsMessageLabel.Text = "Test successfully added.";
                             this.currentTest = test;
-                            clearTestFields();
                             fillTestFields();
+                            clearTestFields();
+
                         }
                     }
                     catch (Exception ex)
@@ -226,14 +225,15 @@ namespace MedTracker.View
 
                     if (testsController.UpdateTestResults(this.currentTest, newResults))
                     {
-                        testsMessageLabel.Text = "Test successfully updated.";
                         this.currentTest.results = newResults;
+                        clearTestFields();
                         fillTestFields();
+                        testsMessageLabel.Text = "Test successfully updated.";
                     }
                     else
                     {
-                        testsMessageLabel.Text = "Unable to update test in database. Please try again.";
                         fillTestFields();
+                        testsMessageLabel.Text = "Unable to update test in database. Please try again.";
                     }
                 }
                 catch (Exception ex)
@@ -241,6 +241,24 @@ namespace MedTracker.View
                     MessageBox.Show(ex.Message, ex.GetType().ToString());
                 }
             }
+        }
+
+        // Clears test info and sets time to original apt date
+        private void clearTestsButton_Click(object sender, EventArgs e)
+        {
+            clearTestFields();
+        }
+
+        private void clearTestFields()
+        {
+            testsComboBox.SelectedIndex = -1;
+            testDateTimePicker.Value = this.appointmentDate;
+            normalRadioBtn.Checked = false;
+            abnormalRadioBtn.Checked = false;
+            testsMessageLabel.Text = "";
+
+            enableTestFields(true);
+            updateTestButton.Enabled = false;
         }
 
         // Check of test data is valid
@@ -322,28 +340,9 @@ namespace MedTracker.View
             {
                 return;
             }
-
-            MessageBox.Show("Appointment date" + appointmentDate + "\n\n" +
-                "Test date" + currentTest.testDate + "\n\n" , "DATES");
         }
 
-        // Clears test info and sets time to original apt date
-        private void clearTestsButton_Click(object sender, EventArgs e)
-        {
-            clearTestFields();
-        }
 
-        private void clearTestFields()
-        {
-            testsComboBox.SelectedIndex = -1;
-            testDateTimePicker.Value = this.appointmentDate;
-            normalRadioBtn.Checked = false;
-            abnormalRadioBtn.Checked = false;
-            testsMessageLabel.Text = "";
-
-            enableTestFields(true);
-            updateTestButton.Enabled = false;
-        }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////// Filler Helpers ///////////////////////////////////////////////////////////////////////////////////////
@@ -351,9 +350,9 @@ namespace MedTracker.View
         // Fills our patient info into the form
         private void fillForm()
         {
+            fillComboBoxes();
             fillVitalFields();
             fillTestFields();
-            fillComboBoxes();
 
             appointmentDateTextBox.Text = this.appointmentDate.ToString("ddd MMM d, yyyy");
 
@@ -373,14 +372,13 @@ namespace MedTracker.View
 
                 if (this.currentVitals != null)
                 {
-                    nursesComboBox.SelectedIndex =
-                            nursesComboBox.FindString(this.currentVitals.nurseFullName.ToString());
                     systolicTextBox.Text    = this.currentVitals.systolic;
                     diastolicTextBox.Text   = this.currentVitals.diastolic;
                     temperatureTextBox.Text = this.currentVitals.temperature;
                     pulseTextBox.Text       = this.currentVitals.pulse;
                     symptomsTextBox.Text    = this.currentVitals.symptoms;
                     diagnosisTextBox.Text   = this.currentVitals.diagnosis;
+                    nursesComboBox.SelectedValue = this.currentVitals.nurseID;
 
                     this.vitalsPresent = true;
                     enableVitalsFields(false);
@@ -388,8 +386,8 @@ namespace MedTracker.View
                 else
                 {
                     this.vitalsPresent = false;
-                    nursesComboBox.SelectedIndex = -1;
                     enableVitalsFields(true);
+                    nursesComboBox.SelectedValue = nurseID;
                 }
             }
             catch (Exception ex)
@@ -407,23 +405,40 @@ namespace MedTracker.View
                 if (vitalsPresent)
                 {
                     // Fill tests that exist
-                    this.appointmentTests        = testsController.GetAppointmentTests(this.appointmentDate, this.doctorID, this.patientID);
+                    this.appointmentTests = testsController.GetAppointmentTests(this.appointmentDate, this.doctorID, this.patientID);
                     testsDataGridView.DataSource = this.appointmentTests;
-                    testDateTimePicker.Value     = this.appointmentDate;
+                    testDateTimePicker.Value = this.appointmentDate;
                     testsDataGridView.ClearSelection();
 
                     // Enable testing fields
                     enableTestFields(true);
                 }
                 else
-                {
                     enableTestFields(false);
+
+                // Clear any previously highlighted rows
+                if (this.currentRow != null)
+                    this.currentRow.DefaultCellStyle.BackColor = SystemColors.Window;
+
+                foreach (DataGridViewRow gridRow in testsDataGridView.Rows)
+                {
+                    string testCode = gridRow.Cells[4].Value.ToString();
+
+                    // Highlight current appointment that we are working with
+                    if (currentTest != null && currentTest.testCode.Equals(testCode))
+                    {
+                        this.currentRow = gridRow;
+                        gridRow.DefaultCellStyle.BackColor = SystemColors.Highlight;
+                    }
+                        
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, ex.GetType().ToString());
             }
+            updateTestButton.Enabled = false;
+
         }
 
         // Fills info into our nurses combobox
@@ -435,6 +450,7 @@ namespace MedTracker.View
                 nursesComboBox.DataSource    = nurses;
                 nursesComboBox.DisplayMember = "fullName";
                 nursesComboBox.ValueMember   = "nurseID";
+                nursesComboBox.Enabled       = false;
 
                 List<Appointment> tests      = testsController.GetTests();
                 testsComboBox.DataSource     = tests;

@@ -36,9 +36,12 @@ namespace MedTracker.DBA
                             while (reader.Read())
                             {
                                 Appointment test = new Appointment();
-                                test.testCode = reader["tests_testCode"].ToString();
-                                test.testDate = (DateTime)reader["testDate"];
-                                test.results  = reader["results"].ToString();
+                                test.date      = (DateTime)reader["appointment_date"];
+                                test.doctorID  = (int)reader["appointment_doctorID"];
+                                test.patientID = (int)reader["appointment_patientID"];
+                                test.testCode  = reader["tests_testCode"].ToString();
+                                test.testDate  = (DateTime)reader["testDate"];
+                                test.results   = reader["results"].ToString();
                                 testList.Add(test);
                             }
                         }
@@ -61,6 +64,58 @@ namespace MedTracker.DBA
                     reader.Close();
             }
             return testList;
+        }
+
+        public static bool UpdateTestResults(Appointment oldTest, string newResults)
+        {
+            string updateStatement =
+                @"UPDATE appointment_has_tests SET
+	                results = @newResults
+                  WHERE appointment_date        = @oldApptDate
+                    AND appointment_doctorID    = @oldApptDoctorID
+                    AND appointment_patientID   = @oldApptPatientID
+                    AND tests_testCode          = @oldTestCode
+                    AND testDate                = @oldTestDate
+                    AND results                 = @oldResults; ";
+            SqlConnection connection = null;
+            try
+            {
+                using (connection = DBConnection.GetConnection())
+                {
+                    connection.Open();
+
+                    using (SqlCommand updateCommand = new SqlCommand(updateStatement, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@oldApptDate", oldTest.date);
+                        updateCommand.Parameters.AddWithValue("@oldApptDoctorID", oldTest.doctorID);
+                        updateCommand.Parameters.AddWithValue("@oldApptPatientID", oldTest.patientID);
+                        updateCommand.Parameters.AddWithValue("@oldTestCode", oldTest.testCode);
+                        updateCommand.Parameters.AddWithValue("@oldTestDate", oldTest.testDate);
+                        updateCommand.Parameters.AddWithValue("@oldResults", oldTest.results);
+
+                        updateCommand.Parameters.AddWithValue("@newResults", newResults);
+
+                        int count = updateCommand.ExecuteNonQuery();
+                        if (count > 0)
+                            return true;
+                        else
+                            return false;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
         }
 
         public static List<Appointment> GetTests()

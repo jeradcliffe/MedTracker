@@ -52,6 +52,7 @@
             this.vitalsMessageLabel = new System.Windows.Forms.Label();
             this.addVitalsButton = new System.Windows.Forms.Button();
             this.nursesComboBox = new System.Windows.Forms.ComboBox();
+            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.diagnosisTextBox = new System.Windows.Forms.TextBox();
             this.symptomsTextBox = new System.Windows.Forms.TextBox();
             this.pulseTextBox = new System.Windows.Forms.TextBox();
@@ -59,15 +60,15 @@
             this.diastolicTextBox = new System.Windows.Forms.TextBox();
             this.systolicTextBox = new System.Windows.Forms.TextBox();
             this.testsGroupBox = new System.Windows.Forms.GroupBox();
+            this.abnormalRadioBtn = new System.Windows.Forms.RadioButton();
+            this.normalRadioBtn = new System.Windows.Forms.RadioButton();
+            this.updateTestButton = new System.Windows.Forms.Button();
             this.testsMessageLabel = new System.Windows.Forms.Label();
             this.clearTestsButton = new System.Windows.Forms.Button();
             this.orderTestButton = new System.Windows.Forms.Button();
-            this.resultsTextBox = new System.Windows.Forms.TextBox();
             this.testDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.testsComboBox = new System.Windows.Forms.ComboBox();
             this.testsDataGridView = new System.Windows.Forms.DataGridView();
-            this.updateTestButton = new System.Windows.Forms.Button();
-            this.appointmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,9 +96,9 @@
             testDateLabel = new System.Windows.Forms.Label();
             resultsLabel = new System.Windows.Forms.Label();
             this.vitalsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.testsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // systolicLabel
@@ -318,6 +319,10 @@
             this.nursesComboBox.Size = new System.Drawing.Size(293, 21);
             this.nursesComboBox.TabIndex = 14;
             // 
+            // appointmentBindingSource
+            // 
+            this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
+            // 
             // diagnosisTextBox
             // 
             this.diagnosisTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "diagnosis", true));
@@ -368,12 +373,13 @@
             // 
             // testsGroupBox
             // 
+            this.testsGroupBox.Controls.Add(this.abnormalRadioBtn);
+            this.testsGroupBox.Controls.Add(this.normalRadioBtn);
             this.testsGroupBox.Controls.Add(this.updateTestButton);
             this.testsGroupBox.Controls.Add(this.testsMessageLabel);
             this.testsGroupBox.Controls.Add(this.clearTestsButton);
             this.testsGroupBox.Controls.Add(this.orderTestButton);
             this.testsGroupBox.Controls.Add(resultsLabel);
-            this.testsGroupBox.Controls.Add(this.resultsTextBox);
             this.testsGroupBox.Controls.Add(testDateLabel);
             this.testsGroupBox.Controls.Add(this.testDateTimePicker);
             this.testsGroupBox.Controls.Add(testCodeLabel);
@@ -385,6 +391,38 @@
             this.testsGroupBox.TabIndex = 8;
             this.testsGroupBox.TabStop = false;
             this.testsGroupBox.Text = "Tests";
+            // 
+            // abnormalRadioBtn
+            // 
+            this.abnormalRadioBtn.AutoSize = true;
+            this.abnormalRadioBtn.Location = new System.Drawing.Point(154, 66);
+            this.abnormalRadioBtn.Name = "abnormalRadioBtn";
+            this.abnormalRadioBtn.Size = new System.Drawing.Size(68, 17);
+            this.abnormalRadioBtn.TabIndex = 12;
+            this.abnormalRadioBtn.TabStop = true;
+            this.abnormalRadioBtn.Text = "abnormal";
+            this.abnormalRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // normalRadioBtn
+            // 
+            this.normalRadioBtn.AutoSize = true;
+            this.normalRadioBtn.Location = new System.Drawing.Point(97, 65);
+            this.normalRadioBtn.Name = "normalRadioBtn";
+            this.normalRadioBtn.Size = new System.Drawing.Size(56, 17);
+            this.normalRadioBtn.TabIndex = 11;
+            this.normalRadioBtn.TabStop = true;
+            this.normalRadioBtn.Text = "normal";
+            this.normalRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // updateTestButton
+            // 
+            this.updateTestButton.Location = new System.Drawing.Point(153, 91);
+            this.updateTestButton.Name = "updateTestButton";
+            this.updateTestButton.Size = new System.Drawing.Size(75, 23);
+            this.updateTestButton.TabIndex = 10;
+            this.updateTestButton.Text = "Update";
+            this.updateTestButton.UseVisualStyleBackColor = true;
+            this.updateTestButton.Click += new System.EventHandler(this.updateTestButton_Click);
             // 
             // testsMessageLabel
             // 
@@ -415,14 +453,6 @@
             this.orderTestButton.Text = "Order Test";
             this.orderTestButton.UseVisualStyleBackColor = true;
             this.orderTestButton.Click += new System.EventHandler(this.orderTestButton_Click);
-            // 
-            // resultsTextBox
-            // 
-            this.resultsTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.appointmentBindingSource, "results", true));
-            this.resultsTextBox.Location = new System.Drawing.Point(97, 64);
-            this.resultsTextBox.Name = "resultsTextBox";
-            this.resultsTextBox.Size = new System.Drawing.Size(293, 20);
-            this.resultsTextBox.TabIndex = 6;
             // 
             // testDateTimePicker
             // 
@@ -472,19 +502,6 @@
             this.testsDataGridView.Size = new System.Drawing.Size(384, 249);
             this.testsDataGridView.TabIndex = 0;
             this.testsDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.testsDataGridView_CellClick);
-            // 
-            // updateTestButton
-            // 
-            this.updateTestButton.Location = new System.Drawing.Point(153, 91);
-            this.updateTestButton.Name = "updateTestButton";
-            this.updateTestButton.Size = new System.Drawing.Size(75, 23);
-            this.updateTestButton.TabIndex = 10;
-            this.updateTestButton.Text = "Update";
-            this.updateTestButton.UseVisualStyleBackColor = true;
-            // 
-            // appointmentBindingSource
-            // 
-            this.appointmentBindingSource.DataSource = typeof(MedTracker.Model.Appointment);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -634,10 +651,10 @@
             this.Load += new System.EventHandler(this.CheckUpForm_Load);
             this.vitalsGroupBox.ResumeLayout(false);
             this.vitalsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.testsGroupBox.ResumeLayout(false);
             this.testsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.appointmentBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -665,7 +682,6 @@
         private System.Windows.Forms.Button clearVitalsButton;
         private System.Windows.Forms.GroupBox testsGroupBox;
         private System.Windows.Forms.DataGridView testsDataGridView;
-        private System.Windows.Forms.TextBox resultsTextBox;
         private System.Windows.Forms.DateTimePicker testDateTimePicker;
         private System.Windows.Forms.ComboBox testsComboBox;
         private System.Windows.Forms.Button clearTestsButton;
@@ -689,5 +705,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.Button updateVitalsButton;
         private System.Windows.Forms.Button updateTestButton;
+        private System.Windows.Forms.RadioButton abnormalRadioBtn;
+        private System.Windows.Forms.RadioButton normalRadioBtn;
     }
 }

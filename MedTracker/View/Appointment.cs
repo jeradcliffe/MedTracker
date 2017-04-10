@@ -31,8 +31,6 @@ namespace MedTracker.View
             patientsController = new PatientsController();
             appointmentsController = new AppointmentsController();
             clearFields();
-            updateButton.Enabled = false;
-            checkupButton.Enabled = false;
         }
 
         private void AppointmentForm_Load(object sender, EventArgs e)
@@ -77,6 +75,7 @@ namespace MedTracker.View
                         messageLabel.Text = "Appointment successfully added.";
                         appointmentList.Add(currentAppointment);
                         fillAppointmentInformation();
+                        clearFields();
                     }
                     
                 }
@@ -190,6 +189,8 @@ namespace MedTracker.View
             doctorsComboBox.SelectedValue = -1;
             reasonTextBox.Text = "";
             messageLabel.Text = "Please enter your search criteria.";
+            updateButton.Enabled = false;
+            checkupButton.Enabled = false;
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -128,3 +128,22 @@ SELECT * FROM tests;
 -- Test the login
 SELECT COUNT(*) AS 'count' FROM clinicemployees " +
 "WHERE username = 'jake' AND passwords = 'haha';
+
+-------- Admin SP Testing -------- 
+-- Case 1 works
+EXEC usp_mostPerformedTestsDuringDates '2015-01-01', '2015-12-30';
+
+-- Case 2 start/end date is null
+EXEC usp_mostPerformedTestsDuringDates null, '2015-12-30';
+EXEC usp_mostPerformedTestsDuringDates '2015-01-01', null;
+
+-- Case 3 start/end date is empty
+EXEC usp_mostPerformedTestsDuringDates '', '2015-12-30';
+EXEC usp_mostPerformedTestsDuringDates '2015-01-01', '';
+
+-- Case 4 start is after end date
+EXEC usp_mostPerformedTestsDuringDates '2015-12-30', '2015-01-01';
+
+-- Case 5 same start and end date
+EXEC usp_mostPerformedTestsDuringDates '2015-12-30', '2015-12-30';
+

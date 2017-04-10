@@ -24,5 +24,10 @@ namespace MedTracker.Controller
         {
             return TestsDAL.AddTest(test);
         }
+
+        public bool UpdateTestResults(Appointment oldTest, string newResults)
+        {
+            return TestsDAL.UpdateTestResults(oldTest, newResults);
+        }
     }
 }

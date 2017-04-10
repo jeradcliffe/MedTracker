@@ -22,7 +22,7 @@ namespace MedTracker.View
         private TestsController testsController;
 
         private List<Appointment> appointmentTests;
-        private Appointment appointmentVitals;
+        private Appointment currentVitals;
         private Appointment currentTest;
         public DateTime appointmentDate;
         private DataGridViewRow currentRow;
@@ -69,8 +69,9 @@ namespace MedTracker.View
                         if (vitalsController.AddVitals(vitals))
                         {
                             vitalsMessageLabel.Text = "Vitals successfully added.";
-                            toggleVitalsFieldsAndButtons(true);
-                            this.appointmentVitals = vitals;
+                            enableVitalsFields(false);
+                            enableTestFields(true);
+                            this.currentVitals = vitals;
                             this.vitalsPresent = true;
                         }
                         else
@@ -95,8 +96,8 @@ namespace MedTracker.View
             {
                 try
                 {
-                    if (vitalsController.UpdateVitalsDiagnosis(this.appointmentVitals, diagnosisTextBox.Text))
-                        vitalsMessageLabel.Text = "Vitals successfully added.";
+                    if (vitalsController.UpdateVitalsDiagnosis(this.currentVitals, diagnosisTextBox.Text))
+                        vitalsMessageLabel.Text = "Vitals successfully updated.";
                     else
                     {
                         vitalsMessageLabel.Text = "Unable to update diagnosis in database. Please try again.";
@@ -146,20 +147,21 @@ namespace MedTracker.View
         }
 
         // Disables all vitals fields or sets to read only 
-        private void toggleVitalsFieldsAndButtons(bool addNotUpdate)
+        private void enableVitalsFields(bool enable)
         {
-            // Vitals not yet added
-            systolicTextBox.ReadOnly    = addNotUpdate;
-            diastolicTextBox.ReadOnly   = addNotUpdate;
-            temperatureTextBox.ReadOnly = addNotUpdate;
-            pulseTextBox.ReadOnly       = addNotUpdate;
-            symptomsTextBox.ReadOnly    = addNotUpdate;
-            updateVitalsButton.Enabled  = addNotUpdate;
+            // All textboxes are readonly?
+            systolicTextBox.ReadOnly    = !enable;
+            diastolicTextBox.ReadOnly   = !enable;
+            temperatureTextBox.ReadOnly = !enable;
+            pulseTextBox.ReadOnly       = !enable;
+            symptomsTextBox.ReadOnly    = !enable;
+            
+            // Enable buttons? 
+            nursesComboBox.Enabled      = enable;
+            clearVitalsButton.Enabled   = enable;
+            addVitalsButton.Enabled     = enable;
 
-            // Vitals have been added, only allowing diagnosis update
-            nursesComboBox.Enabled      = !addNotUpdate;
-            clearVitalsButton.Enabled   = !addNotUpdate;
-            addVitalsButton.Enabled     = !addNotUpdate;
+            updateVitalsButton.Enabled = !enable;
         }
 
         // Clears our vitals fields if necessary
@@ -184,18 +186,59 @@ namespace MedTracker.View
         {
             if (testIsValid())
             {
+                DialogResult result
+                    = MessageBox.Show("Are you sure you would like to order this test? "
+                    + "Once you enter it you may not edit them it the future.",
+                    "Add Test?", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        Appointment test = putTest(new Appointment());
+                        if (testsController.AddTest(test))
+                        {
+                            testsMessageLabel.Text = "Test successfully added.";
+                            this.currentTest = test;
+                            clearTestFields();
+                            fillTestFields();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        testsMessageLabel.Text = "Unable to order test. Please make sure it isn't a duplicate.";
+                    }
+                }
+            }
+        }
+
+        private void updateTestButton_Click(object sender, EventArgs e)
+        {
+            if (testIsValid())
+            {
                 try
                 {
-                    Appointment test = putTest(new Appointment());
-                    if (testsController.AddTest(test))
+                    String newResults = "";
+                    if (normalRadioBtn.Checked == true)
+                        newResults = "Normal";
+                    else
+                        newResults = "Abnormal";
+
+                    if (testsController.UpdateTestResults(this.currentTest, newResults))
                     {
-                        testsMessageLabel.Text = "Test successfully added.";
+                        testsMessageLabel.Text = "Test successfully updated.";
+                        this.currentTest.results = newResults;
                         fillTestFields();
-                    }                       
+                    }
+                    else
+                    {
+                        testsMessageLabel.Text = "Unable to update test in database. Please try again.";
+                        fillTestFields();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    testsMessageLabel.Text = "Unable to order test. Please make sure it isn't a duplicate.";
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
                 }
             }
         }
@@ -221,20 +264,24 @@ namespace MedTracker.View
             test.patientID = this.patientID;
             test.testCode  = testsComboBox.SelectedValue.ToString();
             test.testDate  = testDateTimePicker.Value;
-            test.results   = resultsTextBox.Text;
+            if (normalRadioBtn.Checked == true)
+                test.results = "Normal";
+            else if (abnormalRadioBtn.Checked == true)
+                test.results = "Abnormal";
+            else
+                test.results = "";
             return test;
         }
 
         // Disables our testing fields
-        private void toggleTestFieldsAndButtons(bool orderNotUpdate)
+        private void enableTestFields(bool enable)
         {
-            testsComboBox.Enabled       = orderNotUpdate;
-            testDateTimePicker.Enabled  = orderNotUpdate;
-            orderTestButton.Enabled     = orderNotUpdate;
-            clearTestsButton.Enabled    = orderNotUpdate;
-
-            resultsTextBox.ReadOnly     = !orderNotUpdate;
-            updateTestButton.Enabled        = !orderNotUpdate;
+            testsComboBox.Enabled       = enable;
+            testDateTimePicker.Enabled  = enable;
+            orderTestButton.Enabled     = enable;
+            clearTestsButton.Enabled    = enable;
+            normalRadioBtn.Enabled      = enable;
+            abnormalRadioBtn.Enabled    = enable;
         }
 
         /// <summary>
@@ -259,30 +306,43 @@ namespace MedTracker.View
                 // Place data into test fields
                 testsComboBox.SelectedValue = this.currentTest.testCode;
                 testDateTimePicker.Value    = this.currentTest.testDate;
-                resultsTextBox.Text         = this.currentTest.results;
+                if (this.currentTest.results.Equals("normal", StringComparison.InvariantCultureIgnoreCase))
+                    normalRadioBtn.Checked = true;
+                else
+                    abnormalRadioBtn.Checked = true;
 
                 // Only allow update of selected tests to avoid duplicate PK entries
-                toggleTestFieldsAndButtons(false);
+                enableTestFields(false);
+                updateTestButton.Enabled = true;
                 clearTestsButton.Enabled = true;
-                resultsTextBox.ReadOnly  = false;
+                normalRadioBtn.Enabled   = true;
+                abnormalRadioBtn.Enabled = true;
             }
             catch (Exception ex)
             {
                 return;
             }
 
-            
+            MessageBox.Show("Appointment date" + appointmentDate + "\n\n" +
+                "Test date" + currentTest.testDate + "\n\n" , "DATES");
         }
 
         // Clears test info and sets time to original apt date
         private void clearTestsButton_Click(object sender, EventArgs e)
         {
-            testsComboBox.SelectedIndex = -1;
-            testDateTimePicker.Value    = this.appointmentDate;
-            resultsTextBox.Text         = "";
-            testsMessageLabel.Text      = "";
+            clearTestFields();
+        }
 
-            toggleTestFieldsAndButtons(true);
+        private void clearTestFields()
+        {
+            testsComboBox.SelectedIndex = -1;
+            testDateTimePicker.Value = this.appointmentDate;
+            normalRadioBtn.Checked = false;
+            abnormalRadioBtn.Checked = false;
+            testsMessageLabel.Text = "";
+
+            enableTestFields(true);
+            updateTestButton.Enabled = false;
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -309,27 +369,27 @@ namespace MedTracker.View
         {
             try
             {
-                this.appointmentVitals = vitalsController.GetAppointmentVitals(this.appointmentDate, this.doctorID, this.patientID);
+                this.currentVitals = vitalsController.GetAppointmentVitals(this.appointmentDate, this.doctorID, this.patientID);
 
-                if (this.appointmentVitals != null)
+                if (this.currentVitals != null)
                 {
                     nursesComboBox.SelectedIndex =
-                            nursesComboBox.FindString(this.appointmentVitals.nurseFullName.ToString());
-                    systolicTextBox.Text    = this.appointmentVitals.systolic;
-                    diastolicTextBox.Text   = this.appointmentVitals.diastolic;
-                    temperatureTextBox.Text = this.appointmentVitals.temperature;
-                    pulseTextBox.Text       = this.appointmentVitals.pulse;
-                    symptomsTextBox.Text    = this.appointmentVitals.symptoms;
-                    diagnosisTextBox.Text   = this.appointmentVitals.diagnosis;
+                            nursesComboBox.FindString(this.currentVitals.nurseFullName.ToString());
+                    systolicTextBox.Text    = this.currentVitals.systolic;
+                    diastolicTextBox.Text   = this.currentVitals.diastolic;
+                    temperatureTextBox.Text = this.currentVitals.temperature;
+                    pulseTextBox.Text       = this.currentVitals.pulse;
+                    symptomsTextBox.Text    = this.currentVitals.symptoms;
+                    diagnosisTextBox.Text   = this.currentVitals.diagnosis;
 
                     this.vitalsPresent = true;
-                    toggleVitalsFieldsAndButtons(true);
+                    enableVitalsFields(false);
                 }
                 else
                 {
                     this.vitalsPresent = false;
                     nursesComboBox.SelectedIndex = -1;
-                    toggleVitalsFieldsAndButtons(false);
+                    enableVitalsFields(true);
                 }
             }
             catch (Exception ex)
@@ -353,11 +413,11 @@ namespace MedTracker.View
                     testsDataGridView.ClearSelection();
 
                     // Enable testing fields
-                    toggleTestFieldsAndButtons(true);
+                    enableTestFields(true);
                 }
                 else
                 {
-                    toggleTestFieldsAndButtons(false);
+                    enableTestFields(false);
                 }
             }
             catch (Exception ex)
@@ -419,7 +479,7 @@ namespace MedTracker.View
 
         private bool isValidDate(DateTimePicker date)
         {
-            if (date.Value >= this.appointmentDate)
+            if (date.Value.Date >= this.appointmentDate.Date)
                 return true;
             else
             {
@@ -427,5 +487,7 @@ namespace MedTracker.View
                 return false;
             }
         }
+
+
     }
 }

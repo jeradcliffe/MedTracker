@@ -40,11 +40,6 @@ namespace MedTracker.View
             string firstName   = firstNameTextBox.Text;
             string lastName    = lastNameTextBox.Text;
 
-            MessageBox.Show("DOB--" + dateOfBirth + "--\n"
-                + "firstName--" + firstName + "--\n"
-                + "lastName--" + lastName + "--\n"
-                , "Show values for search");
-
             if (searchValid(firstName, lastName))
             {
                 try

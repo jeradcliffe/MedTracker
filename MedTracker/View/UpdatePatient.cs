@@ -53,6 +53,13 @@ namespace MedTracker.View
             phoneNumberTextBox.Text   = patientToBeUpdated.phoneNumber;
             genderTextBox.Text        = patientToBeUpdated.gender;
             ssnTextBox.Text           = patientToBeUpdated.ssn;
+
+            if (stateComboBox.SelectedIndex < 0)
+            {
+                stateComboBox.SelectedIndex = 0;
+            }
+
+            dobDateTimePicker.MaxDate = DateTime.Today;
         }
 
         private void updatePatientButton_Click(object sender, EventArgs e)

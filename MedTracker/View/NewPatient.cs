@@ -102,6 +102,13 @@ namespace MedTracker.View
             {
                 stateComboBox.Items.Add(state);
             }
+
+            if (stateComboBox.SelectedIndex < 0)
+            {
+                stateComboBox.SelectedIndex = 0;
+            }
+
+            dobDateTimePicker.MaxDate = DateTime.Today;
         }
     }
 }

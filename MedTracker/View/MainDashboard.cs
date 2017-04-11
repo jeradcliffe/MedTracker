@@ -46,6 +46,11 @@ namespace MedTracker.View
             lblRole.Text = role;
             lblName.Text = currentPerson.lastName.ToString() + ", " + currentPerson.firstName.ToString();
 
+            if (role == "Nurse" || role == "Doctor")
+            {
+                reportPictureBox.Visible = false;
+                reportLabel.Visible = false;
+            }
         }
         
         private void assignPerson()
@@ -106,6 +111,5 @@ namespace MedTracker.View
             else
                 MessageBox.Show("Must be a nurse to access patient information and appointments.", "Unauthorized access.");
         }
-
     }
 }

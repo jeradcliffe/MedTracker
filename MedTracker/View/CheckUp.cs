@@ -86,7 +86,7 @@ namespace MedTracker.View
                     {
                         MessageBox.Show(ex.Message, ex.GetType().ToString());
                     } 
-                }
+               }
             }
         }
 
@@ -115,18 +115,24 @@ namespace MedTracker.View
         // Checks if vitals are vaild
         private bool vitalsAreValid()
         {
-            if (isNotNullorEmpty(systolicTextBox) && isInt32(systolicTextBox) &&
-                isNotNullorEmpty(diastolicTextBox) && isInt32(diastolicTextBox) &&
-                isNotNullorEmpty(temperatureTextBox) && isInt32(temperatureTextBox) &&
-                isNotNullorEmpty(pulseTextBox) && isInt32(temperatureTextBox) &&
-                isNotNullorEmpty(symptomsTextBox) && !isInt32(symptomsTextBox) &&
-                isNotNullorEmpty(diagnosisTextBox) && !isInt32(diagnosisTextBox))
+            if (//Systolic
+                isNotNullorEmpty(systolicTextBox, vitalsMessageLabel) 
+                && isInt32(systolicTextBox, vitalsMessageLabel, "Invalid number for systolic blood pressure.") 
+                //Diastolic
+                && isNotNullorEmpty(diastolicTextBox, vitalsMessageLabel) 
+                && isInt32(diastolicTextBox, vitalsMessageLabel, "Invalid number for diastolic blood pressure.") 
+                //Temperature
+                && isNotNullorEmpty(temperatureTextBox, vitalsMessageLabel) 
+                && isDecimal(temperatureTextBox, vitalsMessageLabel, "Invalid number for temperature.") 
+                //Pulse
+                && isNotNullorEmpty(pulseTextBox, vitalsMessageLabel) 
+                //Symptoms
+                && isNotNullorEmpty(symptomsTextBox, vitalsMessageLabel) 
+                //Diagnosis
+                && isNotNullorEmpty(diagnosisTextBox, vitalsMessageLabel))
                 return true;
             else
-            {
-                vitalsMessageLabel.Text = "Invalid input. Please try again.";
                 return false;
-            }
         }
 
         // Puts vitals into an appointment 
@@ -172,6 +178,7 @@ namespace MedTracker.View
             pulseTextBox.Text            = "";
             symptomsTextBox.Text         = "";
             diagnosisTextBox.Text        = "";
+            vitalsMessageLabel.Text      = "";
         }
 
 
@@ -264,14 +271,11 @@ namespace MedTracker.View
         // Check of test data is valid
         private bool testIsValid()
         {
-            if (testsComboBox.SelectedIndex != -1 &&
-                isValidDate(testDateTimePicker))
+            if (isValidCbox(testsComboBox, testsMessageLabel) &&
+                isValidDate(testDateTimePicker, testsMessageLabel))
                 return true;
             else
-            {
-                testsMessageLabel.Text = "Invalid input. Please try again.";
                 return false;
-            }
         }
 
         // Puts test info into object 
@@ -468,42 +472,74 @@ namespace MedTracker.View
         /////////////////////// Form Validators //////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private bool isNotNullorEmpty(TextBox textBox)
+        private bool isNotNullorEmpty(TextBox textBox, Label errorLabel)
         {
-            if (!String.IsNullOrEmpty(textBox.Text))
+            if (!String.IsNullOrEmpty(textBox.Text) &&
+                !String.IsNullOrWhiteSpace(textBox.Text) &&
+                textBox.Text.Length <= 45)
                 return true;
             else
             {
                 textBox.Focus();
+                errorLabel.Text = "Field may not be left blank and can't exceed 45 characters.";
                 return false;
             }
         }
 
-        private bool isInt32(TextBox textBox)
+        private bool isInt32(TextBox textBox, Label errorLabel, string errorMessage)
         {
             try
             {
                 Convert.ToInt32(textBox.Text);
                 return true;
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
                 textBox.Focus();
+                errorLabel.Text = errorMessage;
                 return false;
             }
         }
 
-        private bool isValidDate(DateTimePicker date)
+        private bool isDecimal(TextBox textBox, Label errorLabel, string errorMessage)
+        {
+            try
+            {
+                Convert.ToDecimal(textBox.Text);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                textBox.Focus();
+                errorLabel.Text = errorMessage;
+                return false;
+            }
+        }
+
+        private bool isValidDate(DateTimePicker date, Label errorLabel)
         {
             if (date.Value.Date >= this.appointmentDate.Date)
                 return true;
             else
             {
                 date.Focus();
+                errorLabel.Text = "Invalid date. Can't be set before appointment date.";
+                return false;
+            }
+        }
+
+        private bool isValidCbox(ComboBox cbox, Label errorLabel)
+        {
+            if (cbox.SelectedIndex != -1)
+                return true;
+            else
+            {
+                cbox.Focus();
+                errorLabel.Text = "Please make sure a test has been selected.";
                 return false;
             }
         }
 
 
+        }
     }
-}

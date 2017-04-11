@@ -83,7 +83,7 @@ namespace MedTracker.View
                 }
                 catch (Exception ex)
                 {
-                    messageLabel.Text = "Unable to update information. Doctor and patient may not have overlapping times. ";
+                    messageLabel.Text = "Unable to add new appointment. Doctor and patient may not have overlapping times. ";
                 }
             }
         }
@@ -111,7 +111,8 @@ namespace MedTracker.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    messageLabel.Text = "Unable to update the appointment. Please try again.";
+                    fillAppointmentInformation();
                 }
             }
         }
@@ -187,13 +188,13 @@ namespace MedTracker.View
         }
         private void clearFields()
         {
-            appointmentDatePicker.Value = DateTime.Now;
-            appointmentTimePicker.Value = new DateTime(2000, 1, 1, 12, 0, 0);
-            doctorsComboBox.SelectedValue = -1;
-            reasonTextBox.Text = "";
-            messageLabel.Text = "";
-            updateButton.Enabled = false;
-            checkupButton.Enabled = false;
+            appointmentDatePicker.Value     = DateTime.Now;
+            appointmentTimePicker.Value     = new DateTime(2000, 1, 1, 12, 0, 0);
+            doctorsComboBox.SelectedValue   = -1;
+            reasonTextBox.Text              = "";
+            messageLabel.Text               = "";
+            updateButton.Enabled            = false;
+            checkupButton.Enabled           = false;
         }
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

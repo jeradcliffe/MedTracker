@@ -42,10 +42,10 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(454, 116);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLogin.Location = new System.Drawing.Point(908, 223);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(96, 21);
+            this.btnLogin.Size = new System.Drawing.Size(192, 40);
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -54,47 +54,47 @@
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(226, 66);
-            this.lblUserName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUserName.Location = new System.Drawing.Point(452, 127);
+            this.lblUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(60, 13);
+            this.lblUserName.Size = new System.Drawing.Size(119, 25);
             this.lblUserName.TabIndex = 1;
             this.lblUserName.Text = "User Name";
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(232, 92);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPassword.Location = new System.Drawing.Point(464, 177);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.Size = new System.Drawing.Size(106, 25);
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Password";
             // 
             // txtBoxUserName
             // 
-            this.txtBoxUserName.Location = new System.Drawing.Point(298, 63);
-            this.txtBoxUserName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBoxUserName.Location = new System.Drawing.Point(596, 121);
+            this.txtBoxUserName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxUserName.Name = "txtBoxUserName";
-            this.txtBoxUserName.Size = new System.Drawing.Size(253, 20);
+            this.txtBoxUserName.Size = new System.Drawing.Size(502, 31);
             this.txtBoxUserName.TabIndex = 0;
             // 
             // txtBoxPassword
             // 
-            this.txtBoxPassword.Location = new System.Drawing.Point(298, 89);
-            this.txtBoxPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBoxPassword.Location = new System.Drawing.Point(596, 171);
+            this.txtBoxPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxPassword.Name = "txtBoxPassword";
             this.txtBoxPassword.PasswordChar = '*';
-            this.txtBoxPassword.Size = new System.Drawing.Size(253, 20);
+            this.txtBoxPassword.Size = new System.Drawing.Size(502, 31);
             this.txtBoxPassword.TabIndex = 1;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::MedTracker.Properties.Resources.doctors_1;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 17);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 33);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(202, 130);
+            this.pictureBox1.Size = new System.Drawing.Size(404, 250);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
@@ -102,10 +102,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(218, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(436, 33);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(334, 13);
+            this.label1.Size = new System.Drawing.Size(674, 25);
             this.label1.TabIndex = 6;
             this.label1.Text = "Welcome to MedTracker! Please enter your username and password.";
             // 
@@ -117,9 +117,9 @@
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 167);
+            this.ClientSize = new System.Drawing.Size(1142, 315);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtBoxPassword);
@@ -128,6 +128,7 @@
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.btnLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Login";

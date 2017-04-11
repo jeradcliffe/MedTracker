@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MedTracker.Controller;
 using MedTracker.Model;
 using MedTracker.View;
+using System.Security.Cryptography;
 
 namespace MedTracker
 {
@@ -28,8 +29,10 @@ namespace MedTracker
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            
             username = txtBoxUserName.Text;
             password = txtBoxPassword.Text;
+            String passwordEncrypt = encryptPassword(password);
             currentUser = txtBoxUserName.Text;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -39,7 +42,7 @@ namespace MedTracker
             {
                 try
                 {
-                    bool loginSuccessful = clinicEmployeesController.checkLoginCredentials(username, password);
+                    bool loginSuccessful = clinicEmployeesController.checkLoginCredentials(username, passwordEncrypt);
                     if (loginSuccessful)
                     {
                         // Clear pass and username fields so form is clear after logout happens
@@ -63,5 +66,20 @@ namespace MedTracker
                 }
             }
         }
+
+        private string encryptPassword(String password)
+        {
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            byte[] encrypt;
+            UTF8Encoding encode = new UTF8Encoding();
+            encrypt = md5.ComputeHash(encode.GetBytes(password));
+            StringBuilder encryptdata = new StringBuilder();
+            for (int i =0; i < encrypt.Length; i++)
+            {
+                encryptdata.Append(encrypt[i].ToString());
+            }
+            return encryptdata.ToString();
+        }
+
     }
 }

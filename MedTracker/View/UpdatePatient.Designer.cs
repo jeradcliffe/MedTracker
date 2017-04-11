@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.stateTextBox = new System.Windows.Forms.TextBox();
             this.stateLabel = new System.Windows.Forms.Label();
             this.dobDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
@@ -50,14 +49,8 @@
             this.ssnLabel = new System.Windows.Forms.Label();
             this.genderTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.stateComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // stateTextBox
-            // 
-            this.stateTextBox.Location = new System.Drawing.Point(186, 201);
-            this.stateTextBox.Name = "stateTextBox";
-            this.stateTextBox.Size = new System.Drawing.Size(241, 22);
-            this.stateTextBox.TabIndex = 33;
             // 
             // stateLabel
             // 
@@ -73,35 +66,35 @@
             this.dobDateTimePicker.Location = new System.Drawing.Point(186, 118);
             this.dobDateTimePicker.Name = "dobDateTimePicker";
             this.dobDateTimePicker.Size = new System.Drawing.Size(241, 22);
-            this.dobDateTimePicker.TabIndex = 30;
+            this.dobDateTimePicker.TabIndex = 31;
             // 
             // phoneNumberTextBox
             // 
-            this.phoneNumberTextBox.Location = new System.Drawing.Point(186, 255);
+            this.phoneNumberTextBox.Location = new System.Drawing.Point(186, 258);
             this.phoneNumberTextBox.Name = "phoneNumberTextBox";
             this.phoneNumberTextBox.Size = new System.Drawing.Size(241, 22);
-            this.phoneNumberTextBox.TabIndex = 35;
+            this.phoneNumberTextBox.TabIndex = 36;
             // 
             // zipTextBox
             // 
-            this.zipTextBox.Location = new System.Drawing.Point(186, 227);
+            this.zipTextBox.Location = new System.Drawing.Point(186, 231);
             this.zipTextBox.Name = "zipTextBox";
             this.zipTextBox.Size = new System.Drawing.Size(241, 22);
-            this.zipTextBox.TabIndex = 34;
+            this.zipTextBox.TabIndex = 35;
             // 
             // cityTextBox
             // 
             this.cityTextBox.Location = new System.Drawing.Point(186, 174);
             this.cityTextBox.Name = "cityTextBox";
             this.cityTextBox.Size = new System.Drawing.Size(241, 22);
-            this.cityTextBox.TabIndex = 32;
+            this.cityTextBox.TabIndex = 33;
             // 
             // streetAddressTextBox
             // 
             this.streetAddressTextBox.Location = new System.Drawing.Point(186, 146);
             this.streetAddressTextBox.Name = "streetAddressTextBox";
             this.streetAddressTextBox.Size = new System.Drawing.Size(241, 22);
-            this.streetAddressTextBox.TabIndex = 31;
+            this.streetAddressTextBox.TabIndex = 32;
             // 
             // lastNameTextBox
             // 
@@ -120,7 +113,7 @@
             // phoneNumberLabel
             // 
             this.phoneNumberLabel.AutoSize = true;
-            this.phoneNumberLabel.Location = new System.Drawing.Point(75, 255);
+            this.phoneNumberLabel.Location = new System.Drawing.Point(75, 258);
             this.phoneNumberLabel.Name = "phoneNumberLabel";
             this.phoneNumberLabel.Size = new System.Drawing.Size(107, 17);
             this.phoneNumberLabel.TabIndex = 27;
@@ -129,7 +122,7 @@
             // zipLabel
             // 
             this.zipLabel.AutoSize = true;
-            this.zipLabel.Location = new System.Drawing.Point(149, 227);
+            this.zipLabel.Location = new System.Drawing.Point(145, 231);
             this.zipLabel.Name = "zipLabel";
             this.zipLabel.Size = new System.Drawing.Size(32, 17);
             this.zipLabel.TabIndex = 26;
@@ -185,7 +178,7 @@
             this.cancelButton.Location = new System.Drawing.Point(338, 331);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 29);
-            this.cancelButton.TabIndex = 37;
+            this.cancelButton.TabIndex = 39;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -195,7 +188,7 @@
             this.updatePatientButton.Location = new System.Drawing.Point(92, 331);
             this.updatePatientButton.Name = "updatePatientButton";
             this.updatePatientButton.Size = new System.Drawing.Size(82, 29);
-            this.updatePatientButton.TabIndex = 36;
+            this.updatePatientButton.TabIndex = 38;
             this.updatePatientButton.Text = "Update";
             this.updatePatientButton.UseVisualStyleBackColor = true;
             this.updatePatientButton.Click += new System.EventHandler(this.updatePatientButton_Click);
@@ -205,13 +198,13 @@
             this.ssnTextBox.Location = new System.Drawing.Point(186, 286);
             this.ssnTextBox.Name = "ssnTextBox";
             this.ssnTextBox.Size = new System.Drawing.Size(241, 22);
-            this.ssnTextBox.TabIndex = 39;
+            this.ssnTextBox.TabIndex = 37;
             this.ssnTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ssnTextBox_KeyPress);
             // 
             // ssnLabel
             // 
             this.ssnLabel.AutoSize = true;
-            this.ssnLabel.Location = new System.Drawing.Point(22, 286);
+            this.ssnLabel.Location = new System.Drawing.Point(23, 286);
             this.ssnLabel.Name = "ssnLabel";
             this.ssnLabel.Size = new System.Drawing.Size(159, 17);
             this.ssnLabel.TabIndex = 38;
@@ -223,7 +216,7 @@
             this.genderTextBox.Location = new System.Drawing.Point(186, 90);
             this.genderTextBox.Name = "genderTextBox";
             this.genderTextBox.Size = new System.Drawing.Size(241, 22);
-            this.genderTextBox.TabIndex = 41;
+            this.genderTextBox.TabIndex = 30;
             // 
             // label2
             // 
@@ -234,16 +227,25 @@
             this.label2.TabIndex = 40;
             this.label2.Text = "Gender:";
             // 
+            // stateComboBox
+            // 
+            this.stateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.stateComboBox.FormattingEnabled = true;
+            this.stateComboBox.Location = new System.Drawing.Point(186, 201);
+            this.stateComboBox.Name = "stateComboBox";
+            this.stateComboBox.Size = new System.Drawing.Size(241, 24);
+            this.stateComboBox.TabIndex = 34;
+            // 
             // UpdatePatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 389);
+            this.Controls.Add(this.stateComboBox);
             this.Controls.Add(this.genderTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ssnTextBox);
             this.Controls.Add(this.ssnLabel);
-            this.Controls.Add(this.stateTextBox);
             this.Controls.Add(this.stateLabel);
             this.Controls.Add(this.dobDateTimePicker);
             this.Controls.Add(this.phoneNumberTextBox);
@@ -270,8 +272,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox stateTextBox;
         private System.Windows.Forms.Label stateLabel;
         private System.Windows.Forms.DateTimePicker dobDateTimePicker;
         private System.Windows.Forms.TextBox phoneNumberTextBox;
@@ -293,5 +293,6 @@
         private System.Windows.Forms.Label ssnLabel;
         private System.Windows.Forms.TextBox genderTextBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox stateComboBox;
     }
 }

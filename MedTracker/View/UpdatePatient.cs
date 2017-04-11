@@ -24,32 +24,35 @@ namespace MedTracker.View
 
         private void UpdatePatient_Load(object sender, System.EventArgs e)
         {
-            bool dateParsedSuccessfully = false;
-            DateTime parsedDateOfBirth = patientToBeUpdated.dateOfBirth;
+            string[] states = new string[]
+            {
+                "AL", "AK", "AZ", "AR", "CA",
+                "CO", "CT", "DE", "FL", "GA",
+                "HI", "ID", "IL", "IN", "IA",
+                "KS", "KY", "LA", "ME", "MD",
+                "MA", "MI", "MN", "MS", "MO",
+                "MT", "NE", "NV", "NH", "NJ",
+                "NM", "NY", "NC", "ND", "OH",
+                "OK", "OR", "PA", "RI", "SC",
+                "SD", "TN", "TX", "UT", "VT",
+                "VA", "WA", "WV", "WI", "WY"
+            };
 
-            try
+            foreach (string state in states)
             {
-                //parsedDateOfBirth = DateTime.Parse(patientToBeUpdated.dateOfBirth);
-                dateParsedSuccessfully = true;
+                stateComboBox.Items.Add(state);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
-            }
-            
-            if (dateParsedSuccessfully)
-            {
-                firstNameTextBox.Text     = patientToBeUpdated.firstName;
-                lastNameTextBox.Text      = patientToBeUpdated.lastName;
-                dobDateTimePicker.Value   = parsedDateOfBirth;
-                streetAddressTextBox.Text = patientToBeUpdated.streetAddress;
-                cityTextBox.Text          = patientToBeUpdated.city;
-                stateTextBox.Text         = patientToBeUpdated.state;
-                zipTextBox.Text           = patientToBeUpdated.zip;
-                phoneNumberTextBox.Text   = patientToBeUpdated.phoneNumber;
-                genderTextBox.Text        = patientToBeUpdated.gender;
-                ssnTextBox.Text           = patientToBeUpdated.ssn;
-            }
+
+            firstNameTextBox.Text     = patientToBeUpdated.firstName;
+            lastNameTextBox.Text      = patientToBeUpdated.lastName;
+            dobDateTimePicker.Value   = patientToBeUpdated.dateOfBirth;
+            streetAddressTextBox.Text = patientToBeUpdated.streetAddress;
+            cityTextBox.Text          = patientToBeUpdated.city;
+            stateComboBox.Text        = patientToBeUpdated.state;
+            zipTextBox.Text           = patientToBeUpdated.zip;
+            phoneNumberTextBox.Text   = patientToBeUpdated.phoneNumber;
+            genderTextBox.Text        = patientToBeUpdated.gender;
+            ssnTextBox.Text           = patientToBeUpdated.ssn;
         }
 
         private void updatePatientButton_Click(object sender, EventArgs e)
@@ -59,7 +62,7 @@ namespace MedTracker.View
                 genderTextBox.Text == "" ||
                 streetAddressTextBox.Text == "" ||
                 cityTextBox.Text == "" ||
-                stateTextBox.Text == "" ||
+                stateComboBox.Text == "" ||
                 zipTextBox.Text == "" ||
                 phoneNumberTextBox.Text == "" ||
                 ssnTextBox.Text == "")
@@ -74,16 +77,16 @@ namespace MedTracker.View
             {
                 Person updatedPatient = new Person();
 
-                updatedPatient.firstName = firstNameTextBox.Text;
-                updatedPatient.lastName = lastNameTextBox.Text;
-                updatedPatient.dateOfBirth = dobDateTimePicker.Value;
+                updatedPatient.firstName     = firstNameTextBox.Text;
+                updatedPatient.lastName      = lastNameTextBox.Text;
+                updatedPatient.dateOfBirth   = dobDateTimePicker.Value;
                 updatedPatient.streetAddress = streetAddressTextBox.Text;
-                updatedPatient.city = cityTextBox.Text;
-                updatedPatient.state = stateTextBox.Text;
-                updatedPatient.zip = zipTextBox.Text;
-                updatedPatient.phoneNumber = phoneNumberTextBox.Text;
-                updatedPatient.gender = genderTextBox.Text;
-                updatedPatient.ssn = ssnTextBox.Text;
+                updatedPatient.city          = cityTextBox.Text;
+                updatedPatient.state         = stateComboBox.Text;
+                updatedPatient.zip           = zipTextBox.Text;
+                updatedPatient.phoneNumber   = phoneNumberTextBox.Text;
+                updatedPatient.gender        = genderTextBox.Text;
+                updatedPatient.ssn           = ssnTextBox.Text;
 
                 int statusOfUpdate = patientsController.UpdatePatient(patientToBeUpdated, updatedPatient);
 

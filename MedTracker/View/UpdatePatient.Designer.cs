@@ -47,9 +47,9 @@
             this.updatePatientButton = new System.Windows.Forms.Button();
             this.ssnTextBox = new System.Windows.Forms.TextBox();
             this.ssnLabel = new System.Windows.Forms.Label();
-            this.genderTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.stateComboBox = new System.Windows.Forms.ComboBox();
+            this.genderComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // stateLabel
@@ -81,6 +81,7 @@
             this.zipTextBox.Name = "zipTextBox";
             this.zipTextBox.Size = new System.Drawing.Size(241, 22);
             this.zipTextBox.TabIndex = 35;
+            this.zipTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.zipTextBox_KeyPress);
             // 
             // cityTextBox
             // 
@@ -210,14 +211,6 @@
             this.ssnLabel.TabIndex = 38;
             this.ssnLabel.Text = "Social Security Number:";
             // 
-            // genderTextBox
-            // 
-            this.genderTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTabList;
-            this.genderTextBox.Location = new System.Drawing.Point(186, 90);
-            this.genderTextBox.Name = "genderTextBox";
-            this.genderTextBox.Size = new System.Drawing.Size(241, 22);
-            this.genderTextBox.TabIndex = 30;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -236,13 +229,21 @@
             this.stateComboBox.Size = new System.Drawing.Size(241, 24);
             this.stateComboBox.TabIndex = 34;
             // 
+            // genderComboBox
+            // 
+            this.genderComboBox.FormattingEnabled = true;
+            this.genderComboBox.Location = new System.Drawing.Point(186, 90);
+            this.genderComboBox.Name = "genderComboBox";
+            this.genderComboBox.Size = new System.Drawing.Size(241, 24);
+            this.genderComboBox.TabIndex = 30;
+            // 
             // UpdatePatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 389);
+            this.Controls.Add(this.genderComboBox);
             this.Controls.Add(this.stateComboBox);
-            this.Controls.Add(this.genderTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ssnTextBox);
             this.Controls.Add(this.ssnLabel);
@@ -291,8 +292,8 @@
         private System.Windows.Forms.Button updatePatientButton;
         private System.Windows.Forms.TextBox ssnTextBox;
         private System.Windows.Forms.Label ssnLabel;
-        private System.Windows.Forms.TextBox genderTextBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox stateComboBox;
+        private System.Windows.Forms.ComboBox genderComboBox;
     }
 }

@@ -47,9 +47,9 @@
             this.stateLabel = new System.Windows.Forms.Label();
             this.ssnTextBox = new System.Windows.Forms.TextBox();
             this.ssnLabel = new System.Windows.Forms.Label();
-            this.genderTextBox = new System.Windows.Forms.TextBox();
             this.genderLabel = new System.Windows.Forms.Label();
             this.stateComboBox = new System.Windows.Forms.ComboBox();
+            this.genderComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // createPatientButton
@@ -120,7 +120,7 @@
             // zipLabel
             // 
             this.zipLabel.AutoSize = true;
-            this.zipLabel.Location = new System.Drawing.Point(152, 228);
+            this.zipLabel.Location = new System.Drawing.Point(152, 231);
             this.zipLabel.Name = "zipLabel";
             this.zipLabel.Size = new System.Drawing.Size(32, 17);
             this.zipLabel.TabIndex = 7;
@@ -129,7 +129,7 @@
             // phoneNumberLabel
             // 
             this.phoneNumberLabel.AutoSize = true;
-            this.phoneNumberLabel.Location = new System.Drawing.Point(77, 256);
+            this.phoneNumberLabel.Location = new System.Drawing.Point(77, 259);
             this.phoneNumberLabel.Name = "phoneNumberLabel";
             this.phoneNumberLabel.Size = new System.Drawing.Size(107, 17);
             this.phoneNumberLabel.TabIndex = 8;
@@ -137,14 +137,14 @@
             // 
             // firstNameTextBox
             // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(191, 29);
+            this.firstNameTextBox.Location = new System.Drawing.Point(191, 26);
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(241, 22);
             this.firstNameTextBox.TabIndex = 9;
             // 
             // lastNameTextBox
             // 
-            this.lastNameTextBox.Location = new System.Drawing.Point(191, 58);
+            this.lastNameTextBox.Location = new System.Drawing.Point(191, 53);
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(241, 22);
             this.lastNameTextBox.TabIndex = 10;
@@ -169,6 +169,7 @@
             this.zipTextBox.Name = "zipTextBox";
             this.zipTextBox.Size = new System.Drawing.Size(241, 22);
             this.zipTextBox.TabIndex = 16;
+            this.zipTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.zipTextBox_KeyPress);
             // 
             // phoneNumberTextBox
             // 
@@ -188,7 +189,7 @@
             // stateLabel
             // 
             this.stateLabel.AutoSize = true;
-            this.stateLabel.Location = new System.Drawing.Point(140, 199);
+            this.stateLabel.Location = new System.Drawing.Point(140, 202);
             this.stateLabel.Name = "stateLabel";
             this.stateLabel.Size = new System.Drawing.Size(45, 17);
             this.stateLabel.TabIndex = 17;
@@ -205,19 +206,11 @@
             // ssnLabel
             // 
             this.ssnLabel.AutoSize = true;
-            this.ssnLabel.Location = new System.Drawing.Point(26, 283);
+            this.ssnLabel.Location = new System.Drawing.Point(25, 289);
             this.ssnLabel.Name = "ssnLabel";
             this.ssnLabel.Size = new System.Drawing.Size(159, 17);
             this.ssnLabel.TabIndex = 19;
             this.ssnLabel.Text = "Social Security Number:";
-            // 
-            // genderTextBox
-            // 
-            this.genderTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTabList;
-            this.genderTextBox.Location = new System.Drawing.Point(191, 86);
-            this.genderTextBox.Name = "genderTextBox";
-            this.genderTextBox.Size = new System.Drawing.Size(241, 22);
-            this.genderTextBox.TabIndex = 11;
             // 
             // genderLabel
             // 
@@ -237,13 +230,22 @@
             this.stateComboBox.Size = new System.Drawing.Size(241, 24);
             this.stateComboBox.TabIndex = 15;
             // 
+            // genderComboBox
+            // 
+            this.genderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.genderComboBox.FormattingEnabled = true;
+            this.genderComboBox.Location = new System.Drawing.Point(191, 83);
+            this.genderComboBox.Name = "genderComboBox";
+            this.genderComboBox.Size = new System.Drawing.Size(241, 24);
+            this.genderComboBox.TabIndex = 11;
+            // 
             // NewPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 389);
+            this.Controls.Add(this.genderComboBox);
             this.Controls.Add(this.stateComboBox);
-            this.Controls.Add(this.genderTextBox);
             this.Controls.Add(this.genderLabel);
             this.Controls.Add(this.ssnTextBox);
             this.Controls.Add(this.ssnLabel);
@@ -293,8 +295,8 @@
         private System.Windows.Forms.Label stateLabel;
         private System.Windows.Forms.TextBox ssnTextBox;
         private System.Windows.Forms.Label ssnLabel;
-        private System.Windows.Forms.TextBox genderTextBox;
         private System.Windows.Forms.Label genderLabel;
         private System.Windows.Forms.ComboBox stateComboBox;
+        private System.Windows.Forms.ComboBox genderComboBox;
     }
 }

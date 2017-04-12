@@ -37,13 +37,13 @@
             this.lblRole = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.reportLabel = new System.Windows.Forms.Label();
+            this.reportPictureBox = new System.Windows.Forms.PictureBox();
             this.searchPictureBox = new System.Windows.Forms.PictureBox();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.reportPictureBox = new System.Windows.Forms.PictureBox();
-            this.reportLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.reportPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.reportPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -133,6 +133,26 @@
             this.label3.Text = "Search Patient and \r\nAppointment Information";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // reportLabel
+            // 
+            this.reportLabel.AutoSize = true;
+            this.reportLabel.Location = new System.Drawing.Point(278, 299);
+            this.reportLabel.Name = "reportLabel";
+            this.reportLabel.Size = new System.Drawing.Size(81, 17);
+            this.reportLabel.TabIndex = 13;
+            this.reportLabel.Text = "Run Report";
+            // 
+            // reportPictureBox
+            // 
+            this.reportPictureBox.Image = global::MedTracker.Properties.Resources.report;
+            this.reportPictureBox.Location = new System.Drawing.Point(251, 138);
+            this.reportPictureBox.Name = "reportPictureBox";
+            this.reportPictureBox.Size = new System.Drawing.Size(139, 149);
+            this.reportPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.reportPictureBox.TabIndex = 12;
+            this.reportPictureBox.TabStop = false;
+            this.reportPictureBox.Click += new System.EventHandler(this.reportPictureBox_Click);
+            // 
             // searchPictureBox
             // 
             this.searchPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -156,25 +176,6 @@
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 9;
             this.logoPictureBox.TabStop = false;
-            // 
-            // reportPictureBox
-            // 
-            this.reportPictureBox.Image = global::MedTracker.Properties.Resources.report;
-            this.reportPictureBox.Location = new System.Drawing.Point(251, 138);
-            this.reportPictureBox.Name = "reportPictureBox";
-            this.reportPictureBox.Size = new System.Drawing.Size(139, 149);
-            this.reportPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.reportPictureBox.TabIndex = 12;
-            this.reportPictureBox.TabStop = false;
-            // 
-            // reportLabel
-            // 
-            this.reportLabel.AutoSize = true;
-            this.reportLabel.Location = new System.Drawing.Point(278, 299);
-            this.reportLabel.Name = "reportLabel";
-            this.reportLabel.Size = new System.Drawing.Size(81, 17);
-            this.reportLabel.TabIndex = 13;
-            this.reportLabel.Text = "Run Report";
             // 
             // MainDashboard
             // 
@@ -200,9 +201,9 @@
             this.Text = "MedTracker Dashboard";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainDashboard_FormClosed);
             this.Load += new System.EventHandler(this.MainDashboard_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.reportPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.reportPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

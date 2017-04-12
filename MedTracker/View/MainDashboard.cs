@@ -111,5 +111,11 @@ namespace MedTracker.View
             else
                 MessageBox.Show("Must be a nurse to access patient information and appointments.", "Unauthorized access.");
         }
+
+        private void reportPictureBox_Click(object sender, EventArgs e)
+        {
+            Reports reportsForm = new Reports();
+            reportsForm.Show();
+        }
     }
 }

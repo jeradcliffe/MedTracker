@@ -30,7 +30,6 @@
         {
             this.stateLabel = new System.Windows.Forms.Label();
             this.dobDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
             this.zipTextBox = new System.Windows.Forms.TextBox();
             this.cityTextBox = new System.Windows.Forms.TextBox();
             this.streetAddressTextBox = new System.Windows.Forms.TextBox();
@@ -50,6 +49,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.stateComboBox = new System.Windows.Forms.ComboBox();
             this.genderComboBox = new System.Windows.Forms.ComboBox();
+            this.phoneLastFourDigitsTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.phoneFirstThreeDigitsTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.areaCodeTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // stateLabel
@@ -67,13 +71,6 @@
             this.dobDateTimePicker.Name = "dobDateTimePicker";
             this.dobDateTimePicker.Size = new System.Drawing.Size(241, 22);
             this.dobDateTimePicker.TabIndex = 31;
-            // 
-            // phoneNumberTextBox
-            // 
-            this.phoneNumberTextBox.Location = new System.Drawing.Point(186, 258);
-            this.phoneNumberTextBox.Name = "phoneNumberTextBox";
-            this.phoneNumberTextBox.Size = new System.Drawing.Size(241, 22);
-            this.phoneNumberTextBox.TabIndex = 36;
             // 
             // zipTextBox
             // 
@@ -179,7 +176,7 @@
             this.cancelButton.Location = new System.Drawing.Point(338, 331);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(82, 29);
-            this.cancelButton.TabIndex = 39;
+            this.cancelButton.TabIndex = 41;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -189,7 +186,7 @@
             this.updatePatientButton.Location = new System.Drawing.Point(92, 331);
             this.updatePatientButton.Name = "updatePatientButton";
             this.updatePatientButton.Size = new System.Drawing.Size(82, 29);
-            this.updatePatientButton.TabIndex = 38;
+            this.updatePatientButton.TabIndex = 40;
             this.updatePatientButton.Text = "Update";
             this.updatePatientButton.UseVisualStyleBackColor = true;
             this.updatePatientButton.Click += new System.EventHandler(this.updatePatientButton_Click);
@@ -199,7 +196,7 @@
             this.ssnTextBox.Location = new System.Drawing.Point(186, 286);
             this.ssnTextBox.Name = "ssnTextBox";
             this.ssnTextBox.Size = new System.Drawing.Size(241, 22);
-            this.ssnTextBox.TabIndex = 37;
+            this.ssnTextBox.TabIndex = 39;
             this.ssnTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ssnTextBox_KeyPress);
             // 
             // ssnLabel
@@ -237,11 +234,58 @@
             this.genderComboBox.Size = new System.Drawing.Size(241, 24);
             this.genderComboBox.TabIndex = 30;
             // 
+            // phoneLastFourDigitsTextBox
+            // 
+            this.phoneLastFourDigitsTextBox.Location = new System.Drawing.Point(332, 259);
+            this.phoneLastFourDigitsTextBox.Name = "phoneLastFourDigitsTextBox";
+            this.phoneLastFourDigitsTextBox.Size = new System.Drawing.Size(95, 22);
+            this.phoneLastFourDigitsTextBox.TabIndex = 38;
+            this.phoneLastFourDigitsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.phoneLastFourDigitsTextBox_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(313, 262);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(13, 17);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "-";
+            // 
+            // phoneFirstThreeDigitsTextBox
+            // 
+            this.phoneFirstThreeDigitsTextBox.Location = new System.Drawing.Point(259, 259);
+            this.phoneFirstThreeDigitsTextBox.Name = "phoneFirstThreeDigitsTextBox";
+            this.phoneFirstThreeDigitsTextBox.Size = new System.Drawing.Size(48, 22);
+            this.phoneFirstThreeDigitsTextBox.TabIndex = 37;
+            this.phoneFirstThreeDigitsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.phoneFirstThreeDigitsTextBox_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(240, 262);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(13, 17);
+            this.label3.TabIndex = 44;
+            this.label3.Text = "-";
+            // 
+            // areaCodeTextBox
+            // 
+            this.areaCodeTextBox.Location = new System.Drawing.Point(186, 259);
+            this.areaCodeTextBox.Name = "areaCodeTextBox";
+            this.areaCodeTextBox.Size = new System.Drawing.Size(48, 22);
+            this.areaCodeTextBox.TabIndex = 36;
+            this.areaCodeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.areaCodeTextBox_KeyPress);
+            // 
             // UpdatePatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 389);
+            this.Controls.Add(this.phoneLastFourDigitsTextBox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.phoneFirstThreeDigitsTextBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.areaCodeTextBox);
             this.Controls.Add(this.genderComboBox);
             this.Controls.Add(this.stateComboBox);
             this.Controls.Add(this.label2);
@@ -249,7 +293,6 @@
             this.Controls.Add(this.ssnLabel);
             this.Controls.Add(this.stateLabel);
             this.Controls.Add(this.dobDateTimePicker);
-            this.Controls.Add(this.phoneNumberTextBox);
             this.Controls.Add(this.zipTextBox);
             this.Controls.Add(this.cityTextBox);
             this.Controls.Add(this.streetAddressTextBox);
@@ -275,7 +318,6 @@
         #endregion
         private System.Windows.Forms.Label stateLabel;
         private System.Windows.Forms.DateTimePicker dobDateTimePicker;
-        private System.Windows.Forms.TextBox phoneNumberTextBox;
         private System.Windows.Forms.TextBox zipTextBox;
         private System.Windows.Forms.TextBox cityTextBox;
         private System.Windows.Forms.TextBox streetAddressTextBox;
@@ -295,5 +337,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox stateComboBox;
         private System.Windows.Forms.ComboBox genderComboBox;
+        private System.Windows.Forms.TextBox phoneLastFourDigitsTextBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox phoneFirstThreeDigitsTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox areaCodeTextBox;
     }
 }

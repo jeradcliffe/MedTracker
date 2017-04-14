@@ -60,6 +60,11 @@ namespace MedTracker.View
             {
                 Person newPatient = new Person();
 
+                string formattedPhoneNumber = 
+                    areaCodeTextBox.Text + "-" + 
+                    phoneFirstThreeDigitsTextBox.Text + "-" + 
+                    phoneLastFourDigitsTextBox.Text;
+
                 newPatient.firstName     = firstNameTextBox.Text;
                 newPatient.lastName      = lastNameTextBox.Text;
                 newPatient.dateOfBirth   = dobDateTimePicker.Value.Date;
@@ -67,7 +72,7 @@ namespace MedTracker.View
                 newPatient.city          = cityTextBox.Text;
                 newPatient.state         = stateComboBox.Text;
                 newPatient.zip           = zipTextBox.Text;
-                newPatient.phoneNumber   = phoneNumberTextBox.Text;
+                newPatient.phoneNumber   = formattedPhoneNumber;
                 newPatient.gender        = genderComboBox.Text;
                 newPatient.ssn           = ssnTextBox.Text;
 
@@ -87,28 +92,10 @@ namespace MedTracker.View
             this.Close();
         }
 
-        private void zipTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            this.allowOnlyNumbersKeyPress(e);
-        }
-
-        private void ssnTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            this.allowOnlyNumbersKeyPress(e);
-        }
-
         private void dobDateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             dobDateTimePicker.CustomFormat = "MMMM dd, yyyy";
             dateChosen = true;
-        }
-
-        private void allowOnlyNumbersKeyPress(KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
         }
 
         private bool allFieldsAreValid()
@@ -119,7 +106,9 @@ namespace MedTracker.View
                 streetAddressTextBox.Text == "" ||
                 cityTextBox.Text == "" ||
                 zipTextBox.Text == "" ||
-                phoneNumberTextBox.Text == "" ||
+                areaCodeTextBox.Text == "" ||
+                phoneFirstThreeDigitsTextBox.Text == "" ||
+                phoneLastFourDigitsTextBox.Text == "" ||
                 ssnTextBox.Text == "")
             {
                 MessageBox.Show("ALL fields are required! Do not leave any blank.");
@@ -150,9 +139,19 @@ namespace MedTracker.View
                 MessageBox.Show("Zip code must be exactly 5 digits!", "Invalid Zip Code");
                 return false;
             }
-            else if (phoneNumberTextBox.Text.Length < 10 || phoneNumberTextBox.Text.Length > 12)
+            else if (areaCodeTextBox.Text.Length < 3 || areaCodeTextBox.Text.Length > 3)
             {
-                MessageBox.Show("Phone Number must be between 10 and 12 digits!", "Invalid Phone Number");
+                MessageBox.Show("Phone number area code must be exactly 3 digits!", "Invalid Phone Number");
+                return false;
+            }
+            else if (phoneFirstThreeDigitsTextBox.Text.Length < 3 || phoneFirstThreeDigitsTextBox.Text.Length > 3)
+            {
+                MessageBox.Show("Phone number first three digits must be exactly 3 digits!", "Invalid Phone Number");
+                return false;
+            }
+            else if (phoneLastFourDigitsTextBox.Text.Length < 4 || phoneLastFourDigitsTextBox.Text.Length > 4)
+            {
+                MessageBox.Show("Phone number last four digits must be exactly 4 digits!", "Invalid Phone Number");
                 return false;
             }
             else if (ssnTextBox.Text.Length < 9 || ssnTextBox.Text.Length > 9)
@@ -164,6 +163,39 @@ namespace MedTracker.View
             {
                 return true;
             }
+        }
+
+        private void allowOnlyNumbersKeyPress(KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void zipTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowOnlyNumbersKeyPress(e);
+        }
+
+        private void ssnTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowOnlyNumbersKeyPress(e);
+        }
+
+        private void areaCodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowOnlyNumbersKeyPress(e);
+        }
+
+        private void phoneFirstThreeDigitsTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowOnlyNumbersKeyPress(e);
+        }
+
+        private void phoneLastFourDigitsTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowOnlyNumbersKeyPress(e);
         }
     }
 }

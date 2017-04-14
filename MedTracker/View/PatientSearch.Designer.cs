@@ -41,8 +41,6 @@
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.patientDataGridView = new System.Windows.Forms.DataGridView();
-            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.newPatientButton = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +56,8 @@
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.newPatientButton = new System.Windows.Forms.Button();
             dateOfBirthLabel = new System.Windows.Forms.Label();
             lastNameLabel = new System.Windows.Forms.Label();
             firstNameLabel = new System.Windows.Forms.Label();
@@ -186,21 +186,6 @@
             this.patientDataGridView.TabIndex = 10;
             this.patientDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientDataGridView_CellContentClick);
             // 
-            // personBindingSource
-            // 
-            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
-            // 
-            // newPatientButton
-            // 
-            this.newPatientButton.Location = new System.Drawing.Point(1288, 12);
-            this.newPatientButton.Margin = new System.Windows.Forms.Padding(4);
-            this.newPatientButton.Name = "newPatientButton";
-            this.newPatientButton.Size = new System.Drawing.Size(100, 28);
-            this.newPatientButton.TabIndex = 11;
-            this.newPatientButton.Text = "New Patient";
-            this.newPatientButton.UseVisualStyleBackColor = true;
-            this.newPatientButton.Click += new System.EventHandler(this.newPatientButton_Click);
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "peopleID";
@@ -321,6 +306,21 @@
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Visible = false;
+            // 
+            // personBindingSource
+            // 
+            this.personBindingSource.DataSource = typeof(MedTracker.Model.Person);
+            // 
+            // newPatientButton
+            // 
+            this.newPatientButton.Location = new System.Drawing.Point(1288, 12);
+            this.newPatientButton.Margin = new System.Windows.Forms.Padding(4);
+            this.newPatientButton.Name = "newPatientButton";
+            this.newPatientButton.Size = new System.Drawing.Size(100, 28);
+            this.newPatientButton.TabIndex = 11;
+            this.newPatientButton.Text = "New Patient";
+            this.newPatientButton.UseVisualStyleBackColor = true;
+            this.newPatientButton.Click += new System.EventHandler(this.newPatientButton_Click);
             // 
             // PatientSearch
             // 

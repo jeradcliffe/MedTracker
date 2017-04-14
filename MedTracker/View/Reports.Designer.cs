@@ -34,7 +34,7 @@
             this.resetButton = new System.Windows.Forms.Button();
             this.startDateLabel = new System.Windows.Forms.Label();
             this.endDateLabel = new System.Windows.Forms.Label();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.reportTitleLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -60,6 +60,7 @@
             this.runReportButton.TabIndex = 2;
             this.runReportButton.Text = "Run Report";
             this.runReportButton.UseVisualStyleBackColor = true;
+            this.runReportButton.Click += new System.EventHandler(this.runReportButton_Click);
             // 
             // resetButton
             // 
@@ -69,6 +70,7 @@
             this.resetButton.TabIndex = 3;
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // startDateLabel
             // 
@@ -88,12 +90,12 @@
             this.endDateLabel.TabIndex = 5;
             this.endDateLabel.Text = "End Date";
             // 
-            // reportViewer1
+            // reportViewer
             // 
-            this.reportViewer1.Location = new System.Drawing.Point(13, 130);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.Size = new System.Drawing.Size(884, 536);
-            this.reportViewer1.TabIndex = 6;
+            this.reportViewer.Location = new System.Drawing.Point(13, 130);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.Size = new System.Drawing.Size(884, 536);
+            this.reportViewer.TabIndex = 6;
             // 
             // reportTitleLabel
             // 
@@ -111,7 +113,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(909, 678);
             this.Controls.Add(this.reportTitleLabel);
-            this.Controls.Add(this.reportViewer1);
+            this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.endDateLabel);
             this.Controls.Add(this.startDateLabel);
             this.Controls.Add(this.resetButton);
@@ -134,7 +136,7 @@
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Label startDateLabel;
         private System.Windows.Forms.Label endDateLabel;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
         private System.Windows.Forms.Label reportTitleLabel;
     }
 }

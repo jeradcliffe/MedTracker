@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MedTracker.View
@@ -19,8 +12,29 @@ namespace MedTracker.View
 
         private void Reports_Load(object sender, EventArgs e)
         {
+            startDateTimePicker.MaxDate = DateTime.Today;
+            endDateTimePicker.MaxDate   = DateTime.Today;
 
-            this.reportViewer1.RefreshReport();
+            reportViewer.RefreshReport();
+        }
+
+        private void runReportButton_Click(object sender, EventArgs e)
+        {
+            if (startDateTimePicker.Value.Date > endDateTimePicker.Value.Date)
+            {
+                MessageBox.Show("Start Date cannot come after End Date", "Invalid Date Range");
+            }
+            else
+            {
+                //fill with report from dataset
+            }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            startDateTimePicker.Value = DateTime.Today;
+            endDateTimePicker.Value   = DateTime.Today;
+            reportViewer.Reset();
         }
     }
 }

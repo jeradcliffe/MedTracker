@@ -32,5 +32,15 @@ namespace MedTracker.Properties {
                 return ((string)(this["ClinicConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=CS6232-g3;Integrated Security=True")]
+        public string CS6232_g3ConnectionString {
+            get {
+                return ((string)(this["CS6232_g3ConnectionString"]));
+            }
+        }
     }
 }

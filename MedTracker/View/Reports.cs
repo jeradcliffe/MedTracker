@@ -14,8 +14,6 @@ namespace MedTracker.View
         {
             startDateTimePicker.MaxDate = DateTime.Today;
             endDateTimePicker.MaxDate   = DateTime.Today;
-
-            reportViewer.RefreshReport();
         }
 
         private void runReportButton_Click(object sender, EventArgs e)
@@ -27,14 +25,11 @@ namespace MedTracker.View
             else
             {
                 //fill with report from dataset
+                this.usp_mostPerformedTestsDuringDatesTableAdapter.Fill(
+                    this._CS6232_g3DataSet.usp_mostPerformedTestsDuringDates,
+                    startDateTimePicker.Value, endDateTimePicker.Value);
+                reportViewer.RefreshReport();
             }
-        }
-
-        private void resetButton_Click(object sender, EventArgs e)
-        {
-            startDateTimePicker.Value = DateTime.Today;
-            endDateTimePicker.Value   = DateTime.Today;
-            reportViewer.Reset();
         }
     }
 }

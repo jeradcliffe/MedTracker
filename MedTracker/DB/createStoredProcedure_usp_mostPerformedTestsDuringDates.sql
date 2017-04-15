@@ -23,24 +23,24 @@ AS
 	IF @endDate = ''
 		THROW 50001, 'The end date is empty', 1;
 	 
-    SELECT main1.tests_testCode AS 'Test Code', main1.testName AS 'Test Name',  
-           main1.timesTestPerformed AS 'Times Test Performed', 
-		   main2.total_performed AS 'Number of Times Test Performed',
-		   ROUND(100 * main1.timesTestPerformed / main2.total_performed, 2) AS 'Percentage of Test Performed',
-		   main1.normal AS 'Normal Results',
-		   main1.abnormal AS 'Abnormal Results',
-		   ROUND(100 * main1.agegroup18 / main1.timesTestPerformed, 2) AS 'Percentage 18-29',
-		   ROUND(100 * main1.agegroup30 / main1.timesTestPerformed, 2) AS 'Percentage 30-39',
-		   ROUND(100 * main1.agegroup40 / main1.timesTestPerformed, 2) AS 'Percentage 40-49',
-		   ROUND(100 * main1.agegroup50 / main1.timesTestPerformed, 2) AS 'Percentage 50-59',
-		   ROUND(100 * main1.agegroup60 / main1.timesTestPerformed, 2) AS 'Percentage 60-69',
-		   ROUND(100 * main1.agegroup70 / main1.timesTestPerformed, 2) AS 'Percentage 70-79',
-		   ROUND(100 * main1.agegroup80up / main1.timesTestPerformed, 2) AS 'Percentage 80+'
+    SELECT main1.tests_testCode, main1.testName,  
+           main1.timesTestPerformed, 
+		   main2.total_performed,
+		   ROUND(100 * main1.timesTestPerformed / main2.total_performed, 2),
+		   main1.result,
+		   main1.abnormal,
+		   ROUND(100 * main1.agegroup18 / main1.timesTestPerformed, 2),
+		   ROUND(100 * main1.agegroup30 / main1.timesTestPerformed, 2),
+		   ROUND(100 * main1.agegroup40 / main1.timesTestPerformed, 2),
+		   ROUND(100 * main1.agegroup50 / main1.timesTestPerformed, 2),
+		   ROUND(100 * main1.agegroup60 / main1.timesTestPerformed, 2),
+		   ROUND(100 * main1.agegroup70 / main1.timesTestPerformed, 2),
+		   ROUND(100 * main1.agegroup80up / main1.timesTestPerformed, 2)
 	FROM 
 		(SELECT tests_testCode, 
 				t2.testName, 
 				COUNT(*) AS timesTestPerformed,
-				sum(case when t1.results = 'Normal' then 1 else 0 end) AS normal,
+				sum(case when t1.results = 'Normal' then 1 else 0 end) AS result,
 				sum(case when t1.results = 'Abnormal' then 1 else 0 end) AS abnormal,
 				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 18 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 29) then 1 else 0 end) AS agegroup18,
 				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 30 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 39) then 1 else 0 end) AS agegroup30,

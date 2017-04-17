@@ -14,7 +14,6 @@ namespace MedTracker.View
 {
     public partial class PatientSearch : Form
     {
-        public Person patient;
         private List<Person> patientList;
         private PatientsController patientsController;
         private Boolean dateChosen;
@@ -46,7 +45,7 @@ namespace MedTracker.View
                 try
                 {
                     patientList = patientsController.GetSelectedPatients(dateOfBirth, firstName, lastName);
-                    patientDataGridView.DataSource = patientList;
+                    patientDataGridView.DataSource = patientList;                    
                 }
                 catch (Exception ex)
                 {
@@ -111,7 +110,21 @@ namespace MedTracker.View
                 Person patientSelected = (Person)row.DataBoundItem;
 
                 UpdatePatientForm updatePatientForm = new UpdatePatientForm(patientSelected);
-                updatePatientForm.ShowDialog();
+                DialogResult result = updatePatientForm.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    Person patient = updatePatientForm.updatedPatient;
+                    try
+                    {
+                        patientList = patientsController.GetSelectedPatients("", patient.firstName, patient.lastName);
+                        patientDataGridView.DataSource = patientList;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    }
+                }
             }
         }
 
@@ -167,7 +180,21 @@ namespace MedTracker.View
         private void newPatientButton_Click(object sender, EventArgs e)
         {
             NewPatientForm newPatientForm = new NewPatientForm();
-            newPatientForm.Show();
+            DialogResult result = newPatientForm.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                Person patient = newPatientForm.newPatient;
+                try
+                {
+                    patientList = patientsController.GetSelectedPatients("", patient.firstName, patient.lastName);
+                    patientDataGridView.DataSource = patientList;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ namespace MedTracker.View
 {
     public partial class UpdatePatientForm : Form
     {
+        public Person updatedPatient;
         private Person patientToBeUpdated;
         private PatientsController patientsController;
 
@@ -75,7 +76,7 @@ namespace MedTracker.View
         {            
             if (this.allFieldsAreValid())
             {
-                Person updatedPatient = new Person();
+                updatedPatient = new Person();
 
                 string formattedPhoneNumber =
                     areaCodeTextBox.Text + "-" +
@@ -97,8 +98,9 @@ namespace MedTracker.View
 
                 if (statusOfUpdate == 0)
                 {
-                    MessageBox.Show("Patient Information was successfully updated!", "Patient Update");
-                    this.Close();
+                    // This will close the form and report that patient was created
+                    // Patient will now show up in table on search form
+                    this.DialogResult = DialogResult.OK;
                 }
 
                 if (statusOfUpdate == 1)

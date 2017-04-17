@@ -7,6 +7,7 @@ namespace MedTracker.View
 {
     public partial class NewPatientForm : Form
     {
+        public Person newPatient;
         private bool dateChosen;
         private PatientsController patientsController;
 
@@ -58,7 +59,7 @@ namespace MedTracker.View
         {            
             if (this.allFieldsAreValid())
             {
-                Person newPatient = new Person();
+                newPatient = new Person();
 
                 string formattedPhoneNumber = 
                     areaCodeTextBox.Text + "-" + 
@@ -81,8 +82,9 @@ namespace MedTracker.View
                 //if create patient was successful
                 if (statusOfCreate == 0)
                 {
-                    MessageBox.Show("Patient was successfully created!");
-                    this.Close();
+                    // This will close the form and report that patient was created
+                    // Patient will now show up in table on search form
+                    this.DialogResult = DialogResult.OK;
                 }
             }
         }

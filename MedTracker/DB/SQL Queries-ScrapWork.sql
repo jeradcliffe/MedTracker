@@ -1,8 +1,5 @@
 USE  "CS6232-g3";
 
-SELECT COUNT(*) AS 'count' FROM clinicemployees " +
-                "WHERE userName = 'scarter9' AND passwords = '512521991012471557618716612921044901777284';
-
 SELECT * FROM clinicemployees;
 SELECT username from nurses;
 SELECT username from doctors;
@@ -134,7 +131,7 @@ SELECT COUNT(*) AS 'count' FROM clinicemployees " +
 
 -------- Admin SP Testing -------- 
 -- Case 1 works
-EXEC usp_mostPerformedTestsDuringDates '2015-01-01', '2015-12-30';
+EXEC usp_mostPerformedTestsDuringDates '2016-10-01', '2017-04-16';
 
 -- Case 2 start/end date is null
 EXEC usp_mostPerformedTestsDuringDates null, '2015-12-30';

@@ -46,10 +46,16 @@ namespace MedTracker.View
             lblRole.Text = role;
             lblName.Text = currentPerson.lastName.ToString() + ", " + currentPerson.firstName.ToString();
 
-            if (role == "Nurse" || role == "Doctor")
+            // Set properties for both pics and labels to false in form designer
+            if (role.Equals("Administrator"))
             {
-                reportPictureBox.Visible = false;
-                reportLabel.Visible = false;
+                reportPictureBox.Visible = true;
+                reportLabel.Visible = true;
+            }
+            else if (role.Equals("Nurse") )
+            {
+                searchPictureBox.Visible = true;
+                searchLabel.Visible = true;
             }
         }
         
@@ -101,15 +107,9 @@ namespace MedTracker.View
 
         private void searchImage_click(object sender, EventArgs e)
         {
-
-            if (isNurse)
-            {
-                PatientSearch searchForm = new PatientSearch();
-                searchForm.nurseID = tempNurse.nurseID;
-                searchForm.ShowDialog();
-            }
-            else
-                MessageBox.Show("Must be a nurse to access patient information and appointments.", "Unauthorized access.");
+            PatientSearch searchForm = new PatientSearch();
+            searchForm.nurseID = tempNurse.nurseID;
+            searchForm.ShowDialog();
         }
 
         private void reportPictureBox_Click(object sender, EventArgs e)

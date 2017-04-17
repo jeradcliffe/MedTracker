@@ -289,6 +289,7 @@
             // 
             this.appointmentDatePicker.CustomFormat = "";
             this.appointmentDatePicker.Location = new System.Drawing.Point(425, 6);
+            this.appointmentDatePicker.MinDate = new System.DateTime(2017, 4, 16, 0, 0, 0, 0);
             this.appointmentDatePicker.Name = "appointmentDatePicker";
             this.appointmentDatePicker.Size = new System.Drawing.Size(196, 20);
             this.appointmentDatePicker.TabIndex = 17;

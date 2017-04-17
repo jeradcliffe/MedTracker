@@ -342,6 +342,7 @@ namespace MedTracker.View
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
                 return;
             }
         }
@@ -413,12 +414,15 @@ namespace MedTracker.View
                     testsDataGridView.DataSource = this.appointmentTests;
                     testDateTimePicker.Value = this.appointmentDate;
                     testsDataGridView.ClearSelection();
+                    testDateTimePicker.MinDate = appointmentDate.Date;
 
                     // Enable testing fields
                     enableTestFields(true);
                 }
                 else
                     enableTestFields(false);
+
+                updateTestButton.Enabled = false;
 
                 // Clear any previously highlighted rows
                 if (this.currentRow != null)
@@ -441,7 +445,7 @@ namespace MedTracker.View
             {
                 MessageBox.Show(ex.Message, ex.GetType().ToString());
             }
-            updateTestButton.Enabled = false;
+            
 
         }
 

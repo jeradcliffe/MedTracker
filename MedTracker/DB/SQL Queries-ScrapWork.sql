@@ -1,5 +1,8 @@
 USE  "CS6232-g3";
 
+SELECT COUNT(*) AS 'count' FROM clinicemployees " +
+                "WHERE userName = 'scarter9' AND passwords = '512521991012471557618716612921044901777284';
+
 SELECT * FROM clinicemployees;
 SELECT username from nurses;
 SELECT username from doctors;

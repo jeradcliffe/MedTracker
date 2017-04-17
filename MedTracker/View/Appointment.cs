@@ -32,6 +32,7 @@ namespace MedTracker.View
             doctorsController = new DoctorsController();
             patientsController = new PatientsController();
             appointmentsController = new AppointmentsController();
+            appointmentDatePicker.MinDate = DateTime.Today;
             clearFields();
         }
 
@@ -188,7 +189,7 @@ namespace MedTracker.View
         }
         private void clearFields()
         {
-            appointmentDatePicker.Value     = DateTime.Now;
+            appointmentDatePicker.Value     = DateTime.Today;
             appointmentTimePicker.Value     = new DateTime(2000, 1, 1, 12, 0, 0);
             doctorsComboBox.SelectedValue   = -1;
             reasonTextBox.Text              = "";
@@ -297,18 +298,18 @@ namespace MedTracker.View
                 return true;
             else
             {
-                messageLabel.Text = "Valid date, time, doctor, and reason are needed.";
                 return false;
             }
         }
 
         private bool isNotEmptyOrNull(TextBox textBox)
         {
-            if (!String.IsNullOrEmpty(textBox.Text))
+            if (!String.IsNullOrEmpty(textBox.Text) && !String.IsNullOrWhiteSpace(textBox.Text))
                 return true;
             else
             {
                 textBox.Focus();
+                messageLabel.Text = "Field must be filled in.";
                 return false;
             }
         }
@@ -337,7 +338,8 @@ namespace MedTracker.View
                 return true;
             else
             {
-                date.Focus();
+                time.Focus();
+                messageLabel.Text = "Appointment may not be from a past time.";
                 return false;
             }
         }
@@ -349,6 +351,7 @@ namespace MedTracker.View
             else
             {
                 cbox.Focus();
+                messageLabel.Text = "Please choose a vaild doctor.";
                 return false;
             }
         }

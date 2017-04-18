@@ -330,8 +330,13 @@ namespace MedTracker.View
                 testDateTimePicker.Value    = this.currentTest.testDate;
                 if (this.currentTest.results.Equals("normal", StringComparison.InvariantCultureIgnoreCase))
                     normalRadioBtn.Checked = true;
-                else
+                else if (this.currentTest.results.Equals("abnormal", StringComparison.InvariantCultureIgnoreCase))
                     abnormalRadioBtn.Checked = true;
+                else
+                {
+                    normalRadioBtn.Checked   = false;
+                    abnormalRadioBtn.Checked = false;
+                }
 
                 // Only allow update of selected tests to avoid duplicate PK entries
                 enableTestFields(false);

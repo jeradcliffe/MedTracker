@@ -30,12 +30,7 @@ AS
 		   main1.result,
 		   main1.abnormal,
 		   ROUND(100 * main1.agegroup18 / main1.timesTestPerformed, 2),
-		   ROUND(100 * main1.agegroup30 / main1.timesTestPerformed, 2),
-		   ROUND(100 * main1.agegroup40 / main1.timesTestPerformed, 2),
-		   ROUND(100 * main1.agegroup50 / main1.timesTestPerformed, 2),
-		   ROUND(100 * main1.agegroup60 / main1.timesTestPerformed, 2),
-		   ROUND(100 * main1.agegroup70 / main1.timesTestPerformed, 2),
-		   ROUND(100 * main1.agegroup80up / main1.timesTestPerformed, 2)
+		   ROUND(100 * main1.otherAgeGroup / main1.timesTestPerformed, 2)
 	FROM 
 		(SELECT tests_testCode, 
 				t2.testName, 
@@ -43,12 +38,7 @@ AS
 				sum(case when t1.results = 'Normal' then 1 else 0 end) AS result,
 				sum(case when t1.results = 'Abnormal' then 1 else 0 end) AS abnormal,
 				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 18 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 29) then 1 else 0 end) AS agegroup18,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 30 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 39) then 1 else 0 end) AS agegroup30,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 40 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 49) then 1 else 0 end) AS agegroup40,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 50 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 59) then 1 else 0 end) AS agegroup50,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 60 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 69) then 1 else 0 end) AS agegroup60,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 70 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 79) then 1 else 0 end) AS agegroup70,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 80) then 1 else 0 end) AS agegroup80up
+				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) > 29) then 1 else 0 end) AS otherAgeGroup
 		FROM
 			appointment_has_tests t1
 			JOIN tests t2 ON t2.testCode = t1.tests_testCode 

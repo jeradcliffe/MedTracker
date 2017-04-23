@@ -45,23 +45,24 @@ namespace MedTracker.View
                 try
                 {
                     patientList = patientsController.GetSelectedPatients(dateOfBirth, firstName, lastName);
-                    patientDataGridView.DataSource = patientList;                    
+                    patientDataGridView.DataSource = patientList;
+
+                    switch (patientList.Count)
+                    {
+                        case 0:
+                            messageLabel.Text = "No patients found.";
+                            break;
+                        case 1:
+                            messageLabel.Text = "One patient found.";
+                            break;
+                        default:
+                            messageLabel.Text = patientDataGridView.RowCount + " patients found.";
+                            break;
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, ex.GetType().ToString());
-                }
-                switch (patientList.Count)
-                {
-                    case 0:
-                        messageLabel.Text = "No patients found.";
-                        break;
-                    case 1:
-                        messageLabel.Text = "One patient found.";
-                        break;
-                    default:
-                        messageLabel.Text = patientDataGridView.RowCount + " patients found.";
-                        break;
                 }
             }
         }

@@ -38,20 +38,27 @@ namespace MedTracker.View
 
         private void AppointmentForm_Load(object sender, EventArgs e)
         {
-            fillDoctorsList();
-            fillPatientInformation();
-            fillAppointmentInformation();
-            switch (appointmentList.Count)
+            try
             {
-                case 0:
-                    messageLabel.Text = "No appointments found.";
-                    break;
-                case 1:
-                    messageLabel.Text = "One appointment found.";
-                    break;
-                default:
-                    messageLabel.Text = appointmentDataGridView.RowCount + " appointments found.";
-                    break;
+                fillDoctorsList();
+                fillPatientInformation();
+                fillAppointmentInformation();
+                switch (appointmentList.Count)
+                {
+                    case 0:
+                        messageLabel.Text = "No appointments found.";
+                        break;
+                    case 1:
+                        messageLabel.Text = "One appointment found.";
+                        break;
+                    default:
+                        messageLabel.Text = appointmentDataGridView.RowCount + " appointments found.";
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                messageLabel.Text = "No appointments scheduled for this patient.";
             }
         }
 
@@ -205,12 +212,19 @@ namespace MedTracker.View
         // Fills our patient info into the form
         private void fillPatientInformation()
         {
-            patient = patientsController.GetPatientByID(patientID);
-            patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
-            phoneNumberTextBox.Text = patient.phoneNumber;
-            cityTextBox.Text        = patient.city;
-            stateTextBox.Text       = patient.state;
-            zipTextBox.Text         = patient.zip;
+            try
+            {
+                patient = patientsController.GetPatientByID(patientID);
+                patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
+                phoneNumberTextBox.Text = patient.phoneNumber;
+                cityTextBox.Text = patient.city;
+                stateTextBox.Text = patient.state;
+                zipTextBox.Text = patient.zip;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to fill aptient information. Please check connection to DB.", "Error");
+            }
         }
 
         // Loads our DataGridView with appointment information

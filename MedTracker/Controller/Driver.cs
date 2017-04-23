@@ -17,9 +17,9 @@ namespace MedTracker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainDashboard());
+            //Application.Run(new MainDashboard());
             //Application.Run(new Reports());
-            //Application.Run(new Login());
+            Application.Run(new Login());
         }
     }
 }

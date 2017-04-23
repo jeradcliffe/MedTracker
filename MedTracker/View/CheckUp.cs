@@ -343,9 +343,8 @@ namespace MedTracker.View
                 normalRadioBtn.Enabled   = true;
                 abnormalRadioBtn.Enabled = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
                 return;
             }
         }

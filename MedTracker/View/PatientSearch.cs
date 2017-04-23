@@ -119,8 +119,10 @@ namespace MedTracker.View
                     Person patient = updatePatientForm.updatedPatient;
                     try
                     {
-                        patientList = patientsController.GetSelectedPatients("", patient.firstName, patient.lastName);
+                        string DOB = patient.dateOfBirth.Date.ToString();
+                        patientList = patientsController.GetSelectedPatients(DOB, patient.firstName, patient.lastName);
                         patientDataGridView.DataSource = patientList;
+                        messageLabel.Text = "Patient has been successfully updated.";
                     }
                     catch (Exception ex)
                     {
@@ -189,8 +191,10 @@ namespace MedTracker.View
                 Person patient = newPatientForm.newPatient;
                 try
                 {
-                    patientList = patientsController.GetSelectedPatients("", patient.firstName, patient.lastName);
+                    string DOB = patient.dateOfBirth.Date.ToString();
+                    patientList = patientsController.GetSelectedPatients(DOB, patient.firstName, patient.lastName);
                     patientDataGridView.DataSource = patientList;
+                    messageLabel.Text = "New patient has been successfully created.";
                 }
                 catch (Exception ex)
                 {

@@ -38,7 +38,7 @@ AS
 				sum(case when t1.results = 'Normal' then 1 else 0 end) AS result,
 				sum(case when t1.results = 'Abnormal' then 1 else 0 end) AS abnormal,
 				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) >= 18 AND DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) <= 29) then 1 else 0 end) AS agegroup18,
-				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) > 29) then 1 else 0 end) AS otherAgeGroup
+				SUM(case when (DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) < 18 OR DATEDIFF(YEAR, t4.dateOfBirth, t1.testDate) > 29) then 1 else 0 end) AS otherAgeGroup
 		FROM
 			appointment_has_tests t1
 			JOIN tests t2 ON t2.testCode = t1.tests_testCode 

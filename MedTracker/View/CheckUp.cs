@@ -366,11 +366,18 @@ namespace MedTracker.View
 
             appointmentDateTextBox.Text = this.appointmentDate.ToString("ddd MMM d, yyyy");
 
-            Person patient = patientsController.GetPatientByID(this.patientID);
-            patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
+            try
+            {
+                Person patient = patientsController.GetPatientByID(this.patientID);
+                patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
 
-            Person doctor = doctorsController.GetDoctorByID(this.doctorID);
-            doctorNameTextBox.Text = doctor.firstName + " " + doctor.lastName;
+                Person doctor = doctorsController.GetDoctorByID(this.doctorID);
+                doctorNameTextBox.Text = doctor.firstName + " " + doctor.lastName;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error trying to load patient and doctor information.", "Error");
+            }
         }
 
         // Fills all of the vitals informationo into the table if exists
@@ -473,7 +480,7 @@ namespace MedTracker.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                MessageBox.Show("Unable to load combo boxes due to a problem accessing information from the database." , "Error");
             }
         }
 

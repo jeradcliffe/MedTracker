@@ -297,16 +297,6 @@ namespace MedTracker {
             
             private global::System.Data.DataColumn columnColumn3;
             
-            private global::System.Data.DataColumn columnColumn4;
-            
-            private global::System.Data.DataColumn columnColumn5;
-            
-            private global::System.Data.DataColumn columnColumn6;
-            
-            private global::System.Data.DataColumn columnColumn7;
-            
-            private global::System.Data.DataColumn columnColumn8;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public usp_mostPerformedTestsDuringDatesDataTable() {
@@ -414,46 +404,6 @@ namespace MedTracker {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Column4Column {
-                get {
-                    return this.columnColumn4;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Column5Column {
-                get {
-                    return this.columnColumn5;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Column6Column {
-                get {
-                    return this.columnColumn6;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Column7Column {
-                get {
-                    return this.columnColumn7;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn Column8Column {
-                get {
-                    return this.columnColumn8;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -489,7 +439,7 @@ namespace MedTracker {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public usp_mostPerformedTestsDuringDatesRow Addusp_mostPerformedTestsDuringDatesRow(string tests_testCode, string testName, int timesTestPerformed, int total_performed, int Column1, int result, int abnormal, int Column2, int Column3, int Column4, int Column5, int Column6, int Column7, int Column8) {
+            public usp_mostPerformedTestsDuringDatesRow Addusp_mostPerformedTestsDuringDatesRow(string tests_testCode, string testName, int timesTestPerformed, int total_performed, int Column1, int result, int abnormal, int Column2, int Column3) {
                 usp_mostPerformedTestsDuringDatesRow rowusp_mostPerformedTestsDuringDatesRow = ((usp_mostPerformedTestsDuringDatesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         tests_testCode,
@@ -500,12 +450,7 @@ namespace MedTracker {
                         result,
                         abnormal,
                         Column2,
-                        Column3,
-                        Column4,
-                        Column5,
-                        Column6,
-                        Column7,
-                        Column8};
+                        Column3};
                 rowusp_mostPerformedTestsDuringDatesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowusp_mostPerformedTestsDuringDatesRow);
                 return rowusp_mostPerformedTestsDuringDatesRow;
@@ -537,11 +482,6 @@ namespace MedTracker {
                 this.columnabnormal = base.Columns["abnormal"];
                 this.columnColumn2 = base.Columns["Column2"];
                 this.columnColumn3 = base.Columns["Column3"];
-                this.columnColumn4 = base.Columns["Column4"];
-                this.columnColumn5 = base.Columns["Column5"];
-                this.columnColumn6 = base.Columns["Column6"];
-                this.columnColumn7 = base.Columns["Column7"];
-                this.columnColumn8 = base.Columns["Column8"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -565,16 +505,6 @@ namespace MedTracker {
                 base.Columns.Add(this.columnColumn2);
                 this.columnColumn3 = new global::System.Data.DataColumn("Column3", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnColumn3);
-                this.columnColumn4 = new global::System.Data.DataColumn("Column4", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumn4);
-                this.columnColumn5 = new global::System.Data.DataColumn("Column5", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumn5);
-                this.columnColumn6 = new global::System.Data.DataColumn("Column6", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumn6);
-                this.columnColumn7 = new global::System.Data.DataColumn("Column7", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumn7);
-                this.columnColumn8 = new global::System.Data.DataColumn("Column8", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumn8);
                 this.columntests_testCode.AllowDBNull = false;
                 this.columntests_testCode.MaxLength = 10;
                 this.columntestName.AllowDBNull = false;
@@ -586,11 +516,6 @@ namespace MedTracker {
                 this.columnabnormal.ReadOnly = true;
                 this.columnColumn2.ReadOnly = true;
                 this.columnColumn3.ReadOnly = true;
-                this.columnColumn4.ReadOnly = true;
-                this.columnColumn5.ReadOnly = true;
-                this.columnColumn6.ReadOnly = true;
-                this.columnColumn7.ReadOnly = true;
-                this.columnColumn8.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -874,91 +799,6 @@ namespace MedTracker {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Column4 {
-                get {
-                    try {
-                        return ((int)(this[this.tableusp_mostPerformedTestsDuringDates.Column4Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Column4\' in table \'usp_mostPerformedTestsDuringDates\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableusp_mostPerformedTestsDuringDates.Column4Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Column5 {
-                get {
-                    try {
-                        return ((int)(this[this.tableusp_mostPerformedTestsDuringDates.Column5Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Column5\' in table \'usp_mostPerformedTestsDuringDates\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableusp_mostPerformedTestsDuringDates.Column5Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Column6 {
-                get {
-                    try {
-                        return ((int)(this[this.tableusp_mostPerformedTestsDuringDates.Column6Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Column6\' in table \'usp_mostPerformedTestsDuringDates\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableusp_mostPerformedTestsDuringDates.Column6Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Column7 {
-                get {
-                    try {
-                        return ((int)(this[this.tableusp_mostPerformedTestsDuringDates.Column7Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Column7\' in table \'usp_mostPerformedTestsDuringDates\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableusp_mostPerformedTestsDuringDates.Column7Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Column8 {
-                get {
-                    try {
-                        return ((int)(this[this.tableusp_mostPerformedTestsDuringDates.Column8Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Column8\' in table \'usp_mostPerformedTestsDuringDates\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableusp_mostPerformedTestsDuringDates.Column8Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IstimesTestPerformedNull() {
                 return this.IsNull(this.tableusp_mostPerformedTestsDuringDates.timesTestPerformedColumn);
             }
@@ -1039,66 +879,6 @@ namespace MedTracker {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetColumn3Null() {
                 this[this.tableusp_mostPerformedTestsDuringDates.Column3Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsColumn4Null() {
-                return this.IsNull(this.tableusp_mostPerformedTestsDuringDates.Column4Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetColumn4Null() {
-                this[this.tableusp_mostPerformedTestsDuringDates.Column4Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsColumn5Null() {
-                return this.IsNull(this.tableusp_mostPerformedTestsDuringDates.Column5Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetColumn5Null() {
-                this[this.tableusp_mostPerformedTestsDuringDates.Column5Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsColumn6Null() {
-                return this.IsNull(this.tableusp_mostPerformedTestsDuringDates.Column6Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetColumn6Null() {
-                this[this.tableusp_mostPerformedTestsDuringDates.Column6Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsColumn7Null() {
-                return this.IsNull(this.tableusp_mostPerformedTestsDuringDates.Column7Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetColumn7Null() {
-                this[this.tableusp_mostPerformedTestsDuringDates.Column7Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsColumn8Null() {
-                return this.IsNull(this.tableusp_mostPerformedTestsDuringDates.Column8Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetColumn8Null() {
-                this[this.tableusp_mostPerformedTestsDuringDates.Column8Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -1270,11 +1050,6 @@ namespace MedTracker._CS6232_g3DataSetTableAdapters {
             tableMapping.ColumnMappings.Add("abnormal", "abnormal");
             tableMapping.ColumnMappings.Add("Column2", "Column2");
             tableMapping.ColumnMappings.Add("Column3", "Column3");
-            tableMapping.ColumnMappings.Add("Column4", "Column4");
-            tableMapping.ColumnMappings.Add("Column5", "Column5");
-            tableMapping.ColumnMappings.Add("Column6", "Column6");
-            tableMapping.ColumnMappings.Add("Column7", "Column7");
-            tableMapping.ColumnMappings.Add("Column8", "Column8");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

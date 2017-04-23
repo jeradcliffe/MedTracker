@@ -32,11 +32,6 @@
               <Mapping SourceColumn="abnormal" DataSetColumn="abnormal" />
               <Mapping SourceColumn="Column2" DataSetColumn="Column2" />
               <Mapping SourceColumn="Column3" DataSetColumn="Column3" />
-              <Mapping SourceColumn="Column4" DataSetColumn="Column4" />
-              <Mapping SourceColumn="Column5" DataSetColumn="Column5" />
-              <Mapping SourceColumn="Column6" DataSetColumn="Column6" />
-              <Mapping SourceColumn="Column7" DataSetColumn="Column7" />
-              <Mapping SourceColumn="Column8" DataSetColumn="Column8" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -48,7 +43,7 @@
   <xs:element name="_CS6232_g3DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="_CS6232_g3DataSet" msprop:Generator_UserDSName="_CS6232_g3DataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="usp_mostPerformedTestsDuringDates" msprop:Generator_TableClassName="usp_mostPerformedTestsDuringDatesDataTable" msprop:Generator_TableVarName="tableusp_mostPerformedTestsDuringDates" msprop:Generator_TablePropName="usp_mostPerformedTestsDuringDates" msprop:Generator_RowDeletingName="usp_mostPerformedTestsDuringDatesRowDeleting" msprop:Generator_RowChangingName="usp_mostPerformedTestsDuringDatesRowChanging" msprop:Generator_RowEvHandlerName="usp_mostPerformedTestsDuringDatesRowChangeEventHandler" msprop:Generator_RowDeletedName="usp_mostPerformedTestsDuringDatesRowDeleted" msprop:Generator_UserTableName="usp_mostPerformedTestsDuringDates" msprop:Generator_RowChangedName="usp_mostPerformedTestsDuringDatesRowChanged" msprop:Generator_RowEvArgName="usp_mostPerformedTestsDuringDatesRowChangeEvent" msprop:Generator_RowClassName="usp_mostPerformedTestsDuringDatesRow">
+        <xs:element name="usp_mostPerformedTestsDuringDates" msprop:Generator_TableClassName="usp_mostPerformedTestsDuringDatesDataTable" msprop:Generator_TableVarName="tableusp_mostPerformedTestsDuringDates" msprop:Generator_RowChangedName="usp_mostPerformedTestsDuringDatesRowChanged" msprop:Generator_TablePropName="usp_mostPerformedTestsDuringDates" msprop:Generator_RowDeletingName="usp_mostPerformedTestsDuringDatesRowDeleting" msprop:Generator_RowChangingName="usp_mostPerformedTestsDuringDatesRowChanging" msprop:Generator_RowEvHandlerName="usp_mostPerformedTestsDuringDatesRowChangeEventHandler" msprop:Generator_RowDeletedName="usp_mostPerformedTestsDuringDatesRowDeleted" msprop:Generator_RowClassName="usp_mostPerformedTestsDuringDatesRow" msprop:Generator_UserTableName="usp_mostPerformedTestsDuringDates" msprop:Generator_RowEvArgName="usp_mostPerformedTestsDuringDatesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="tests_testCode" msprop:Generator_ColumnVarNameInTable="columntests_testCode" msprop:Generator_ColumnPropNameInRow="tests_testCode" msprop:Generator_ColumnPropNameInTable="tests_testCodeColumn" msprop:Generator_UserColumnName="tests_testCode">
@@ -72,11 +67,6 @@
               <xs:element name="abnormal" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnabnormal" msprop:Generator_ColumnPropNameInRow="abnormal" msprop:Generator_ColumnPropNameInTable="abnormalColumn" msprop:Generator_UserColumnName="abnormal" type="xs:int" minOccurs="0" />
               <xs:element name="Column2" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn2" msprop:Generator_ColumnPropNameInRow="Column2" msprop:Generator_ColumnPropNameInTable="Column2Column" msprop:Generator_UserColumnName="Column2" type="xs:int" minOccurs="0" />
               <xs:element name="Column3" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn3" msprop:Generator_ColumnPropNameInRow="Column3" msprop:Generator_ColumnPropNameInTable="Column3Column" msprop:Generator_UserColumnName="Column3" type="xs:int" minOccurs="0" />
-              <xs:element name="Column4" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn4" msprop:Generator_ColumnPropNameInRow="Column4" msprop:Generator_ColumnPropNameInTable="Column4Column" msprop:Generator_UserColumnName="Column4" type="xs:int" minOccurs="0" />
-              <xs:element name="Column5" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn5" msprop:Generator_ColumnPropNameInRow="Column5" msprop:Generator_ColumnPropNameInTable="Column5Column" msprop:Generator_UserColumnName="Column5" type="xs:int" minOccurs="0" />
-              <xs:element name="Column6" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn6" msprop:Generator_ColumnPropNameInRow="Column6" msprop:Generator_ColumnPropNameInTable="Column6Column" msprop:Generator_UserColumnName="Column6" type="xs:int" minOccurs="0" />
-              <xs:element name="Column7" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn7" msprop:Generator_ColumnPropNameInRow="Column7" msprop:Generator_ColumnPropNameInTable="Column7Column" msprop:Generator_UserColumnName="Column7" type="xs:int" minOccurs="0" />
-              <xs:element name="Column8" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnColumn8" msprop:Generator_ColumnPropNameInRow="Column8" msprop:Generator_ColumnPropNameInTable="Column8Column" msprop:Generator_UserColumnName="Column8" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

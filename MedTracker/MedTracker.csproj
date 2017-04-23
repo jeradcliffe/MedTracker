@@ -124,6 +124,9 @@
     <Compile Include="View\UpdatePatient.Designer.cs">
       <DependentUpon>UpdatePatient.cs</DependentUpon>
     </Compile>
+    <Compile Include="_CS6232_g3DataSet.cs">
+      <DependentUpon>_CS6232_g3DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="_CS6232_g3DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

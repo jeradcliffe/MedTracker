@@ -56,9 +56,10 @@ namespace MedTracker.View
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                messageLabel.Text = "No appointments scheduled for this patient.";
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                messageLabel.Text = "Unable to properly load appointment form.";
             }
         }
 
@@ -131,11 +132,11 @@ namespace MedTracker.View
         /// </summary>
         private void checkupButton_Click(object sender, EventArgs e)
         {
-            CheckUpForm checkUpForm = new CheckUpForm();
+            CheckUpForm checkUpForm     = new CheckUpForm();
             checkUpForm.appointmentDate = currentAppointment.date;
-            checkUpForm.patientID = this.patientID;
-            checkUpForm.nurseID = this.nurseID;
-            checkUpForm.doctorID = currentAppointment.doctorID;
+            checkUpForm.patientID       = this.patientID;
+            checkUpForm.nurseID         = this.nurseID;
+            checkUpForm.doctorID        = currentAppointment.doctorID;
             checkUpForm.ShowDialog();
         }
 
@@ -221,9 +222,9 @@ namespace MedTracker.View
                 stateTextBox.Text = patient.state;
                 zipTextBox.Text = patient.zip;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Unable to fill aptient information. Please check connection to DB.", "Error");
+                MessageBox.Show("Unable to fill patient information fields.", "Error");
             }
         }
 
@@ -262,7 +263,7 @@ namespace MedTracker.View
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                MessageBox.Show("Unable to retrieve apointment information.", "Error");
             }
         }
 
@@ -279,7 +280,7 @@ namespace MedTracker.View
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                MessageBox.Show("Unable to fill doctor dropdown list.", "Error");
             }
         }
 

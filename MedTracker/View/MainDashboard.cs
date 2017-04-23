@@ -41,52 +41,66 @@ namespace MedTracker.View
 
         private void MainDashboard_Load(object sender, EventArgs e)
         {
-            assignPerson();
-            lblUsername.Text = Login.currentUser;
-            lblRole.Text = role;
-            lblName.Text = currentPerson.lastName.ToString() + ", " + currentPerson.firstName.ToString();
+            try
+            {
+                assignPerson();
+                lblUsername.Text = Login.currentUser;
+                lblRole.Text = role;
+                lblName.Text = currentPerson.lastName.ToString() + ", " + currentPerson.firstName.ToString();
 
-            // Set properties for both pics and labels to false in form designer
-            if (role.Equals("Administrator"))
-            {
-                reportPictureBox.Visible = true;
-                reportLabel.Visible = true;
+                // Set properties for both pics and labels to false in form designer
+                if (role.Equals("Administrator"))
+                {
+                    reportPictureBox.Visible = true;
+                    reportLabel.Visible = true;
+                }
+                else if (role.Equals("Nurse"))
+                {
+                    searchPictureBox.Visible = true;
+                    searchLabel.Visible = true;
+                }
             }
-            else if (role.Equals("Nurse") )
+            catch (Exception)
             {
-                searchPictureBox.Visible = true;
-                searchLabel.Visible = true;
+                MessageBox.Show("Unable to retrieve current user information. Please log back in and try again.", "Error");
             }
         }
         
         private void assignPerson()
         {
-           
-            isNurse = nurseController.checkIfNurses(Login.currentUser);
-            isAdmin = adminController.checkIfAdministrators(Login.currentUser);
-            isDoctor = doctorController.checkIfDoctors(Login.currentUser);
-            role = "";
-            if (isNurse)
+
+            try
             {
-                role = "Nurse";
-                tempNurse = nurseController.getNurse(Login.currentUser);
-                currentPerson = personController.GetPerson(tempNurse.peopleID);
+                isNurse = nurseController.checkIfNurses(Login.currentUser);
+                isAdmin = adminController.checkIfAdministrators(Login.currentUser);
+                isDoctor = doctorController.checkIfDoctors(Login.currentUser);
+                role = "";
+                if (isNurse)
+                {
+                    role = "Nurse";
+                    tempNurse = nurseController.getNurse(Login.currentUser);
+                    currentPerson = personController.GetPerson(tempNurse.peopleID);
+                }
+                else if (isDoctor)
+                {
+                    role = "Doctor";
+                    tempDoct = doctorController.getDoctor(Login.currentUser);
+                    currentPerson = personController.GetPerson(tempDoct.peopleID);
+                }
+                else if (isAdmin)
+                {
+                    role = "Administrator";
+                    tempAdmin = adminController.getAdministrator(Login.currentUser);
+                    currentPerson = personController.GetPerson(tempAdmin.peopleID);
+                }
+                else
+                {
+                    role = "Role not assigned. Contact Administrator";
+                }
             }
-            else if(isDoctor)
+            catch (Exception ex)
             {
-                role = "Doctor";
-                tempDoct = doctorController.getDoctor(Login.currentUser);
-                currentPerson = personController.GetPerson(tempDoct.peopleID);
-            }
-            else if(isAdmin)
-            {
-                role = "Administrator";
-                tempAdmin = adminController.getAdministrator(Login.currentUser);
-                currentPerson = personController.GetPerson(tempAdmin.peopleID);
-            }
-            else
-            {
-                role = "Role not assigned. Contact Administrator";
+                throw ex;
             }
         }
 

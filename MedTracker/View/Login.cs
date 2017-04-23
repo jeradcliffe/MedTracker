@@ -49,7 +49,6 @@ namespace MedTracker
                         txtBoxUserName.Text = "";
                         txtBoxPassword.Text = "";
 
-                        //Will be adding more features to make a nice main dashboard in Iteration 2
                         MainDashboard mainDashboard = new MainDashboard();
                         mainDashboard.loginForm = this;
                         mainDashboard.Show();

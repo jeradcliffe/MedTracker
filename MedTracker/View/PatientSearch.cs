@@ -63,6 +63,7 @@ namespace MedTracker.View
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, ex.GetType().ToString());
+                    messageLabel.Text = "Unable to search for patient. Please renter search criteria.";
                 }
             }
         }

@@ -24,11 +24,18 @@ namespace MedTracker.View
             }
             else
             {
-                //fill with report from dataset
-                this.usp_mostPerformedTestsDuringDatesTableAdapter.Fill(
-                    this._CS6232_g3DataSet.usp_mostPerformedTestsDuringDates,
-                    startDateTimePicker.Value, endDateTimePicker.Value);
-                reportViewer.RefreshReport();
+                try
+                {
+                    //fill with report from dataset
+                    this.usp_mostPerformedTestsDuringDatesTableAdapter.Fill(
+                        this._CS6232_g3DataSet.usp_mostPerformedTestsDuringDates,
+                        startDateTimePicker.Value, endDateTimePicker.Value);
+                    reportViewer.RefreshReport();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Database error: Unable to retrieve report information.","Error");
+                }
             }
         }
     }

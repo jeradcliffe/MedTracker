@@ -14,7 +14,6 @@ namespace MedTracker.View
 {
     public partial class CheckUpForm : Form
     {
-        private AppointmentsController appointmentsController;
         private PatientsController patientsController;
         private DoctorsController doctorsController;
         private NursesController nursesController;
@@ -40,7 +39,6 @@ namespace MedTracker.View
             nursesController = new NursesController();
             doctorsController = new DoctorsController();
             patientsController = new PatientsController();
-            appointmentsController = new AppointmentsController();
         }
 
         private void CheckUpForm_Load(object sender, EventArgs e)
@@ -360,23 +358,27 @@ namespace MedTracker.View
         // Fills our patient info into the form
         private void fillForm()
         {
-            fillComboBoxes();
-            fillVitalFields();
-            fillTestFields();
-
-            appointmentDateTextBox.Text = this.appointmentDate.ToString("ddd MMM d, yyyy");
 
             try
-            {
+            { 
+                fillComboBoxes();
+                fillVitalFields();
+                fillTestFields();
+
+                appointmentDateTextBox.Text = this.appointmentDate.ToString("ddd MMM d, yyyy");
+
                 Person patient = patientsController.GetPatientByID(this.patientID);
                 patientNameTextBox.Text = patient.firstName + " " + patient.lastName;
 
                 Person doctor = doctorsController.GetDoctorByID(this.doctorID);
                 doctorNameTextBox.Text = doctor.firstName + " " + doctor.lastName;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error trying to load patient and doctor information.", "Error");
+                MessageBox.Show("Error trying to load check up form information. "
+                    + "Please contact your IT team. "
+                    + "\n\nError Type:    " + ex.GetType().ToString()
+                    + "\n\nError Message: " + ex.Message, "Error");
             }
         }
 
@@ -409,7 +411,8 @@ namespace MedTracker.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                vitalsMessageLabel.Text = "Error: Unable to load vitals fields properly.";
+                throw ex;
             }
 
         }
@@ -455,7 +458,8 @@ namespace MedTracker.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
+                testsMessageLabel.Text = "Error: Unable to successfully load testing information.";
+                throw ex;
             }
             
 
@@ -480,7 +484,7 @@ namespace MedTracker.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to load combo boxes due to a problem accessing information from the database." , "Error");
+                throw ex;
             }
         }
 

@@ -18,7 +18,7 @@ namespace MedTracker.DBA
         {
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = "localhost";
-            builder.InitialCatalog = "CS6232-g3";
+            builder.InitialCatalog = "CS6232-g";
             builder.IntegratedSecurity = true;
             SqlConnection connection = new SqlConnection(builder.ConnectionString);
             return connection;
